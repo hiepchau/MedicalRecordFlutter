@@ -1,16 +1,23 @@
-# medicalrecordapp
+# MEDICAL RECORD
 
-SE346 project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+Medical Record is an Electronic Health Record application made using Flutter and Firebase Firestore. It lets users save and preserve their health record and medical history. Doctors can validate users' medical data through QR code validation. There is a separate section for Blood donors where users can find nearby blood donors according to blood group and edit their own donor profile.
 
-A few resources to get you started if this is your first Flutter project:
+# Showcase
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Login and Main Menu
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Login](doc/Login.gif)
+
+### Medical History
+
+![Login](doc/MedicalHistory.gif)
+
+### Blood Donation
+
+![Login](doc/BloodDonation.gif)
+
+### Health Record
+
+![Login](doc/HealthRecord.gif)
