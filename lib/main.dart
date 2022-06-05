@@ -24,28 +24,28 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   // Transparent notification bar
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
 
   // Run the app
-  runApp(MedicalRecord());
+  runApp(const MedicalRecord());
 }
 
 class MedicalRecord extends StatelessWidget {
+  const MedicalRecord({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.green[900],
-        accentColor: Colors.green,
-        colorScheme: ColorScheme.light(
-          primary: Colors.green,
-        ),
         appBarTheme: AppBarTheme(
           elevation: 5.0,
           color: Colors.green[500],
-        ),
+        ), colorScheme: const ColorScheme.light(
+          primary: Colors.green,
+        ).copyWith(secondary: Colors.green),
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: (Auth().getUser() == null)

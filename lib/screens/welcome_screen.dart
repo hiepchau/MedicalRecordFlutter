@@ -45,8 +45,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         children: [
                           AnimatedTextKit(
                             animatedTexts: [
-                              TypewriterAnimatedText('LifeLine',
-                              textStyle: TextStyle(
+                              TypewriterAnimatedText('Medical Record',
+                              textStyle: const TextStyle(
                               fontSize: 50.0,
                               fontFamily: 'Nexa Bold',
                               fontWeight: FontWeight.w900,
