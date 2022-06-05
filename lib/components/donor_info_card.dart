@@ -1,84 +1,116 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:medicalrecordapp/constants.dart';
+import 'package:medicalrecordapp/models/blood_donor.dart';
+import 'package:toast/toast.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
-class CustomDropdownMenu extends StatefulWidget {
-  final String label;
-  List<String> items;
-  String value;
-  String initialValue;
-  final Function onChanged;
+class DonorInfoCard extends StatelessWidget {
+  final Donor donor;
 
-  CustomDropdownMenu({
-    @required this.label,
-    @required this.items,
-    this.initialValue,
-    this.onChanged,
-  });
+  DonorInfoCard({this.donor});
 
-  @override
-  _CustomDropdownMenuState createState() => _CustomDropdownMenuState();
-}
+  callNumber(BuildContext context, String number) async {
+    ToastContext().init(context);
+    var url = 'tel:$number';
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
+    } else {
+      Toast.show(
+        'Cannot launch Phone',
+        duration: Toast.lengthShort,
+        gravity: Toast.bottom,
+      );
+    }
+  }
 
-class _CustomDropdownMenuState extends State<CustomDropdownMenu> {
   @override
   Widget build(BuildContext context) {
-    this.widget.value = this.widget.initialValue ?? this.widget.items.first;
-    final dropdownMenuOptions = this
-        .widget
-        .items
-        .map((String item) => new DropdownMenuItem<String>(
-      value: item,
-      child: new Text(
-        item,
-        style: TextStyle(
-          fontFamily: 'Nexa',
-          fontSize: 18,
+    ToastContext().init(context);
+    return GestureDetector(
+      onTap: () {
+        Clipboard.setData(ClipboardData(text: this.donor.contact));
+        Toast.show(
+          'Contact number copied.',
+          duration: Toast.lengthShort,
+          gravity: Toast.bottom,
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.all(24),
+        margin: EdgeInsets.fromLTRB(12, 12, 12, 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
         ),
-      ),
-    ))
-        .toList();
-    return Container(
-      margin: EdgeInsets.all(6),
-      padding: EdgeInsets.all(6),
-      child: DropdownButtonFormField(
-        style: TextStyle(
-          fontFamily: 'Nexa',
-          fontWeight: FontWeight.w700,
-          fontSize: 18,
-          color: Colors.black,
+        child: Row(
+          children: [
+            Expanded(
+              flex: 3,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Text(
+                    this.donor.blood,
+                    style: kTextStyle.copyWith(
+                      fontSize: 56,
+                      color: Colors.green[900],
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    this.donor.name,
+                    style: kTextStyle.copyWith(
+                      fontSize: 18,
+                    ),
+                  ),
+                  Text(
+                    this.donor.contact,
+                    style: kTextStyle.copyWith(
+                      fontSize: 18,
+                    ),
+                  ),
+                  Text(
+                    this.donor.location,
+                    style: kTextStyle.copyWith(
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: IconButton(
+                onPressed: () {
+                  callNumber(
+                    context,
+                    this.donor.contact,
+                  );
+                },
+                icon: Icon(
+                  Icons.phone,
+                  size: 30,
+                  color: Colors.green[900],
+                ),
+              ),
+            )
+          ],
         ),
-        decoration: InputDecoration(
-          labelText: this.widget.label,
-          contentPadding:
-          EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.green, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.green, width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(32.0)),
-          ),
-          labelStyle: kTextStyle.copyWith(
-            fontSize: 18,
-            color: Colors.green[900],
-          ),
-        ),
-        focusColor: Colors.green,
-        value: this.widget.value,
-        items: dropdownMenuOptions,
-        onChanged: (newValue) {
-          setState(() {
-            this.widget.value = newValue;
-          });
-
-          setState(() {
-            this.widget.onChanged(newValue);
-          });
-        },
       ),
     );
   }
