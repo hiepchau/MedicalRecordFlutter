@@ -46,7 +46,6 @@ class _DiagnosisRecordTabState extends State<DiagnosisRecordTab> {
     snapshot = await erhRecord.historySnap();
     for (int i = 0; i < snapshot.docs.length; i++) {
       var _history = snapshot.docs[i];
-      print(_history.data());
       _diagnosisList.add(new Diagnosis(
         type: _history['Type'],
         date: _history['Date'],

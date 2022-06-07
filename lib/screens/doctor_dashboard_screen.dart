@@ -4,6 +4,8 @@ import 'package:medicalrecordapp/screens/check_record_screen.dart';
 import 'package:medicalrecordapp/screens/record_verification_screen.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:medicalrecordapp/services/database.dart';
+import 'package:medicalrecordapp/screens/check_EHR_screen.dart';
+
 
 class DoctorDashboardScreen extends StatefulWidget {
   static String id = 'doctor_dashboard';
@@ -13,7 +15,7 @@ class DoctorDashboardScreen extends StatefulWidget {
 
 class _DoctorDashboardScreenState extends State<DoctorDashboardScreen> {
   bool loadingIndicator = false;
-  String name;
+  String name='';
   Future<void> getName() async {
     final _name = await Database(uid: Auth().getUID()).getName();
     setState(() {
@@ -40,7 +42,7 @@ class _DoctorDashboardScreenState extends State<DoctorDashboardScreen> {
               child: Container(
                 height: 40.0,
                 child: Image.asset(
-                  'assets/images/lifeline_logo.png',
+                  'assets/images/medical_logo.png',
                 ),
               ),
             ),
@@ -98,7 +100,7 @@ class _DoctorDashboardScreenState extends State<DoctorDashboardScreen> {
               children: <Widget>[
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/check_record_icon.png',
+                    'assets/images/lifeline_icons/qr.gif',
                     height: 60,
                   ),
                   label: 'Check Record',
@@ -108,12 +110,22 @@ class _DoctorDashboardScreenState extends State<DoctorDashboardScreen> {
                 ),
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/verify_record_icon.png',
+                    'assets/images/lifeline_icons/qr.gif',
                     height: 60,
                   ),
                   label: 'Verify Record',
                   onTap: () {
                     Navigator.pushNamed(context, RecordVerificationScreen.id);
+                  },
+                ),
+                GridCard(
+                  image: Image.asset(
+                    'assets/images/lifeline_icons/qr.gif',
+                    height: 60,
+                  ),
+                  label: 'Check EHR',
+                  onTap: () {
+                    Navigator.pushNamed(context, CheckEHRScreen.id);
                   },
                 ),
               ],

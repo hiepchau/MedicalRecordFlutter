@@ -26,6 +26,18 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
       verify = _verify;
     });
   }
+  Future<void> addDoctor(String id) async {
+    await database.addDoctor(id);
+  }
+
+  void showMessage(String txt){
+    Toast.show(
+      txt,
+      duration: Toast.lengthLong,
+      gravity: Toast.bottom,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     ToastContext().init(context);
@@ -40,7 +52,7 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
               child: Container(
                 height: 40.0,
                 child: Image.asset(
-                  'assets/images/lifeline_logo.png',
+                  'assets/images/medical_logo.png',
                 ),
               ),
             ),
@@ -98,26 +110,36 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
               ),
               RoundedButton(
                 text: 'Verify',
-                color: Colors.green[900],
+                color: Colors.lightBlue[700],
                 onPressed: () async {
-                  setState(() {
-                    loadingIndicator = true;
-                  });
-
-                  try {
+                  if(doctorIdController.text==''){
+                    showMessage('You did not type anything!');
+                  } else {
+                    setState(() {
+                      loadingIndicator = true;
+                    });
                     verifyDoctor(doctorIdController.text);
-                    if(verify)
+                    if(verify){
                       Navigator.pushNamed(context, DoctorDashboardScreen.id);
+                    }
+                    else showMessage('Doctor does not exist');
                     setState(() {
                       loadingIndicator = false;
                     });
-                  } catch (e) {
-                    print(e);
-                    Toast.show(
-                      e.message,
-                      duration: Toast.lengthShort,
-                      gravity: Toast.top,
-                    );
+                  }
+                },
+              ),
+              RoundedButton(
+                text: 'Add Doctor',
+                color: Colors.lightBlue[700],
+                onPressed: () async {
+                  if(doctorIdController.text==''){
+                    showMessage('You did not type anything!');
+                  } else {
+                    setState(() {
+                      loadingIndicator = true;
+                    });
+                    addDoctor(doctorIdController.text);
                   }
                 },
               ),
