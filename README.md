@@ -21,3 +21,10 @@ Medical Record is an Electronic Health Record application made using Flutter and
 ### Health Record
 
 ![Login](doc/HealthRecord.gif)
+
+## Contributors
+- Trần Hữu Trí - 20520327
+- Nguyễn Huy Trí Dũng - 20520459
+- Châu Đức Hiệp - 20520499
+- Trần Nam Khánh - 20520577
+
