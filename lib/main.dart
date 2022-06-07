@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:medicalrecordapp/screens/blood_donation_screen.dart';
+import 'package:medicalrecordapp/screens/check_EHR_screen.dart';
 import 'package:medicalrecordapp/screens/check_record_screen.dart';
 import 'package:medicalrecordapp/screens/doctor_dashboard_screen.dart';
 import 'package:medicalrecordapp/screens/health_record_screen.dart';
@@ -24,28 +25,26 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   // Transparent notification bar
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
 
   // Run the app
-  runApp(const MedicalRecord());
+  runApp(LifeLine());
 }
 
-class MedicalRecord extends StatelessWidget {
-  const MedicalRecord({Key key}) : super(key: key);
-
+class LifeLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.green[900],
+        primaryColor: Colors.lightBlue[900],
         appBarTheme: AppBarTheme(
           elevation: 5.0,
-          color: Colors.green[500],
-        ), colorScheme: const ColorScheme.light(
-          primary: Colors.green,
-        ).copyWith(secondary: Colors.green),
+          color: Colors.lightBlue[500],
+        ), colorScheme: ColorScheme.light(
+        primary: Colors.lightBlue,
+      ).copyWith(secondary: Colors.lightBlue),
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: (Auth().getUser() == null)
@@ -67,6 +66,7 @@ class MedicalRecord extends StatelessWidget {
         RecordVerificationScreen.id: (context) => RecordVerificationScreen(),
         QrCodeScannerScreen.id: (context) => QrCodeScannerScreen(),
         CheckRecordScreen.id: (context) => CheckRecordScreen(),
+        CheckEHRScreen.id:(context) => CheckEHRScreen(),
       },
     );
   }
