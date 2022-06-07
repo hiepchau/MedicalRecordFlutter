@@ -5,7 +5,7 @@ class basicRecord {
   String rbc;
   String wbc;
   String bp;
-  String sugerLevel;
+  String sugarLevel;
   int count;
   basicRecord({
     this.height,
@@ -13,7 +13,7 @@ class basicRecord {
     this.rbc,
     this.wbc,
     this.bp,
-    this.sugerLevel,
+    this.sugarLevel,
     this.count,
   });
 
@@ -23,7 +23,7 @@ class basicRecord {
       'Weight': weight,
       'RBC Count': rbc,
       'WBC Count': wbc,
-      'Suger Level': sugerLevel,
+      'Sugar Level': sugarLevel,
       'Blood Pressure': bp,
       'Count': count ?? 0,
     };

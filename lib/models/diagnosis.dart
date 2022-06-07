@@ -9,8 +9,8 @@ class Diagnosis {
     this.type,
     this.problem,
     this.date,
-    this.verified, // For testing
-    this.verifiedBy, // For testing
+    this.verified,
+    this.verifiedBy, 
     this.id,
   }) {
     verified = verified ?? false;

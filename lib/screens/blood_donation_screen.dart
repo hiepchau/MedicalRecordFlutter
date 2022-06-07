@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lifeline/constants.dart';
+import 'package:medicalrecordapp/constants.dart';
 import 'package:medicalrecordapp/screens/donor_list_tab.dart';
 import 'package:medicalrecordapp/screens/donor_map_tab.dart';
 import 'package:medicalrecordapp/screens/donor_profile_tab.dart';
