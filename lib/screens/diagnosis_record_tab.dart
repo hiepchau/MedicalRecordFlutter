@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/diagnosis_card_list.dart';
@@ -8,33 +10,15 @@ import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class DiagnosisRecordTab extends StatefulWidget {
+  const DiagnosisRecordTab({Key key}) : super(key: key);
+
   @override
   _DiagnosisRecordTabState createState() => _DiagnosisRecordTabState();
 }
 
 class _DiagnosisRecordTabState extends State<DiagnosisRecordTab> {
   bool loadingIndicator = true;
-  // List<Diagnosis> diagnosisList = [
-  //   Diagnosis(
-  //     type: 'Disease',
-  //     problem: 'COVID19',
-  //     date: 'December, 2020',
-  //     verified: true,
-  //     verifiedBy: 'Dr. Corona Chang',
-  //   ),
-  //   Diagnosis(
-  //     type: 'Accident',
-  //     problem: 'Thorax Fracture',
-  //     date: 'November, 2020',
-  //   ),
-  //   Diagnosis(
-  //     type: 'Accident',
-  //     problem: 'Leg Fracture',
-  //     date: 'January, 2019',
-  //   ),
-  // ];
 
-// Dialo
   final erhRecord = EHR(uid: Auth().getUID());
   CollectionReference refference;
   QuerySnapshot snapshot;
@@ -46,7 +30,7 @@ class _DiagnosisRecordTabState extends State<DiagnosisRecordTab> {
     snapshot = await erhRecord.historySnap();
     for (int i = 0; i < snapshot.docs.length; i++) {
       var _history = snapshot.docs[i];
-      _diagnosisList.add(new Diagnosis(
+      _diagnosisList.add(Diagnosis(
         type: _history['Type'],
         date: _history['Date'],
         problem: _history['Problem'],

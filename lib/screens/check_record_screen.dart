@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/diagnosis_card_list.dart';
@@ -17,33 +19,15 @@ import 'package:toast/toast.dart';
 class CheckRecordScreen extends StatefulWidget {
   static String id = 'check_record';
 
+  const CheckRecordScreen({Key key}) : super(key: key);
+
   @override
   _CheckRecordScreenState createState() => _CheckRecordScreenState();
 }
 
 class _CheckRecordScreenState extends State<CheckRecordScreen> {
   bool loadingIndicator = true;
-  // List<Diagnosis> diagnosisList = [
-  //   Diagnosis(
-  //     type: 'Disease',
-  //     problem: 'COVID19',
-  //     date: 'December, 2020',
-  //     verified: true,
-  //     verifiedBy: 'Dr. Corona Chang',
-  //   ),
-  //   Diagnosis(
-  //     type: 'Accident',
-  //     problem: 'Thorax Fracture',
-  //     date: 'November, 2020',
-  //   ),
-  //   Diagnosis(
-  //     type: 'Accident',
-  //     problem: 'Leg Fracture',
-  //     date: 'January, 2019',
-  //   ),
-  // ];
 
-// Dialo
   final ScanController scanController = ScanController();
   final ImagePicker imagePicker = ImagePicker();
   final erhRecord = EHR(uid: Auth().getUID());
@@ -54,9 +38,9 @@ class _CheckRecordScreenState extends State<CheckRecordScreen> {
   String qrCodeResult;
   List<String> qrData;
   String qrCodeType;
-  String uID; // contained fetched UID after scanning
+  String uID; 
   bool allDataFetched =
-      false; // This is the bool that tracks if all getch data has been completed
+      false; 
   Donor qrDonor;
 
   List<Diagnosis> diagnosisList;
@@ -68,7 +52,7 @@ class _CheckRecordScreenState extends State<CheckRecordScreen> {
         .historySnap(); // I guess you need a clone of this function with a uid parameter
     for (int i = 0; i < snapshot.docs.length; i++) {
       var _history = snapshot.docs[i];
-      _diagnosisList.add(new Diagnosis(
+      _diagnosisList.add(Diagnosis(
         type: _history['Type'],
         date: _history['Date'],
         problem: _history['Problem'],
@@ -77,7 +61,6 @@ class _CheckRecordScreenState extends State<CheckRecordScreen> {
       ));
     }
     setState(() {
-      // allDataFetched=true;
       diagnosisList = _diagnosisList;
     });
     return diagnosisList;
@@ -103,7 +86,7 @@ class _CheckRecordScreenState extends State<CheckRecordScreen> {
     final database = Database(uid: _uid);
     final _profile = await database.getData(_uid);
 
-    final _qrDonor = new Donor(
+    final _qrDonor = Donor(
       name: _profile.name,
       contact: _profile.contact,
       location: _profile.location,
@@ -142,7 +125,7 @@ class _CheckRecordScreenState extends State<CheckRecordScreen> {
 
 
             if (qrCodeType != null) {
-              if (qrCodeType == 'LIFELINEDIAGNOSIS') {
+              if (qrCodeType == 'MEDICALRECORDDIAGNOSIS') {
               uID = qrData[2];
               setState(() {
                 loadingIndicator = true;
@@ -153,8 +136,12 @@ class _CheckRecordScreenState extends State<CheckRecordScreen> {
                 loadingIndicator = false;
                 allDataFetched = true;
               });
-              } else showMessage('The QR is not valid');
-            } else showMessage('The QR is not valid');
+              } else {
+                showMessage('The QR is not valid');
+              }
+            } else {
+              showMessage('The QR is not valid');
+            }
             }
           },
         ),
@@ -163,8 +150,9 @@ class _CheckRecordScreenState extends State<CheckRecordScreen> {
           color: Colors.lightBlue[900],
           onPressed: () async {
             XFile image = await imagePicker.pickImage(source: ImageSource.gallery);
-            if(image==null) showMessage('You did not choose a QR!');
-            else {
+            if(image==null) {
+              showMessage('You did not choose a QR!');
+            } else {
               String codeScanner = await Scan.parse(image.path);
               if(codeScanner==null){
                 showMessage('The QR is not valid');
@@ -178,7 +166,7 @@ class _CheckRecordScreenState extends State<CheckRecordScreen> {
               qrCodeType = qrData[0];
 
               if (qrCodeType != null) {
-                if (qrCodeType == 'LIFELINEDIAGNOSIS') {
+                if (qrCodeType == 'MEDICALRECORDDIAGNOSIS') {
                 uID = qrData[2];
                 setState(() {
                   loadingIndicator = true;
@@ -190,9 +178,13 @@ class _CheckRecordScreenState extends State<CheckRecordScreen> {
                   allDataFetched = true;
                 });
                 }
-                else showMessage('The QR is not valid');
+                else {
+                  showMessage('The QR is not valid');
+                }
               }
-              else showMessage('The QR is not valid');
+              else {
+                showMessage('The QR is not valid');
+              }
               }
             }
           },
@@ -228,14 +220,14 @@ class _CheckRecordScreenState extends State<CheckRecordScreen> {
           children: [
             Hero(
               tag: 'logo',
-              child: Container(
+              child: SizedBox(
                 height: 40.0,
                 child: Image.asset(
                   'assets/images/medical_logo.png',
                 ),
               ),
             ),
-            Text(
+            const Text(
               'Check Record',
               style: TextStyle(
                 color: Colors.black,
