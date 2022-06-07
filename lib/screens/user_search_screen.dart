@@ -41,7 +41,6 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
       });
     } else {
       for (int i = 0; i < _snapshot.docs.length; i++) {
-        print(_snapshot.docs[i].data());
         setState(() {
           snapshot = _snapshot;
           name = snapshot.docs[i]['Name'];
@@ -67,7 +66,7 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
               child: Container(
                 height: 40.0,
                 child: Image.asset(
-                  'assets/images/lifeline_logo.png',
+                  'assets/images/medical_logo.png',
                 ),
               ),
             ),
@@ -106,20 +105,18 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
                   ),
                   RoundedButton(
                     text: 'Search',
-                    color: Colors.green[900],
+                    color: Colors.lightBlue[700],
                     onPressed: () async {
                       setState(() {
                         loadingIndicator = true;
                       });
 
                       try {
-                        print("Tapped");
                         await printMatched(this.id.text);
                         setState(() {
                           loadingIndicator = false;
                         });
                       } catch (e) {
-                        print(e);
                         Toast.show(
                           e.message,
                           duration: Toast.lengthLong,

@@ -24,7 +24,7 @@ class _QrCodeScannerScreenState extends State<QrCodeScannerScreen> {
               child: Container(
                 height: 40.0,
                 child: Image.asset(
-                  'assets/images/lifeline_logo.png',
+                  'assets/images/medical_logo.png',
                 ),
               ),
             ),
@@ -48,7 +48,7 @@ class _QrCodeScannerScreenState extends State<QrCodeScannerScreen> {
           children: [
             RoundedButton(
               text: 'Open Camera',
-              color: Colors.green[900],
+              color: Colors.lightBlue[900],
               onPressed: () async {
                 String codeScanner = await FlutterBarcodeScanner.scanBarcode(
                   '#ff6666', 'Cancel', true, ScanMode.QR);

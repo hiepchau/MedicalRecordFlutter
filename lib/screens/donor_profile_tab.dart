@@ -40,16 +40,6 @@ class _State extends State<DonorProfileTab> {
     }
   }
 
-  // void _getLocation() async {
-  //   final _position = await Geolocator.getCurrentPosition(
-  //       desiredAccuracy: LocationAccuracy.high);
-  //   setState(() {
-  //     position = _position;
-  //   });
-  //   //print(position);
-  // }
-
-
   @override
   Widget build(BuildContext context) {
     Widget child;
@@ -63,92 +53,92 @@ class _State extends State<DonorProfileTab> {
       donorStatus=false;
       child = Scaffold(
         body: SpinKitWave(
-          color: Colors.green[700],
+          color: Colors.lightBlue[700],
         ),
       );
     }
     else if(profile.name==""){
       donorStatus=false;
       child = Scaffold(
-        body: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children:[
-              Center(
-                  child: Text(
-                    'Your profile is not exist!',
-                    style: kTextStyle,
-                    textAlign: TextAlign.center,
-                  )
-              ),
-              Center(
-                  child: Text(
-                    'Please complete your profile',
-                    style: kTextStyle,
-                    textAlign: TextAlign.center,
-                  )
-              )
-            ],
+          body: Container(
+              child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children:[
+                Center(
+                child: Text(
+                  'Your profile is not exist!',
+                  style: kTextStyle,
+                  textAlign: TextAlign.center,
+                )
+                ),
+                Center(
+                child: Text(
+                  'Please complete your profile',
+                  style: kTextStyle,
+                  textAlign: TextAlign.center,
+                )
+                )
+              ],
+          ),         
           ),
-        ),
       );
     }
     else if(profile.name!=""){
       child = ListView(
-        children: <Widget>[
-          ListInfoCard(
-            title: 'Name',
-            description: profile.name,
-          ),
-          ListInfoCard(
-            title: 'Contact',
-            description: profile.contact,
-          ),
-          ListInfoCard(
-            title: 'Blood Group',
-            description: profile.blood,
-          ),
-          ListInfoCard(
-            title: 'Current Location',
-            description: profile.location,
-          ),
-          ListInfoCard(
-            title: 'Last Donation',
-            description: 'November 23, 2020',
-          ),
-          ListInfoCard(
-            title: 'Gender',
-            description: profile.gender,
-          ),
-          ListInfoCard(
-            title: 'Age',
-            description: profile.age,
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: Card(
-              child: SwitchListTile(
-                value: donorStatus,
-                activeColor: Colors.green,
-                title: Text(
-                  'Donor Status',
-                  style: kTextStyle.copyWith(
-                    fontSize: 18,
-                  ),
+      children: <Widget>[
+        ListInfoCard(
+          title: 'Name',
+          description: profile.name,
+        ),
+        ListInfoCard(
+          title: 'Contact',
+          description: profile.contact,
+        ),
+        ListInfoCard(
+          title: 'Blood Group',
+          description: profile.blood,
+        ),
+        ListInfoCard(
+          title: 'Current Location',
+          description: profile.location,
+        ),
+        ListInfoCard(
+          title: 'Last Donation',
+          description: 'November 23, 2020',
+        ),
+        ListInfoCard(
+          title: 'Gender',
+          description: profile.gender,
+        ),
+        ListInfoCard(
+          title: 'Age',
+          description: profile.age,
+        ),
+        GestureDetector(
+          onTap: () {},
+          child: Card(
+            child: SwitchListTile(
+              value: donorStatus,
+              activeColor: Colors.lightBlue,
+              title: Text(
+                'Donor Status',
+                style: kTextStyle.copyWith(
+                  fontSize: 18,
                 ),
-                onChanged: (bool value) {
-                  setState(() {
-                    donorStatus = value;
-                    updateStatus();
-                  });
-                },
-              ),
+              ),             
+              onChanged: (bool value) {
+                setState(() {
+                  donorStatus = value;
+                  updateStatus();
+                });
+              },
             ),
           ),
-        ],
-      );
-    }
+        ),
+      ],
+    );     
+    }  
     return new Container(child: child);
   }
 }

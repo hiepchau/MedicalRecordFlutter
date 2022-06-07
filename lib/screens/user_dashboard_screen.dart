@@ -49,7 +49,7 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
                 Icons.logout,
                 size: 30,
               ),
-              color: Colors.green[900],
+              color: Colors.lightBlue[900],
               onPressed: () {
                 showDialog(
                   context: context,
@@ -66,7 +66,7 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
               child: Container(
                 height: 40.0,
                 child: Image.asset(
-                  'assets/images/lifeline_logo.png',
+                  'assets/images/medical_logo.png',
                 ),
               ),
             ),
@@ -124,7 +124,7 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
               children: <Widget>[
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/profie_icon.png',
+                    'assets/images/lifeline_icons/profile.png',
                     height: 60,
                   ),
                   label: 'Profile',
@@ -134,7 +134,7 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
                 ),
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/search_user_icon.png',
+                    'assets/images/lifeline_icons/search.png',
                     height: 60,
                   ),
                   label: 'Search User',
@@ -144,7 +144,7 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
                 ),
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/health_record_icon.png',
+                    'assets/images/lifeline_icons/healthrecord.png',
                     height: 60,
                   ),
                   label: 'Health Record',
@@ -154,7 +154,7 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
                 ),
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/medical_history_icon.png',
+                    'assets/images/lifeline_icons/medicalhistory.png',
                     height: 60,
                   ),
                   label: 'Medical History',
@@ -164,7 +164,7 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
                 ),
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/blood_donation_icon.png',
+                    'assets/images/lifeline_icons/blooddonation.png',
                     height: 60,
                   ),
                   label: 'Blood Donation',
@@ -174,7 +174,7 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
                 ),
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/doctor_mode_icon.png',
+                    'assets/images/lifeline_icons/doctormode.png',
                     height: 60,
                   ),
                   label: 'Doctor Mode',

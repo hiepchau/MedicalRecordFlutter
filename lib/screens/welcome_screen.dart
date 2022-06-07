@@ -32,7 +32,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         tag: 'logo',
                         child: Container(
                           child: Image.asset(
-                            'assets/images/lifeline_logo.png',
+                            'assets/images/medical_logo.png',
                           ),
                         ),
                       ),
@@ -46,7 +46,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           AnimatedTextKit(
                             animatedTexts: [
                               TypewriterAnimatedText('Medical Record',
-                              textStyle: const TextStyle(
+                              textStyle: TextStyle(
                               fontSize: 50.0,
                               fontFamily: 'Nexa Bold',
                               fontWeight: FontWeight.w900,
@@ -75,7 +75,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
                 RoundedButton(
                   text: 'Log In',
-                  color: Colors.green[900],
+                  color: Colors.lightBlue[900],
                   onPressed: () {
                     Navigator.pushNamed(
                       context,
@@ -85,7 +85,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
                 RoundedButton(
                   text: 'Register',
-                  color: Colors.green[700],
+                  color: Colors.lightBlue[700],
                   onPressed: () {
                     Navigator.pushNamed(
                       context,

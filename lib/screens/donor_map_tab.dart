@@ -10,7 +10,6 @@ import 'package:medicalrecordapp/models/blood_donor.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-
 class DonorMapTab extends StatefulWidget {
   @override
   _DonorMapTabState createState() => _DonorMapTabState();
@@ -58,7 +57,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
     } else {
       throw Exception('Error');
     }
-
+    
   }
 
   @override
@@ -88,7 +87,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
             name: snapshot.docs[i]['Name'].toString()),
       );
     }
-
+    
   }
 
   @override
@@ -103,87 +102,87 @@ class _DonorMapTabState extends State<DonorMapTab> {
     createList("O+");
     createList("O-");
     setState(() {});
-    return
-      Scaffold(
-          key: scaffoldKey,
-          body: Container(
-            child: map(),
-          ));
+    return 
+        Scaffold(
+            key: scaffoldKey,
+            body: Container(
+              child: map(),
+        ));
   }
 
   Widget map() {
     if(loadingIndicator==false)
-      return  Scaffold(
-        body: GoogleMap(
-          initialCameraPosition: CameraPosition(
-            target: initpos,
-            zoom: 14.00,
-          ),
-          onTap: (_) {},
-          mapType: MapType.normal,
-          markers: Set.of(markers.values),
-          onMapCreated: (GoogleMapController controler) {
-            _controller.complete(controler);
+    return  Scaffold(
+      body: GoogleMap(
+        initialCameraPosition: CameraPosition(
+          target: initpos,
+          zoom: 14.00,
+        ),
+        onTap: (_) {},
+        mapType: MapType.normal,
+        markers: Set.of(markers.values),
+        onMapCreated: (GoogleMapController controler) {
+          _controller.complete(controler);
 
-            MarkerId selfid = MarkerId("me");
-            listMarkerIds.add(selfid);
+          MarkerId selfid = MarkerId("me");
+          listMarkerIds.add(selfid);
 
-            Marker self = Marker(
-                markerId: selfid,
-                position: LatLng(initpos.latitude, initpos.longitude),
-                icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueViolet),
-                infoWindow: InfoWindow(title: "you", onTap: () {}, snippet: " "));
+          Marker self = Marker(
+              markerId: selfid,
+              position: LatLng(initpos.latitude, initpos.longitude),
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueViolet),
+              infoWindow: InfoWindow(title: "you", onTap: () {}, snippet: " "));
+
+          setState(() {
+            markers[selfid] = self;
+          });
+
+          for (int i = 0; i < list.length; i++) {
+            MarkerId markerId1 = MarkerId(i.toString());
+
+            listMarkerIds.add(markerId1);
+
+            Marker marker1 = Marker(
+                markerId: markerId1,
+                position: LatLng(double.parse(list[i].latitute),
+                    double.parse(list[i].longitude)),
+                icon: (list[i].latitute == initpos.latitude &&
+                        list[i].longitude == initpos.longitude)
+                    ? BitmapDescriptor.defaultMarkerWithHue(
+                        BitmapDescriptor.hueViolet)
+                    : BitmapDescriptor.defaultMarkerWithHue(
+                        BitmapDescriptor.hueCyan),
+
+                infoWindow: InfoWindow(
+                    title: list[i].name,
+                    onTap: () {
+                      var bottomSheetController =
+                          Scaffold.of(scaffoldKey.currentContext)
+                              .showBottomSheet((context) => Container(
+                                    child: getBottomSheet(list[i]),
+                                    height: 250,
+                                    color: Colors.transparent,
+                                  ));
+                    },
+                    snippet: list[i].blood));
 
             setState(() {
-              markers[selfid] = self;
+              markers[markerId1] = marker1;
             });
-
-            for (int i = 0; i < list.length; i++) {
-              MarkerId markerId1 = MarkerId(i.toString());
-
-              listMarkerIds.add(markerId1);
-
-              Marker marker1 = Marker(
-                  markerId: markerId1,
-                  position: LatLng(double.parse(list[i].latitute),
-                      double.parse(list[i].longitude)),
-                  icon: (list[i].latitute == initpos.latitude &&
-                      list[i].longitude == initpos.longitude)
-                      ? BitmapDescriptor.defaultMarkerWithHue(
-                      BitmapDescriptor.hueViolet)
-                      : BitmapDescriptor.defaultMarkerWithHue(
-                      BitmapDescriptor.hueCyan),
-
-                  infoWindow: InfoWindow(
-                      title: list[i].name,
-                      onTap: () {
-                        var bottomSheetController =
-                        Scaffold.of(scaffoldKey.currentContext)
-                            .showBottomSheet((context) => Container(
-                          child: getBottomSheet(list[i]),
-                          height: 250,
-                          color: Colors.transparent,
-                        ));
-                      },
-                      snippet: list[i].blood));
-
-              setState(() {
-                markers[markerId1] = marker1;
-              });
-            }
-            //});
-          },
-        ),
-      );
-    else
+          }
+          //});
+        },
+      ),
+    );  
+    else 
       return ModalProgressHUD(
-          inAsyncCall: loadingIndicator,
-          color: Colors.white,
-          opacity: 0.9,
-          progressIndicator: kWaveLoadingIndicator,
-          child: Container());
-
+        inAsyncCall: loadingIndicator,
+        color: Colors.white,
+        opacity: 0.9,
+        progressIndicator: kWaveLoadingIndicator,
+        child: Container());
+    
   }
 
 
@@ -197,7 +196,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
             children: [
               Container(
                 color: (donor.latitute == initpos.latitude &&
-                    donor.longitude == initpos.longitude)
+                        donor.longitude == initpos.longitude)
                     ? Colors.black45
                     : Colors.redAccent,
                 child: Padding(
@@ -216,7 +215,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
                         children: [
                           Text(donor.blood,
                               style:
-                              TextStyle(color: Colors.white, fontSize: 12)),
+                                  TextStyle(color: Colors.white, fontSize: 12)),
                           Icon(
                             Icons.star,
                             color: Colors.yellow,
@@ -226,7 +225,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
                           ),
                           Text(donor.location,
                               style:
-                              TextStyle(color: Colors.white, fontSize: 14))
+                                  TextStyle(color: Colors.white, fontSize: 14))
                         ],
                       ),
                       SizedBox(

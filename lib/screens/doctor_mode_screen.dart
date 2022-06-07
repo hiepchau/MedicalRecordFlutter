@@ -111,12 +111,12 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
               RoundedButton(
                 text: 'Verify',
                 color: Colors.lightBlue[700],
-                onPressed: () async {
+                onPressed: () async {                 
                   if(doctorIdController.text==''){
                     showMessage('You did not type anything!');
                   } else {
                     setState(() {
-                      loadingIndicator = true;
+                    loadingIndicator = true;
                     });
                     verifyDoctor(doctorIdController.text);
                     if(verify){
@@ -125,8 +125,8 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
                     else showMessage('Doctor does not exist');
                     setState(() {
                       loadingIndicator = false;
-                    });
-                  }
+                    });                   
+                }
                 },
               ),
               RoundedButton(
@@ -137,7 +137,7 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
                     showMessage('You did not type anything!');
                   } else {
                     setState(() {
-                      loadingIndicator = true;
+                    loadingIndicator = true;
                     });
                     addDoctor(doctorIdController.text);
                   }

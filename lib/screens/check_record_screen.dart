@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:medicalrecordapp/components/diagnosis_card_list.dart';
 import 'package:medicalrecordapp/components/rounded_button.dart';
 import 'package:medicalrecordapp/constants.dart';
@@ -11,6 +9,8 @@ import 'package:medicalrecordapp/services/EHR.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:medicalrecordapp/services/database.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:scan/scan.dart';
 import 'package:toast/toast.dart';
 
@@ -56,7 +56,7 @@ class _CheckRecordScreenState extends State<CheckRecordScreen> {
   String qrCodeType;
   String uID; // contained fetched UID after scanning
   bool allDataFetched =
-  false; // This is the bool that tracks if all getch data has been completed
+      false; // This is the bool that tracks if all getch data has been completed
   Donor qrDonor;
 
   List<Diagnosis> diagnosisList;
@@ -119,86 +119,86 @@ class _CheckRecordScreenState extends State<CheckRecordScreen> {
   Widget showScanOrListWidget() {
     if (allDataFetched == false) {
       return Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-              children: <Widget>[
-                RoundedButton(
-                  text: 'Open Camera',
-                  color: Colors.lightBlue[900],
-                  onPressed: () async {
-                    String codeScanner = await FlutterBarcodeScanner.scanBarcode(
-                        '#ff6666', 'Cancel', true, ScanMode.QR);
+        padding: const EdgeInsets.all(12.0),
+        child: Column( 
+          children: <Widget>[
+          RoundedButton(
+          text: 'Open Camera',
+          color: Colors.lightBlue[900],
+          onPressed: () async {
+            String codeScanner = await FlutterBarcodeScanner.scanBarcode(
+              '#ff6666', 'Cancel', true, ScanMode.QR);
 
-                    if(codeScanner=='-1'){
-                      showMessage('You have turned off the Camera');
-                    }
-                    else{
-                      setState(() {
-                        qrCodeResult = codeScanner;
-                      });
+            if(codeScanner=='-1'){
+              showMessage('You have turned off the Camera');
+            }
+            else{
+            setState(() {
+              qrCodeResult = codeScanner;
+            });
 
-                      qrData = codeScanner.split('_');
-                      qrCodeType = qrData[0];
+            qrData = codeScanner.split('_');
+            qrCodeType = qrData[0];
 
 
-                      if (qrCodeType != null) {
-                        if (qrCodeType == 'LIFELINEDIAGNOSIS') {
-                          uID = qrData[2];
-                          setState(() {
-                            loadingIndicator = true;
-                          });
-                          final _records = await fetchHistory(uID); // Change this for taking uID only
-                          setState(() {
-                            diagnosisList = _records;
-                            loadingIndicator = false;
-                            allDataFetched = true;
-                          });
-                        } else showMessage('The QR is not valid');
-                      } else showMessage('The QR is not valid');
-                    }
-                  },
-                ),
-                RoundedButton(
-                  text: 'Open Gallery',
-                  color: Colors.lightBlue[900],
-                  onPressed: () async {
-                    XFile image = await imagePicker.pickImage(source: ImageSource.gallery);
-                    if(image==null) showMessage('You did not choose a QR!');
-                    else {
-                      String codeScanner = await Scan.parse(image.path);
-                      if(codeScanner==null){
-                        showMessage('The QR is not valid');
-                      }
-                      else{
-                        setState(() {
-                          qrCodeResult = codeScanner;
-                        });
+            if (qrCodeType != null) {
+              if (qrCodeType == 'LIFELINEDIAGNOSIS') {
+              uID = qrData[2];
+              setState(() {
+                loadingIndicator = true;
+              });
+              final _records = await fetchHistory(uID); // Change this for taking uID only
+              setState(() {
+                diagnosisList = _records;
+                loadingIndicator = false;
+                allDataFetched = true;
+              });
+              } else showMessage('The QR is not valid');
+            } else showMessage('The QR is not valid');
+            }
+          },
+        ),
+        RoundedButton(
+          text: 'Open Gallery',
+          color: Colors.lightBlue[900],
+          onPressed: () async {
+            XFile image = await imagePicker.pickImage(source: ImageSource.gallery);
+            if(image==null) showMessage('You did not choose a QR!');
+            else {
+              String codeScanner = await Scan.parse(image.path);
+              if(codeScanner==null){
+                showMessage('The QR is not valid');
+              }
+              else{
+              setState(() {
+                qrCodeResult = codeScanner;
+              });
 
-                        qrData = codeScanner.split('_');
-                        qrCodeType = qrData[0];
+              qrData = codeScanner.split('_');
+              qrCodeType = qrData[0];
 
-                        if (qrCodeType != null) {
-                          if (qrCodeType == 'LIFELINEDIAGNOSIS') {
-                            uID = qrData[2];
-                            setState(() {
-                              loadingIndicator = true;
-                            });
-                            final _records = await fetchHistory(uID); // Change this for taking uID only
-                            setState(() {
-                              diagnosisList = _records;
-                              loadingIndicator = false;
-                              allDataFetched = true;
-                            });
-                          }
-                          else showMessage('The QR is not valid');
-                        }
-                        else showMessage('The QR is not valid');
-                      }
-                    }
-                  },
-                ),
-              ]
-          )
+              if (qrCodeType != null) {
+                if (qrCodeType == 'LIFELINEDIAGNOSIS') {
+                uID = qrData[2];
+                setState(() {
+                  loadingIndicator = true;
+                });
+                final _records = await fetchHistory(uID); // Change this for taking uID only
+                setState(() {
+                  diagnosisList = _records;
+                  loadingIndicator = false;
+                  allDataFetched = true;
+                });
+                }
+                else showMessage('The QR is not valid');
+              }
+              else showMessage('The QR is not valid');
+              }
+            }
+          },
+        ),
+        ]
+        )
       );
     } else {
       return Expanded(

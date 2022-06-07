@@ -6,7 +6,6 @@ import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:medicalrecordapp/services/database.dart';
 import 'package:medicalrecordapp/screens/check_EHR_screen.dart';
 
-
 class DoctorDashboardScreen extends StatefulWidget {
   static String id = 'doctor_dashboard';
   @override

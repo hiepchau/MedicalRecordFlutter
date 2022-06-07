@@ -27,7 +27,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
               child: Container(
                 height: 40.0,
                 child: Image.asset(
-                  'assets/images/lifeline_logo.png',
+                  'assets/images/medical_logo.png',
                 ),
               ),
             ),
@@ -45,7 +45,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
         shadowColor: Colors.black54,
       ),
       body: Container(
-        color: Colors.green[50],
+        color: Colors.lightBlue[50],
         child: Padding(
           padding: EdgeInsets.all(12),
           child: Center(

@@ -26,7 +26,7 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                 child: Container(
                   height: 40.0,
                   child: Image.asset(
-                    'assets/images/lifeline_logo.png',
+                    'assets/images/medical_logo.png',
                   ),
                 ),
               ),
@@ -39,7 +39,7 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
           backgroundColor: Colors.white,
           shadowColor: Colors.black54,
           bottom: TabBar(
-            indicatorColor: Colors.green,
+            indicatorColor: Colors.lightBlue,
             tabs: [
               Tab(
                 child: Text(

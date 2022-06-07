@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:medicalrecordapp/components/rounded_button.dart';
 import 'package:medicalrecordapp/components/user_diagnosis_card.dart';
 import 'package:medicalrecordapp/constants.dart';
@@ -7,6 +9,8 @@ import 'package:medicalrecordapp/models/diagnosis.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:medicalrecordapp/services/database.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:scan/scan.dart';
+import 'package:toast/toast.dart';
 
 class RecordVerificationScreen extends StatefulWidget {
   static String id = 'record_verification';
@@ -27,11 +31,10 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
   Diagnosis qrDiagnosis;
   Donor qrDonor;
 
+  final ImagePicker imagePicker = ImagePicker();
   final database = Database(uid: Auth().getUID());
 
   Future<void> cardData(String _uid, String _recordID) async {
-    print(_uid);
-    print(_recordID);
     final _profile = await database.getData(_uid);
     final _diagnosis = await database.getRecord(_uid, _recordID);
     final _qrDonor = new Donor(
@@ -44,12 +47,10 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
       qrDiagnosis = _diagnosis;
       qrDonor = _qrDonor;
     });
-    //print(qrDiagnosis.toMap());
-    print(qrDonor.toMap());
   }
 
   Future<void> _verify(String _uID, String _id) async {
-    return database.updateRecord(_uID, _id);
+    return await database.updateRecord(_uID, _id);
   }
 
   Widget getUserDiagnosisCard() {
@@ -95,18 +96,25 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
       );
     }
   }
+  void showMessage(String txt){
+    Toast.show(
+      txt,
+      duration: Toast.lengthLong,
+      gravity: Toast.bottom,
+    );
+  }
 
   Widget getVerifyButton() {
     if (qrDiagnosis == null) {
       return SizedBox(height: 1);
     } else if(qrDiagnosis.verified == true) {
-      return SizedBox(height: 1);
-    }else {
+  return SizedBox(height: 1);
+      }else {
       return Padding(
         padding: const EdgeInsets.all(12.0),
         child: RoundedButton(
           text: 'Verify',
-          color: Colors.green[900],
+          color: Colors.lightBlue[900],
           onPressed: () async {
             setState(() {
               loadingIndicator = true;
@@ -124,6 +132,7 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ToastContext().init(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -135,7 +144,7 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
               child: Container(
                 height: 40.0,
                 child: Image.asset(
-                  'assets/images/lifeline_logo.png',
+                  'assets/images/medical_logo.png',
                 ),
               ),
             ),
@@ -168,21 +177,26 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
                 padding: const EdgeInsets.all(12.0),
                 child: RoundedButton(
                   text: 'Open Camera',
-                  color: Colors.green[900],
+                  color: Colors.lightBlue[900],
                   onPressed: () async {
-                    String codeScanner = '';
+                    String codeScanner = await FlutterBarcodeScanner.scanBarcode(
+                    '#ff6666', 'Cancel', true, ScanMode.QR);
 
+                    if(codeScanner=='-1'){
+                      showMessage('You have turned off the Camera');
+                    }
+                    else{
                     setState(() {
                       qrCodeResult = codeScanner;
                     });
 
                     qrData = codeScanner.split('_');
                     qrCodeType = qrData[0];
-                    diagnosisID = qrData[1];
-                    uID = qrData[2];
 
                     if (qrCodeType != null) {
-                      if (qrCodeType == 'LIFELINE_DIAGNOSIS') {
+                      if (qrCodeType == 'LIFELINEDIAGNOSIS') {
+                        diagnosisID = qrData[1];
+                        uID = qrData[2];
                         setState(() {
                           loadingIndicator = true;
                         });
@@ -190,7 +204,48 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
                         setState(() {
                           loadingIndicator = false;
                         });
+                      } else showMessage('The QR is not valid');
+                    } else showMessage('The QR is not valid');
+                  }
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: RoundedButton(
+                  text: 'Open Gallery',
+                  color: Colors.lightBlue[900],
+                  onPressed: () async {
+                    
+                    XFile image = await imagePicker.pickImage(source: ImageSource.gallery);
+                    if(image==null) showMessage('You did not choose a QR!');
+                    else {
+                      String codeScanner = await Scan.parse(image.path);
+                      if(codeScanner==null){
+                        showMessage('The QR is not valid');
                       }
+                      else{
+                      setState(() {
+                        qrCodeResult = codeScanner;
+                      });
+
+                      qrData = codeScanner.split('_');
+                      qrCodeType = qrData[0];
+
+                      if (qrCodeType != null) {
+                        if (qrCodeType == 'LIFELINEDIAGNOSIS') {
+                          diagnosisID = qrData[1];
+                          uID = qrData[2];
+                          setState(() {
+                            loadingIndicator = true;
+                          });
+                          await cardData(uID, diagnosisID);
+                          setState(() {
+                            loadingIndicator = false;
+                          });
+                        } showMessage('The QR is not valid');
+                      } showMessage('The QR is not valid');
+                    }
                     }
                   },
                 ),

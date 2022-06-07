@@ -25,7 +25,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
               Container(
                 height: 40.0,
                 child: Image.asset(
-                  'assets/images/lifeline_logo.png',
+                  'assets/images/medical_logo.png',
                 ),
               ),
               Center(
@@ -143,7 +143,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                                 if (await canLaunchUrlString(url)) {
                                   await launchUrlString(url,
                                       mode: LaunchMode.inAppWebView);
-                                } else {
+                                } else {                               
                                   Toast.show(
                                     'Cannot launch browser',
                                     duration: Toast.lengthShort,
@@ -152,7 +152,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                                 }
                               },
                             style: kTextStyle.copyWith(
-                              color: Colors.green,
+                              color: Colors.lightBlue,
                               decoration: TextDecoration.underline,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,

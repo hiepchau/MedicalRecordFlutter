@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/custom_text_field.dart';
@@ -8,6 +9,8 @@ import 'package:medicalrecordapp/screens/user_dashboard_screen.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:toast/toast.dart';
+
+import '../models/auth_user.dart';
 
 class UserRegistrationScreen extends StatefulWidget {
   static String id = 'user_register';
@@ -22,6 +25,14 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
 
   bool loadingIndicator = false;
   bool checkedValue = false;
+
+  void showMessage(String txt){
+    Toast.show(
+      txt,
+      duration: Toast.lengthLong,
+      gravity: Toast.bottom,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +56,7 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                     tag: 'logo',
                     child: Container(
                       height: 200.0,
-                      child: Image.asset('assets/images/lifeline_logo.png'),
+                      child: Image.asset('assets/images/medical_logo.png'),
                     ),
                   ),
                   SizedBox(
@@ -64,8 +75,15 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                     obscureText: true,
                     controller: this.password,
                   ),
-                  CheckboxListTile(
-                    title: RichText(
+                  Row(children: [Checkbox(
+                    value: checkedValue,
+                    onChanged: (newValue) {
+                      setState(() {
+                        checkedValue = newValue;
+                      });
+                    },
+                  ),
+                  RichText(
                       text: TextSpan(children: [
                         TextSpan(
                           text: 'I agree to the ',
@@ -82,7 +100,7 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                                   context, TermsAndConditionsScreen.id);
                             },
                           style: kTextStyle.copyWith(
-                            color: Colors.green,
+                            color: Colors.lightBlue,
                             decoration: TextDecoration.underline,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -90,40 +108,27 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                         )
                       ]),
                     ),
-                    value: checkedValue,
-                    onChanged: (newValue) {
-                      setState(() {
-                        checkedValue = newValue;
-                      });
-                    },
-                    controlAffinity: ListTileControlAffinity
-                        .leading, //  <-- leading Checkbox
+                  ]
                   ),
+
                   RoundedButton(
                     text: 'Register',
-                    color: Colors.green[900],
+                    color: Colors.lightBlue[900],
                     onPressed: () async {
                       if (checkedValue) {
                         setState(() {
                           loadingIndicator = true;
                         });
-                        try {
-                          final user = await Auth()
-                              .register(this.email.text, this.password.text);
-                          if (user != null)
-                            Navigator.pushNamed(
-                                context, UserDashboardScreen.id);
-                          setState(() {
-                            loadingIndicator = false;
-                          });
-                        } catch (e) {
-                          print(e);
-                          Toast.show(
-                            e.message,
-                            duration: Toast.lengthShort,
-                            gravity: Toast.top,
-                          );
-                        }
+                        final user = await Auth()
+                            .register(this.email.text, this.password.text);
+                        if (user.runtimeType == String){
+                          showMessage(user);}
+                        else if (user.runtimeType==AppUser)
+                          Navigator.pushNamed(
+                              context, UserDashboardScreen.id);
+                        setState(() {
+                          loadingIndicator = false;
+                        });  
                       }
                     },
                   ),

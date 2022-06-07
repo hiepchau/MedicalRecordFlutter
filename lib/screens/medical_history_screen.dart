@@ -25,7 +25,6 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
     snapshot = await erhRecord.historySnap();
     for (int i = 0; i < snapshot.docs.length; i++) {
       var _history = snapshot.docs[i];
-      print(_history.data());
       _diagnosisList.add(new Diagnosis(
         type: _history['Type'],
         date: _history['Date'],
@@ -75,7 +74,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
               child: Container(
                 height: 40.0,
                 child: Image.asset(
-                  'assets/images/lifeline_logo.png',
+                  'assets/images/medical_logo.png',
                 ),
               ),
             ),
@@ -93,7 +92,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
         shadowColor: Colors.black54,
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.green[900],
+        backgroundColor: Colors.lightBlue[900],
         onPressed: () {
           showDialog(
             context: context,

@@ -21,9 +21,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   final database = new Database(uid: Auth().getUID());
 
   final name = new TextEditingController();
-  String gender = '';
+  String gender = 'Male';
   final age = new TextEditingController();
-  String blood = '';
+  String blood = 'A+';
   final contact = new TextEditingController();
   final emergency = new TextEditingController();
   final govtID = new TextEditingController();
@@ -71,7 +71,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       location: _location,
       donorStatus: await database.getStatus(),
     );
-    print(person.toMap());
     database.createProfile(person);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => UserDashboardScreen()));
@@ -124,7 +123,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               child: Container(
                 height: 40.0,
                 child: Image.asset(
-                  'assets/images/lifeline_logo.png',
+                  'assets/images/medical_logo.png',
                 ),
               ),
             ),
@@ -174,7 +173,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ),
               CustomDropdownMenu(
                 label: 'Gender',
-                initialValue: gender == '' ? null : gender,
+                initialValue: gender == '' ? gender = 'Male' : gender ,
                 items: ['Male', 'Female'],
                 onChanged: (value) {
                   setState(() {
@@ -184,7 +183,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ),
               CustomDropdownMenu(
                 label: "Blood Group",
-                initialValue: blood == '' ? null : blood,
+                initialValue: blood == '' ? gender = 'A+' : blood,
                 items: [
                   'A+',
                   'A-',
@@ -234,7 +233,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 child: RoundedButton(
                   onPressed: _submit,
                   text: 'Update',
-                  color: Colors.green[700],
+                  color: Colors.lightBlue[700],
                 ),
               ),
             ],

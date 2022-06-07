@@ -61,7 +61,7 @@ class _DiagnosisRecordTabState extends State<DiagnosisRecordTab> {
   }
 
   void nonAsync(){
-    fetchHistory();
+      fetchHistory();
   }
   @override
   void initState() {

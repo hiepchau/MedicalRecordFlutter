@@ -7,6 +7,8 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:toast/toast.dart';
 
+import '../models/auth_user.dart';
+
 class UserLoginScreen extends StatefulWidget {
   static String id = 'user_login';
 
@@ -19,6 +21,14 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
   TextEditingController password = new TextEditingController();
 
   bool loadingIndicator = false;
+
+  void showMessage(String txt){
+    Toast.show(
+      txt,
+      duration: Toast.lengthLong,
+      gravity: Toast.bottom,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +53,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                     child: Container(
                       height: 200.0,
                       child: Image.asset(
-                        'assets/images/lifeline_logo.png',
+                        'assets/images/medical_logo.png',
                       ),
                     ),
                   ),
@@ -65,31 +75,20 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                   ),
                   RoundedButton(
                     text: 'Log In',
-                    color: Colors.green[900],
+                    color: Colors.lightBlue[900],
                     onPressed: () async {
                       setState(() {
                         loadingIndicator = true;
                       });
-                      try {
-                        final user = await Auth()
-                            .signIn(this.email.text, this.password.text);
-                        print(this.email.text);
-                        print(this.password.text);
-                        if (user != null)
-                          Navigator.pushNamed(context, UserDashboardScreen.id);
-                        setState(() {
-                          loadingIndicator = false;
-                        });
-                      } catch (e) {
-                        print(e);
-                        setState(() {
-                          Toast.show(
-                            e.message,
-                            duration: Toast.lengthShort,
-                            gravity: Toast.top,
-                          );
-                        });
-                      }
+                      final user = await Auth()
+                          .signIn(this.email.text, this.password.text);
+                      if (user.runtimeType == String) {
+                        showMessage(user);}
+                      else if (user.runtimeType == AppUser)
+                        Navigator.pushNamed(context, UserDashboardScreen.id);
+                      setState(() {
+                        loadingIndicator = false;
+                      });                     
                     },
                   ),
                 ],
@@ -101,4 +100,3 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
     );
   }
 }
-
