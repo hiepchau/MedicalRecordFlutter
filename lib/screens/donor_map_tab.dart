@@ -2,11 +2,14 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:medicalrecordapp/constants.dart';
 import 'dart:async';
 import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:medicalrecordapp/services/database.dart';
 import 'package:medicalrecordapp/models/blood_donor.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+
 
 class DonorMapTab extends StatefulWidget {
   @override
@@ -16,7 +19,7 @@ class DonorMapTab extends StatefulWidget {
 class _DonorMapTabState extends State<DonorMapTab> {
   final GlobalKey scaffoldKey = GlobalKey();
 
-  bool loadingIndicator = false;
+  bool loadingIndicator = true;
 
   final database = Database(uid: Auth().getUID());
   CollectionReference databaseReference;
@@ -25,6 +28,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
   String blood;
 
   List<Donor> donors = [];
+
 
   Future<void> fetchDonorList(String str) async {
     snapshot = await database.bloodDonorList(str);
@@ -36,41 +40,47 @@ class _DonorMapTabState extends State<DonorMapTab> {
   Map<MarkerId, Marker> markers = {};
   List listMarkerIds = [];
   static LatLng initpos;
+  LocationPermission permission;
+
   void getUserLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    setState(() {
-      initpos = LatLng(position.latitude, position.longitude);
-    });
+    permission = await Geolocator.checkPermission();
+    if(permission == LocationPermission.denied){
+      permission = await Geolocator.requestPermission();
+      if(permission == LocationPermission.deniedForever){
+        return Future.error('Location is not Available');
+      }
+    } else if(permission == LocationPermission.always || permission == LocationPermission.whileInUse){
+      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+      setState(() {
+        initpos = LatLng(position.latitude, position.longitude);
+        loadingIndicator=false;
+      });
+    } else {
+      throw Exception('Error');
+    }
+
   }
 
-/////////////////
-  ///
-  ///
-  ///
-
-  ///
-  ///
-  ///
   @override
   void initState() {
     databaseReference = database.users;
-
-    super.initState();
     getUserLocation();
+    super.initState();
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
   }
 
   void createList(String blood) async {
-    print("test+++");
 
     await fetchDonorList(blood);
 
     for (int i = 0; i < snapshot.docs.length; i++) {
-      print("xxxxxxx");
-
       list.add(
         Donor(
-            blood: (snapshot.docs[i]['Blood Group']).toString(),
+            blood: snapshot.docs[i]['Blood Group'].toString(),
             contact: snapshot.docs[i]['Contact No'].toString(),
             latitute: snapshot.docs[i]['Latitute'].toString() ?? '',
             longitude: snapshot.docs[i]['Longitude'].toString() ?? '',
@@ -78,96 +88,104 @@ class _DonorMapTabState extends State<DonorMapTab> {
             name: snapshot.docs[i]['Name'].toString()),
       );
     }
-    setState(() {});
-    print("Length : " + list[0].name);
+
   }
 
   @override
   Widget build(BuildContext contxet) {
     setState(() {});
-    //loccup();
     createList("A+");
-    // print("lat long self " + lat.toString());
+    createList("A-");
+    createList("B+");
+    createList("B-");
+    createList("AB+");
+    createList("AB-");
+    createList("O+");
+    createList("O-");
     setState(() {});
-    return Scaffold(
-        key: scaffoldKey,
-        body: Container(
-          child: map(),
-        ));
+    return
+      Scaffold(
+          key: scaffoldKey,
+          body: Container(
+            child: map(),
+          ));
   }
 
   Widget map() {
-    return Scaffold(
-      body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: initpos,
-          zoom: 14.00,
-        ),
-        onTap: (_) {},
-        mapType: MapType.normal,
-        markers: Set.of(markers.values),
-        onMapCreated: (GoogleMapController controler) {
-          _controller.complete(controler);
-          print(list.length);
-          // setState(() {
-          //////////
-          MarkerId selfid = MarkerId("me");
-          listMarkerIds.add(selfid);
+    if(loadingIndicator==false)
+      return  Scaffold(
+        body: GoogleMap(
+          initialCameraPosition: CameraPosition(
+            target: initpos,
+            zoom: 14.00,
+          ),
+          onTap: (_) {},
+          mapType: MapType.normal,
+          markers: Set.of(markers.values),
+          onMapCreated: (GoogleMapController controler) {
+            _controller.complete(controler);
 
-          Marker self = Marker(
-              markerId: selfid,
-              position: LatLng(initpos.latitude, initpos.longitude),
-              icon: BitmapDescriptor.defaultMarkerWithHue(
-                  BitmapDescriptor.hueViolet),
-              infoWindow: InfoWindow(title: "you", onTap: () {}, snippet: " "));
+            MarkerId selfid = MarkerId("me");
+            listMarkerIds.add(selfid);
 
-          setState(() {
-            markers[selfid] = self;
-          });
-
-          for (int i = 1; i <= list.length; i++) {
-            print("testetstetst");
-            print(list[i].toMap());
-            MarkerId markerId1 = MarkerId(i.toString());
-
-            listMarkerIds.add(markerId1);
-
-            Marker marker1 = Marker(
-                markerId: markerId1,
-                position: LatLng(double.parse(list[i].latitute),
-                    double.parse(list[i].longitude)),
-                icon: (list[i].latitute == initpos.latitude &&
-                    list[i].longitude == initpos.longitude)
-                    ? BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueViolet)
-                    : BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueRed),
-
-                /* icon: BitmapDescriptor.defaultMarkerWithHue(
-                              BitmapDescriptor.hueCyan),
-                          */
-                infoWindow: InfoWindow(
-                    title: list[i].name,
-                    onTap: () {
-                      var bottomSheetController =
-                      Scaffold.of(scaffoldKey.currentContext)
-                          .showBottomSheet((context) => Container(
-                        child: getBottomSheet(list[i]),
-                        height: 250,
-                        color: Colors.transparent,
-                      ));
-                    },
-                    snippet: list[i].blood));
+            Marker self = Marker(
+                markerId: selfid,
+                position: LatLng(initpos.latitude, initpos.longitude),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueViolet),
+                infoWindow: InfoWindow(title: "you", onTap: () {}, snippet: " "));
 
             setState(() {
-              markers[markerId1] = marker1;
+              markers[selfid] = self;
             });
-          }
-          //});
-        },
-      ),
-    );
+
+            for (int i = 0; i < list.length; i++) {
+              MarkerId markerId1 = MarkerId(i.toString());
+
+              listMarkerIds.add(markerId1);
+
+              Marker marker1 = Marker(
+                  markerId: markerId1,
+                  position: LatLng(double.parse(list[i].latitute),
+                      double.parse(list[i].longitude)),
+                  icon: (list[i].latitute == initpos.latitude &&
+                      list[i].longitude == initpos.longitude)
+                      ? BitmapDescriptor.defaultMarkerWithHue(
+                      BitmapDescriptor.hueViolet)
+                      : BitmapDescriptor.defaultMarkerWithHue(
+                      BitmapDescriptor.hueCyan),
+
+                  infoWindow: InfoWindow(
+                      title: list[i].name,
+                      onTap: () {
+                        var bottomSheetController =
+                        Scaffold.of(scaffoldKey.currentContext)
+                            .showBottomSheet((context) => Container(
+                          child: getBottomSheet(list[i]),
+                          height: 250,
+                          color: Colors.transparent,
+                        ));
+                      },
+                      snippet: list[i].blood));
+
+              setState(() {
+                markers[markerId1] = marker1;
+              });
+            }
+            //});
+          },
+        ),
+      );
+    else
+      return ModalProgressHUD(
+          inAsyncCall: loadingIndicator,
+          color: Colors.white,
+          opacity: 0.9,
+          progressIndicator: kWaveLoadingIndicator,
+          child: Container());
+
   }
+
 
   Widget getBottomSheet(Donor donor) {
     return Stack(
@@ -182,7 +200,6 @@ class _DonorMapTabState extends State<DonorMapTab> {
                     donor.longitude == initpos.longitude)
                     ? Colors.black45
                     : Colors.redAccent,
-                //color: Colors.blueAccent,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -229,7 +246,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
                   ),
                   Icon(
                     Icons.map,
-                    color: Colors.blue,
+                    color: Colors.lightBlue,
                   ),
                   SizedBox(
                     width: 20,
@@ -249,7 +266,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
                   ),
                   Icon(
                     Icons.call,
-                    color: Colors.blue,
+                    color: Colors.lightBlue,
                   ),
                   SizedBox(
                     width: 20,
