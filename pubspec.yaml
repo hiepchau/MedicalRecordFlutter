@@ -62,7 +62,8 @@ dependencies:
   qr_flutter: ^4.0.0
   flutter_lints: ^2.0.0
   flutter_barcode_scanner: ^2.0.0
-
+  image_picker: ^0.8.5+3
+  scan: ^1.6.0
 
 dev_dependencies:
   flutter_test:
@@ -73,7 +74,7 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/images/lifeline_icons/
+    - assets/images/medical_record_icons/
 
   fonts:
     - family: Nexa
