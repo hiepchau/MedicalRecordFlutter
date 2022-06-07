@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/basic_health_card.dart';
@@ -17,6 +19,8 @@ import 'package:toast/toast.dart';
 class CheckEHRScreen extends StatefulWidget {
   static String id = 'check_EHR';
 
+  const CheckEHRScreen({Key key}) : super(key: key);
+
   @override
   _CheckEHRScreenState createState() => _CheckEHRScreenState();
 }
@@ -34,9 +38,9 @@ class _CheckEHRScreenState extends State<CheckEHRScreen> {
   String qrCodeResult;
   List<String> qrData;
   String qrCodeType;
-  String uID; // contained fetched UID after scanning
+  String uID; 
   bool allDataFetched =
-      false; // This is the bool that tracks if all getch data has been completed
+      false; 
   Donor qrDonor;
   String userName;
 
@@ -82,7 +86,7 @@ class _CheckEHRScreenState extends State<CheckEHRScreen> {
     final database = Database(uid: _uid);
     final _profile = await database.getData(_uid);
 
-    final _qrDonor = new Donor(
+    final _qrDonor = Donor(
       name: _profile.name,
       contact: _profile.contact,
       location: _profile.location,
@@ -131,8 +135,12 @@ class _CheckEHRScreenState extends State<CheckEHRScreen> {
                 loadingIndicator = false;
                 allDataFetched = true;
               });
-              } else showMessage('The QR is not valid');
-            } else showMessage('The QR is not valid');
+              } else {
+                showMessage('The QR is not valid');
+              }
+            } else {
+              showMessage('The QR is not valid');
+            }
             }
           },
         ),
@@ -141,8 +149,9 @@ class _CheckEHRScreenState extends State<CheckEHRScreen> {
           color: Colors.lightBlue[900],
           onPressed: () async {
             XFile image = await imagePicker.pickImage(source: ImageSource.gallery);
-            if(image==null) showMessage('You did not choose a QR!');
-            else {
+            if(image==null) {
+              showMessage('You did not choose a QR!');
+            } else {
               String codeScanner = await Scan.parse(image.path);
 
               if(codeScanner==null){
@@ -169,9 +178,13 @@ class _CheckEHRScreenState extends State<CheckEHRScreen> {
                     allDataFetched = true;
                   });
                   }
-                  else showMessage('The QR is not valid');
+                  else {
+                    showMessage('The QR is not valid');
+                  }
                 }
-                else showMessage('The QR is not valid');
+                else {
+                  showMessage('The QR is not valid');
+                }
               }
           }
           },
@@ -217,7 +230,7 @@ class _CheckEHRScreenState extends State<CheckEHRScreen> {
                 ),
               ),
             ),
-            Text(
+            const Text(
               'Check EHR',
               style: TextStyle(
                 color: Colors.black,

@@ -1,12 +1,15 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/constants.dart';
 import 'package:medicalrecordapp/screens/donor_list_tab.dart';
 import 'package:medicalrecordapp/screens/donor_map_tab.dart';
 import 'package:medicalrecordapp/screens/donor_profile_tab.dart';
-//import 'test.dart';
 
 class BloodDonationScreen extends StatefulWidget {
   static String id = 'blood_donation';
+
+  const BloodDonationScreen({Key key}) : super(key: key);
 
   @override
   _BloodDonationScreenState createState() => _BloodDonationScreenState();
@@ -65,11 +68,11 @@ class _BloodDonationScreenState extends State<BloodDonationScreen> {
           ),
         ),
         body: TabBarView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
-            DonorProfileTab(),
+            const DonorProfileTab(),
             DonorListTab(),
-            DonorMapTab(),
+            const DonorMapTab(),
           ],
         ),
       ),

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/custom_dropdown_menu.dart';
 import 'package:medicalrecordapp/components/custom_text_field.dart';
@@ -10,15 +12,17 @@ import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class BasicHealthRecordTab extends StatefulWidget {
+  const BasicHealthRecordTab({Key key}) : super(key: key);
+
   @override
   _BasicHealthRecordTabState createState() => _BasicHealthRecordTabState();
 }
 
 class _BasicHealthRecordTabState extends State<BasicHealthRecordTab> {
   bool loadingIndicator = false;
-  final ehrDatabase = new EHR(uid: Auth().getUID());
-  final height = new TextEditingController();
-  final weight = new TextEditingController();
+  final ehrDatabase = EHR(uid: Auth().getUID());
+  final height = TextEditingController();
+  final weight = TextEditingController();
   String sugarLevel = '';
   String rbcCount = '';
   String wbcCount = '';
@@ -45,7 +49,7 @@ class _BasicHealthRecordTabState extends State<BasicHealthRecordTab> {
     final _bloodPressure = bloodPressure;
     final _wbcCount = wbcCount;
     final _count = await ehrDatabase.getCount();
-    basicRecord _record = new basicRecord(
+    basicRecord _record = basicRecord(
       height: _height,
       weight: _weight,
       sugarLevel: _sugerLevel,
@@ -73,7 +77,7 @@ class _BasicHealthRecordTabState extends State<BasicHealthRecordTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: ModalProgressHUD(
           color: Colors.white,
           opacity: 0.9,
@@ -104,7 +108,7 @@ class _BasicHealthRecordTabState extends State<BasicHealthRecordTab> {
                         sugarLevel = value;
                       });
                     },
-                    items: [
+                    items: const [
                       '~70-140 mg/dL',
                       '~141-200 mg/dL',
                       '>200 mg/dL',
@@ -117,7 +121,7 @@ class _BasicHealthRecordTabState extends State<BasicHealthRecordTab> {
                         rbcCount = value;
                       });
                     },
-                    items: [
+                    items: const [
                       'less than 4.7 mcL',
                       '~4.7-6.1 mcL',
                       'higher than 6.1 mcL'
@@ -130,7 +134,7 @@ class _BasicHealthRecordTabState extends State<BasicHealthRecordTab> {
                         wbcCount = value;
                       });
                     },
-                    items: [
+                    items: const [
                       '~9,000-30,000 mcL',
                       '~6,200-17,000 mcL',
                       '~5,000-10,000 mcL'
@@ -143,37 +147,33 @@ class _BasicHealthRecordTabState extends State<BasicHealthRecordTab> {
                         bloodPressure = value;
                       });
                     },
-                    items: [
+                    items: const [
                       '120/80',
                       '(120-129)/(<80)',
                       '(130-139)/(80-89)',
                       '140/90',
                       '180/120',
                     ]),
-                Container(
-                  child: RoundedButton(
-                    onPressed: () {
-                      _submit();
-                    },
-                    text: 'Update',
-                    color: Colors.lightBlue[700],
-                  ),
+                RoundedButton(
+                  onPressed: () {
+                    _submit();
+                  },
+                  text: 'Update',
+                  color: Colors.lightBlue[700],
                 ),
-                Container(
-                  child: RoundedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => QrCodeScreen(
-                              appBarTitle: 'Share Private Data',
-                              qrCodeData: 'LifeLineShare_'+Auth().getUID(),),
-                        ),
-                      );
-                    },
-                    text: 'Share',
-                    color: Colors.lightBlue[700],
-                  ),
+                RoundedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => QrCodeScreen(
+                            appBarTitle: 'Share Private Data',
+                            qrCodeData: 'MedicalRecordShare_${Auth().getUID()}',),
+                      ),
+                    );
+                  },
+                  text: 'Share',
+                  color: Colors.lightBlue[700],
                 ),
               ],
             ),
