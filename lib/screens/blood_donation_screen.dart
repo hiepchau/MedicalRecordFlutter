@@ -28,7 +28,7 @@ class _BloodDonationScreenState extends State<BloodDonationScreen> {
                 child: Container(
                   height: 40.0,
                   child: Image.asset(
-                    'assets/images/lifeline_logo.png',
+                    'assets/images/medical_logo.png',
                   ),
                 ),
               ),
@@ -41,7 +41,7 @@ class _BloodDonationScreenState extends State<BloodDonationScreen> {
           backgroundColor: Colors.white,
           shadowColor: Colors.black54,
           bottom: TabBar(
-            indicatorColor: Colors.green,
+            indicatorColor: Colors.lightBlue,
             tabs: [
               Tab(
                 child: Text(

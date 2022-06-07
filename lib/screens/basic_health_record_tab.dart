@@ -30,7 +30,7 @@ class _BasicHealthRecordTabState extends State<BasicHealthRecordTab> {
     setState(() {
       height.text = latestRecord.height;
       weight.text = latestRecord.weight;
-      sugarLevel = latestRecord.sugerLevel;
+      sugarLevel = latestRecord.sugarLevel;
       rbcCount = latestRecord.rbc;
       wbcCount = latestRecord.wbc;
       bloodPressure = latestRecord.bp;
@@ -48,13 +48,12 @@ class _BasicHealthRecordTabState extends State<BasicHealthRecordTab> {
     basicRecord _record = new basicRecord(
       height: _height,
       weight: _weight,
-      sugerLevel: _sugerLevel,
+      sugarLevel: _sugerLevel,
       bp: _bloodPressure,
       rbc: _rbcCount,
       wbc: _wbcCount,
       count: _count,
     );
-    print(_record.toMap());
     ehrDatabase.createRecord(_record);
   }
 
@@ -157,7 +156,7 @@ class _BasicHealthRecordTabState extends State<BasicHealthRecordTab> {
                       _submit();
                     },
                     text: 'Update',
-                    color: Colors.green[700],
+                    color: Colors.lightBlue[700],
                   ),
                 ),
                 Container(
@@ -173,7 +172,7 @@ class _BasicHealthRecordTabState extends State<BasicHealthRecordTab> {
                       );
                     },
                     text: 'Share',
-                    color: Colors.green[700],
+                    color: Colors.lightBlue[700],
                   ),
                 ),
               ],
