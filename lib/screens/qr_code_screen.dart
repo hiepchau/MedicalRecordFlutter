@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -5,10 +7,10 @@ class QrCodeScreen extends StatefulWidget {
   final String appBarTitle;
   final qrCodeData;
 
-  QrCodeScreen({
+  const QrCodeScreen({Key key, 
     @required this.appBarTitle,
     @required this.qrCodeData,
-  });
+  }) : super(key: key);
 
   @override
   _QrCodeScreenState createState() => _QrCodeScreenState();
@@ -24,7 +26,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
           children: [
             Hero(
               tag: 'logo',
-              child: Container(
+              child: SizedBox(
                 height: 40.0,
                 child: Image.asset(
                   'assets/images/medical_logo.png',
@@ -32,8 +34,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
               ),
             ),
             Text(
-              this.widget.appBarTitle,
-              style: TextStyle(
+              widget.appBarTitle,
+              style: const TextStyle(
                 color: Colors.black,
                 fontFamily: 'Nexa Bold',
                 fontSize: 24,
@@ -47,10 +49,10 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
       body: Container(
         color: Colors.lightBlue[50],
         child: Padding(
-          padding: EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
           child: Center(
             child: QrImage(
-              data: this.widget.qrCodeData,
+              data: widget.qrCodeData,
               errorCorrectionLevel: QrErrorCorrectLevel.M,
               gapless: true,
               foregroundColor: Colors.black,

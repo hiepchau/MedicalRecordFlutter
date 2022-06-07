@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/rounded_button.dart';
@@ -6,6 +8,8 @@ import 'package:medicalrecordapp/screens/user_registration_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static String id = 'welcome';
+
+  const WelcomeScreen({Key key}) : super(key: key);
 
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
@@ -17,7 +21,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -30,10 +34,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       flex: 2,
                       child: Hero(
                         tag: 'logo',
-                        child: Container(
-                          child: Image.asset(
-                            'assets/images/medical_logo.png',
-                          ),
+                        child: Image.asset(
+                          'assets/images/medical_logo.png',
                         ),
                       ),
                     ),
@@ -46,18 +48,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           AnimatedTextKit(
                             animatedTexts: [
                               TypewriterAnimatedText('Medical Record',
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                               fontSize: 50.0,
                               fontFamily: 'Nexa Bold',
                               fontWeight: FontWeight.w900,
                               color: Colors.black,
                             ),
-                            speed: Duration(
+                            speed: const Duration(
                               milliseconds: 200,
                               )
                            ),
                         ]),
-                          Text(
+                          const Text(
                             'Electronic Health Record',
                             style: TextStyle(
                               fontSize: 20.0,
@@ -70,7 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 48.0,
                 ),
                 RoundedButton(

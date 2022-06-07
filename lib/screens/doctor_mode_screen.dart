@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/custom_text_field.dart';
 import 'package:medicalrecordapp/components/rounded_button.dart';
@@ -11,6 +13,8 @@ import 'package:toast/toast.dart';
 class DoctorModeScreen extends StatefulWidget {
   static String id = 'doctor_mode';
 
+  const DoctorModeScreen({Key key}) : super(key: key);
+
   @override
   _DoctorModeScreenState createState() => _DoctorModeScreenState();
 }
@@ -19,7 +23,7 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
   final database = Database(uid: Auth().getUID());
   bool loadingIndicator = false;
   bool verify = false;
-  TextEditingController doctorIdController = new TextEditingController();
+  TextEditingController doctorIdController = TextEditingController();
   Future<void> verifyDoctor(String id) async {
     final _verify = await database.verifyDoctor(id);
     setState(() {
@@ -49,14 +53,14 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
           children: [
             Hero(
               tag: 'logo',
-              child: Container(
+              child: SizedBox(
                 height: 40.0,
                 child: Image.asset(
                   'assets/images/medical_logo.png',
                 ),
               ),
             ),
-            Text(
+            const Text(
               'Doctor Mode',
               style: TextStyle(
                 color: Colors.black,
@@ -75,7 +79,7 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
         progressIndicator: kWaveLoadingIndicator,
         inAsyncCall: loadingIndicator,
         child: Padding(
-          padding: EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(12.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -88,7 +92,7 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Center(
@@ -99,7 +103,7 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               CustomTextField(
@@ -122,7 +126,9 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
                     if(verify){
                       Navigator.pushNamed(context, DoctorDashboardScreen.id);
                     }
-                    else showMessage('Doctor does not exist');
+                    else {
+                      showMessage('Doctor does not exist');
+                    }
                     setState(() {
                       loadingIndicator = false;
                     });                   

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/custom_dropdown_menu.dart';
@@ -56,7 +58,7 @@ class DonorListTabState extends State<DonorListTab> {
           children: [
             CustomDropdownMenu(
               label: "Blood Group",
-              items: [
+              items: const [
                 'A+',
                 'A-',
                 'B+',
@@ -113,7 +115,7 @@ class DonorListTabState extends State<DonorListTab> {
 
 class DynamicList extends StatefulWidget {
   final List<Donor> donorList;
-  DynamicList({this.donorList});
+  const DynamicList({Key key, this.donorList}) : super(key: key);
   @override
   _DynamicListState createState() => _DynamicListState();
 }
@@ -122,9 +124,9 @@ class _DynamicListState extends State<DynamicList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: this.widget.donorList.length,
+        itemCount: widget.donorList.length,
         itemBuilder: (context, index) {
-          return DonorInfoCard(donor: this.widget.donorList[index]);
+          return DonorInfoCard(donor: widget.donorList[index]);
         });
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, curly_braces_in_flow_control_structures
+
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/custom_text_field.dart';
 import 'package:medicalrecordapp/components/rounded_button.dart';
@@ -12,13 +14,15 @@ import '../models/auth_user.dart';
 class UserLoginScreen extends StatefulWidget {
   static String id = 'user_login';
 
+  const UserLoginScreen({Key key}) : super(key: key);
+
   @override
   _UserLoginScreenState createState() => _UserLoginScreenState();
 }
 
 class _UserLoginScreenState extends State<UserLoginScreen> {
-  TextEditingController email = new TextEditingController();
-  TextEditingController password = new TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   bool loadingIndicator = false;
 
@@ -43,35 +47,35 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(12.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Hero(
                     tag: 'logo',
-                    child: Container(
+                    child: SizedBox(
                       height: 200.0,
                       child: Image.asset(
                         'assets/images/medical_logo.png',
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 48.0,
                   ),
                   CustomTextField(
                     label: 'E-mail',
                     hint: 'johndoe@gmail.com',
                     keyboardType: TextInputType.emailAddress,
-                    controller: this.email,
+                    controller: email,
                   ),
                   CustomTextField(
                     label: 'Password',
                     hint: 'Type your password',
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
-                    controller: this.password,
+                    controller: password,
                   ),
                   RoundedButton(
                     text: 'Log In',
@@ -81,7 +85,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                         loadingIndicator = true;
                       });
                       final user = await Auth()
-                          .signIn(this.email.text, this.password.text);
+                          .signIn(email.text, password.text);
                       if (user.runtimeType == String) {
                         showMessage(user);}
                       else if (user.runtimeType == AppUser)

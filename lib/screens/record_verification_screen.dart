@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,6 +17,8 @@ import 'package:toast/toast.dart';
 class RecordVerificationScreen extends StatefulWidget {
   static String id = 'record_verification';
 
+  const RecordVerificationScreen({Key key}) : super(key: key);
+
   @override
   _RecordVerificationScreenState createState() =>
       _RecordVerificationScreenState();
@@ -25,8 +29,8 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
   String qrCodeResult;
   List<String> qrData;
   String qrCodeType;
-  String diagnosisID; // contained fetched diagnosis ID after scanning
-  String uID; // contained fetched UID after scanning
+  String diagnosisID; 
+  String uID; 
 
   Diagnosis qrDiagnosis;
   Donor qrDonor;
@@ -37,7 +41,7 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
   Future<void> cardData(String _uid, String _recordID) async {
     final _profile = await database.getData(_uid);
     final _diagnosis = await database.getRecord(_uid, _recordID);
-    final _qrDonor = new Donor(
+    final _qrDonor = Donor(
       name: _profile.name,
       contact: _profile.contact,
       location: _profile.location,
@@ -58,11 +62,11 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
       return Padding(
         padding: const EdgeInsets.all(12.0),
         child: Container(
-          padding: EdgeInsets.all(24),
-          margin: EdgeInsets.fromLTRB(12, 12, 12, 12),
+          padding: const EdgeInsets.all(24),
+          margin: const EdgeInsets.fromLTRB(12, 12, 12, 12),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(10),
               topRight: Radius.circular(10),
               bottomLeft: Radius.circular(10),
@@ -73,7 +77,7 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 5,
                 blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
+                offset: const Offset(0, 3), // changes position of shadow
               ),
             ],
           ),
@@ -106,9 +110,9 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
 
   Widget getVerifyButton() {
     if (qrDiagnosis == null) {
-      return SizedBox(height: 1);
+      return const SizedBox(height: 1);
     } else if(qrDiagnosis.verified == true) {
-  return SizedBox(height: 1);
+  return const SizedBox(height: 1);
       }else {
       return Padding(
         padding: const EdgeInsets.all(12.0),
@@ -141,14 +145,14 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
           children: [
             Hero(
               tag: 'logo',
-              child: Container(
+              child: SizedBox(
                 height: 40.0,
                 child: Image.asset(
                   'assets/images/medical_logo.png',
                 ),
               ),
             ),
-            Text(
+            const Text(
               'Record Verification',
               style: TextStyle(
                 color: Colors.black,
@@ -194,7 +198,7 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
                     qrCodeType = qrData[0];
 
                     if (qrCodeType != null) {
-                      if (qrCodeType == 'LIFELINEDIAGNOSIS') {
+                      if (qrCodeType == 'MEDICALRECORDDIAGNOSIS') {
                         diagnosisID = qrData[1];
                         uID = qrData[2];
                         setState(() {
@@ -204,8 +208,12 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
                         setState(() {
                           loadingIndicator = false;
                         });
-                      } else showMessage('The QR is not valid');
-                    } else showMessage('The QR is not valid');
+                      } else {
+                        showMessage('The QR is not valid');
+                      }
+                    } else {
+                      showMessage('The QR is not valid');
+                    }
                   }
                   },
                 ),
@@ -218,8 +226,9 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
                   onPressed: () async {
                     
                     XFile image = await imagePicker.pickImage(source: ImageSource.gallery);
-                    if(image==null) showMessage('You did not choose a QR!');
-                    else {
+                    if(image==null) {
+                      showMessage('You did not choose a QR!');
+                    } else {
                       String codeScanner = await Scan.parse(image.path);
                       if(codeScanner==null){
                         showMessage('The QR is not valid');
@@ -233,7 +242,7 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
                       qrCodeType = qrData[0];
 
                       if (qrCodeType != null) {
-                        if (qrCodeType == 'LIFELINEDIAGNOSIS') {
+                        if (qrCodeType == 'MEDICALRECORDDIAGNOSIS') {
                           diagnosisID = qrData[1];
                           uID = qrData[2];
                           setState(() {

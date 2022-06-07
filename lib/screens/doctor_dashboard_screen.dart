@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/grid_card.dart';
 import 'package:medicalrecordapp/screens/check_record_screen.dart';
@@ -8,6 +10,8 @@ import 'package:medicalrecordapp/screens/check_EHR_screen.dart';
 
 class DoctorDashboardScreen extends StatefulWidget {
   static String id = 'doctor_dashboard';
+
+  const DoctorDashboardScreen({Key key}) : super(key: key);
   @override
   _DoctorDashboardScreenState createState() => _DoctorDashboardScreenState();
 }
@@ -38,14 +42,14 @@ class _DoctorDashboardScreenState extends State<DoctorDashboardScreen> {
           children: [
             Hero(
               tag: 'logo',
-              child: Container(
+              child: SizedBox(
                 height: 40.0,
                 child: Image.asset(
                   'assets/images/medical_logo.png',
                 ),
               ),
             ),
-            Text(
+            const Text(
               'Doctor\'s Dashboard',
               style: TextStyle(
                 color: Colors.black,
@@ -59,39 +63,39 @@ class _DoctorDashboardScreenState extends State<DoctorDashboardScreen> {
         shadowColor: Colors.black54,
       ),
       body: Padding(
-        padding: EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(12.0),
         child: ListView(
           children: [
             Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
-                Text(
+                const Text(
                   'Welcome,',
                   style: TextStyle(
                     fontSize: 30,
                     fontFamily: 'Nexa',
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
                   this.name,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 40,
                     fontFamily: 'Nexa Bold',
                   ),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 40.0,
             ),
             GridView.count(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               crossAxisCount: 2,
               crossAxisSpacing: 10,

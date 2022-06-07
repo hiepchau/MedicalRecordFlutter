@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, unrelated_type_equality_checks
+
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -11,6 +13,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class DonorMapTab extends StatefulWidget {
+  const DonorMapTab({Key key}) : super(key: key);
+
   @override
   _DonorMapTabState createState() => _DonorMapTabState();
 }
@@ -35,7 +39,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
 
   List<Donor> list = [];
 
-  Completer _controller = Completer();
+  final Completer _controller = Completer();
   Map<MarkerId, Marker> markers = {};
   List listMarkerIds = [];
   static LatLng initpos;
@@ -111,8 +115,8 @@ class _DonorMapTabState extends State<DonorMapTab> {
   }
 
   Widget map() {
-    if(loadingIndicator==false)
-    return  Scaffold(
+    if(loadingIndicator==false) {
+      return  Scaffold(
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
           target: initpos,
@@ -124,7 +128,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
         onMapCreated: (GoogleMapController controler) {
           _controller.complete(controler);
 
-          MarkerId selfid = MarkerId("me");
+          MarkerId selfid = const MarkerId("me");
           listMarkerIds.add(selfid);
 
           Marker self = Marker(
@@ -160,9 +164,9 @@ class _DonorMapTabState extends State<DonorMapTab> {
                       var bottomSheetController =
                           Scaffold.of(scaffoldKey.currentContext)
                               .showBottomSheet((context) => Container(
-                                    child: getBottomSheet(list[i]),
                                     height: 250,
                                     color: Colors.transparent,
+                                    child: getBottomSheet(list[i]),
                                   ));
                     },
                     snippet: list[i].blood));
@@ -174,14 +178,15 @@ class _DonorMapTabState extends State<DonorMapTab> {
           //});
         },
       ),
-    );  
-    else 
+    );
+    } else {
       return ModalProgressHUD(
         inAsyncCall: loadingIndicator,
         color: Colors.white,
         opacity: 0.9,
         progressIndicator: kWaveLoadingIndicator,
         child: Container());
+    }
     
   }
 
@@ -190,7 +195,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
     return Stack(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 32),
+          margin: const EdgeInsets.only(top: 32),
           color: Colors.white,
           child: Column(
             children: [
@@ -206,68 +211,66 @@ class _DonorMapTabState extends State<DonorMapTab> {
                     children: [
                       Text(
                         donor.name,
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        style: const TextStyle(color: Colors.white, fontSize: 14),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Row(
                         children: [
                           Text(donor.blood,
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 12)),
-                          Icon(
+                                  const TextStyle(color: Colors.white, fontSize: 12)),
+                          const Icon(
                             Icons.star,
                             color: Colors.yellow,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 20,
                           ),
                           Text(donor.location,
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 14))
+                                  const TextStyle(color: Colors.white, fontSize: 14))
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                     ],
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
-                  Icon(
+                  const Icon(
                     Icons.map,
                     color: Colors.lightBlue,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
-                  Text((donor.latitute).toString() +
-                      "," +
-                      (donor.longitude).toString())
+                  Text("${donor.latitute},${donor.longitude}")
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
-                  Icon(
+                  const Icon(
                     Icons.call,
                     color: Colors.lightBlue,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Text(donor.contact)
@@ -281,7 +284,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
           child: Align(
             alignment: Alignment.topRight,
             child: FloatingActionButton(
-                child: Icon(Icons.navigation), onPressed: () {}),
+                child: const Icon(Icons.navigation), onPressed: () {}),
           ),
         )
       ],

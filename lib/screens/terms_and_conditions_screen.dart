@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -7,6 +9,8 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 class TermsAndConditionsScreen extends StatefulWidget {
   static String id = 'terms_and_conditions';
+
+  const TermsAndConditionsScreen({Key key}) : super(key: key);
   @override
   _TermsAndConditionsScreenState createState() =>
       _TermsAndConditionsScreenState();
@@ -22,7 +26,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
           leadingWidth: 0,
           title: Row(
             children: [
-              Container(
+              SizedBox(
                 height: 40.0,
                 child: Image.asset(
                   'assets/images/medical_logo.png',
@@ -44,11 +48,11 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
           shadowColor: Colors.black54,
         ),
         body: SingleChildScrollView(
-          child: Container(
+          child: SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: Padding(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[

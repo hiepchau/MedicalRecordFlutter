@@ -1,7 +1,7 @@
+// ignore_for_file: library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:medicalrecordapp/constants.dart';
@@ -11,12 +11,14 @@ import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:medicalrecordapp/services/database.dart';
 
 class DonorProfileTab extends StatefulWidget {
+  const DonorProfileTab({Key key}) : super(key: key);
+
   @override
   _State createState() => _State();
 }
 
 class _State extends State<DonorProfileTab> {
-  ProfileData profile= new ProfileData(contact: "", blood: "", name: "", age: "", dob: Timestamp.now(), gender: "", govtID: "");
+  ProfileData profile= ProfileData(contact: "", blood: "", name: "", age: "", dob: Timestamp.now(), gender: "", govtID: "");
   int fetch = 0;
   bool donorStatus = true;
   Position position;
@@ -60,27 +62,25 @@ class _State extends State<DonorProfileTab> {
     else if(profile.name==""){
       donorStatus=false;
       child = Scaffold(
-          body: Container(
-              child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children:[
-                Center(
-                child: Text(
-                  'Your profile is not exist!',
-                  style: kTextStyle,
-                  textAlign: TextAlign.center,
-                )
-                ),
-                Center(
-                child: Text(
-                  'Please complete your profile',
-                  style: kTextStyle,
-                  textAlign: TextAlign.center,
-                )
-                )
-              ],
-          ),         
+          body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children:const [
+            Center(
+            child: Text(
+              'Your profile is not exist!',
+              style: kTextStyle,
+              textAlign: TextAlign.center,
+            )
+            ),
+            Center(
+            child: Text(
+              'Please complete your profile',
+              style: kTextStyle,
+              textAlign: TextAlign.center,
+            )
+            )
+          ],
           ),
       );
     }
@@ -103,7 +103,7 @@ class _State extends State<DonorProfileTab> {
           title: 'Current Location',
           description: profile.location,
         ),
-        ListInfoCard(
+        const ListInfoCard(
           title: 'Last Donation',
           description: 'November 23, 2020',
         ),
@@ -139,6 +139,6 @@ class _State extends State<DonorProfileTab> {
       ],
     );     
     }  
-    return new Container(child: child);
+    return Container(child: child);
   }
 }
