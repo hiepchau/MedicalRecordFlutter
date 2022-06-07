@@ -4,7 +4,7 @@ import 'package:medicalrecordapp/models/diagnosis.dart';
 
 class VerifiableDiagnosisCardList extends StatefulWidget {
   final List<Diagnosis> diagnosisList;
-  VerifiableDiagnosisCardList({this.diagnosisList});
+  const VerifiableDiagnosisCardList({Key key, this.diagnosisList}) : super(key: key);
   @override
   _VerifiableDiagnosisCardListState createState() =>
       _VerifiableDiagnosisCardListState();
@@ -15,10 +15,10 @@ class _VerifiableDiagnosisCardListState
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: this.widget.diagnosisList.length,
+        itemCount: widget.diagnosisList.length,
         itemBuilder: (context, index) {
           return VerifiableDiagnosisCard(
-              diagnosis: this.widget.diagnosisList[index]);
+              diagnosis: widget.diagnosisList[index]);
         });
   }
 }

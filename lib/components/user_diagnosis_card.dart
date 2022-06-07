@@ -7,19 +7,19 @@ class UserDiagnosisCard extends StatelessWidget {
   final Donor targetUser;
   final Diagnosis targetDiagnosis;
 
-  UserDiagnosisCard({
+  const UserDiagnosisCard({Key key, 
     this.targetUser,
     this.targetDiagnosis,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(24),
-      margin: EdgeInsets.fromLTRB(12, 12, 12, 12),
+      padding: const EdgeInsets.all(24),
+      margin: const EdgeInsets.fromLTRB(12, 12, 12, 12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10),
           topRight: Radius.circular(10),
           bottomLeft: Radius.circular(10),
@@ -30,7 +30,7 @@ class UserDiagnosisCard extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 5,
             blurRadius: 7,
-            offset: Offset(0, 3), // changes position of shadow
+            offset: const Offset(0, 3), // changes position of shadow
           ),
         ],
       ),
@@ -41,10 +41,10 @@ class UserDiagnosisCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              this.targetUser.name + '\'s Diagnosis',
+              '${targetUser.name}\'s Diagnosis',
               style: kTextStyle.copyWith(
                 fontSize: 28,
-                color: Colors.green[900],
+                color: Colors.lightBlue[900],
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -52,7 +52,7 @@ class UserDiagnosisCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Name: ' + this.targetUser.name,
+              'Name: ${targetUser.name}',
               style: kTextStyle.copyWith(
                 fontSize: 20,
               ),
@@ -61,7 +61,7 @@ class UserDiagnosisCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Blood Group: ' + this.targetUser.blood,
+              'Blood Group: ${targetUser.blood}',
               style: kTextStyle.copyWith(
                 fontSize: 20,
               ),
@@ -70,7 +70,7 @@ class UserDiagnosisCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Contact: ' + this.targetUser.contact,
+              'Contact: ${targetUser.contact}',
               style: kTextStyle.copyWith(
                 fontSize: 20,
               ),
@@ -79,7 +79,7 @@ class UserDiagnosisCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Location: ' + this.targetUser.location,
+              'Location: ${targetUser.location}',
               style: kTextStyle.copyWith(
                 fontSize: 20,
               ),
@@ -88,7 +88,7 @@ class UserDiagnosisCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Problem Type: ' + this.targetDiagnosis.type,
+              'Problem Type: ${targetDiagnosis.type}',
               style: kTextStyle.copyWith(
                 fontSize: 20,
               ),
@@ -97,7 +97,7 @@ class UserDiagnosisCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Description: ' + this.targetDiagnosis.problem,
+              'Description: ${targetDiagnosis.problem}',
               style: kTextStyle.copyWith(
                 fontSize: 20,
               ),
@@ -106,7 +106,7 @@ class UserDiagnosisCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Date: ' + this.targetDiagnosis.date,
+              'Date: ${targetDiagnosis.date}',
               style: kTextStyle.copyWith(
                 fontSize: 20,
               ),

@@ -4,7 +4,7 @@ import 'package:medicalrecordapp/models/diagnosis.dart';
 
 class DiagnosisCardList extends StatefulWidget {
   final List<Diagnosis> diagnosisList;
-  DiagnosisCardList({this.diagnosisList});
+  const DiagnosisCardList({Key key, this.diagnosisList}) : super(key: key);
   @override
   _DiagnosisCardListState createState() => _DiagnosisCardListState();
 }
@@ -13,9 +13,9 @@ class _DiagnosisCardListState extends State<DiagnosisCardList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: this.widget.diagnosisList.length,
+        itemCount: widget.diagnosisList.length,
         itemBuilder: (context, index) {
-          return DiagnosisCard(diagnosis: this.widget.diagnosisList[index]);
+          return DiagnosisCard(diagnosis: widget.diagnosisList[index]);
         });
   }
 }

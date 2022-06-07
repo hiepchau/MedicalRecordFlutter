@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/custom_dropdown_menu.dart';
 import 'package:medicalrecordapp/components/custom_text_field.dart';
@@ -10,9 +12,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 class AlertDialogForm extends StatefulWidget {
   final BuildContext context;
 
-  AlertDialogForm({
-    @required this.context,
-  });
+  const AlertDialogForm({Key key, @required this.context}) : super(key: key);
 
   @override
   _AlertDialogFormState createState() => _AlertDialogFormState();
@@ -22,9 +22,9 @@ class _AlertDialogFormState extends State<AlertDialogForm> {
   bool loadingIndicator = false;
   bool active = true;
   String type = '';
-  TextEditingController problemController = new TextEditingController();
-  TextEditingController dateController = new TextEditingController();
-  final ehrDatabase = new EHR(uid: Auth().getUID());
+  TextEditingController problemController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  final ehrDatabase = EHR(uid: Auth().getUID());
 
   Future<void> _submit() async {
     final _date = dateController.text;
@@ -33,7 +33,7 @@ class _AlertDialogFormState extends State<AlertDialogForm> {
     final _verified = false;
     final _verifiedBy = "";
 
-    Diagnosis _diagnosis = new Diagnosis(
+    Diagnosis _diagnosis = Diagnosis(
       date: _date,
       problem: _problem,
       type: _type,
@@ -51,7 +51,7 @@ class _AlertDialogFormState extends State<AlertDialogForm> {
       progressIndicator: kWaveLoadingIndicator,
       inAsyncCall: loadingIndicator,
       child: AlertDialog(
-        contentPadding: EdgeInsets.all(6),
+        contentPadding: const EdgeInsets.all(6),
         title: Text(
           'New Diagnosis',
           style: kTextStyle.copyWith(
@@ -66,7 +66,7 @@ class _AlertDialogFormState extends State<AlertDialogForm> {
             children: [
               CustomDropdownMenu(
                 label: 'Type',
-                items: [
+                items: const [
                   'Disease',
                   'Accident',
                 ],
@@ -96,7 +96,6 @@ class _AlertDialogFormState extends State<AlertDialogForm> {
             onPressed: () async {
               active = false;
               FocusScope.of(context).unfocus();
-              print("Before");
               setState(() {
                 loadingIndicator = true;
               });
@@ -104,14 +103,13 @@ class _AlertDialogFormState extends State<AlertDialogForm> {
               setState(() {
                 loadingIndicator = false;
               });
-              print("After");
               setState(() {});
               Navigator.pop(context);
               Navigator.pop(context);
             },
             child: Text(
               'Submit',
-              style: kTextStyle.copyWith(color: Colors.green, fontSize: 18),
+              style: kTextStyle.copyWith(color: Colors.red, fontSize: 18),
             ),
           ),
         ],

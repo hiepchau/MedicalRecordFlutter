@@ -13,7 +13,6 @@ class Loc {
     return {
       "Latitute": lat,
       "Longitude": long,
-      //"Latitude": lat,
     };
   }
 }
@@ -26,11 +25,12 @@ class Database {
   Future<void> _setData({String path, Map<String, dynamic> data}) async {
     final reference = FirebaseFirestore.instance.doc(path);
     var snapshot =
-    await FirebaseFirestore.instance.collection('profile').doc(uid).get();
-    if (snapshot.exists)
+        await FirebaseFirestore.instance.collection('profile').doc(uid).get();
+    if (snapshot.exists) {
       reference.update(data);
-    else
+    } else {
       reference.set(data);
+    }
   }
 
   Future<void> createProfile(ProfileData profile) async {
@@ -43,8 +43,8 @@ class Database {
 
   Future<ProfileData> getData(String uid) async {
     var snapshot =
-    await FirebaseFirestore.instance.collection('profile').doc(uid).get();
-    if (snapshot.exists)
+        await FirebaseFirestore.instance.collection('profile').doc(uid).get();
+    if (snapshot.exists) {
       return ProfileData(
         name: snapshot.data()['Name'] ?? '',
         age: snapshot.data()['Age'] ?? '',
@@ -59,7 +59,7 @@ class Database {
         donorStatus: snapshot.data()['Donor Status'],
         lastDonation: snapshot.data()['Last Donation'],
       );
-    else
+    } else {
       return ProfileData(
           contact: '',
           blood: '',
@@ -68,24 +68,25 @@ class Database {
           dob: Timestamp.now(),
           gender: '',
           govtID: '');
+    }
   }
 
   Future<String> getName() async {
     var snapshot =
-    await FirebaseFirestore.instance.collection('profile').doc(uid).get();
-    if (snapshot.exists)
+        await FirebaseFirestore.instance.collection('profile').doc(uid).get();
+    if (snapshot.exists) {
       return snapshot.data()['Name'];
-    else {
+    } else {
       return "Complete your profile";
     }
   }
 
   Future<String> getGovtID() async {
     var snapshot =
-    await FirebaseFirestore.instance.collection('profile').doc(uid).get();
-    if (snapshot.exists)
+        await FirebaseFirestore.instance.collection('profile').doc(uid).get();
+    if (snapshot.exists) {
       return snapshot.data()['Govt ID'];
-    else {
+    } else {
       return '';
     }
   }
@@ -93,17 +94,15 @@ class Database {
   Future<void> updateDonorStatus(bool donorStatus) async {
     return users
         .doc(uid)
-        .update({'Donor Status': donorStatus})
-        .then((value) => print("Status updated"))
-        .catchError((error) => print("Failed to update user: $error"));
+        .update({'Donor Status': donorStatus});
   }
 
   Future<bool> getStatus() async {
     var snapshot =
-    await FirebaseFirestore.instance.collection('profile').doc(uid).get();
-    if (snapshot.exists)
+        await FirebaseFirestore.instance.collection('profile').doc(uid).get();
+    if (snapshot.exists) {
       return snapshot.data()['Donor Status'];
-    else {
+    } else {
       return false;
     }
   }
@@ -143,24 +142,36 @@ class Database {
 
   //Future<QuerySnapshot>
   Future<bool> verifyDoctor(String doctorID) async {
-    final _govtID = await getGovtID();
+    final govtID = await getGovtID();
     var snapshot = await FirebaseFirestore.instance
         .collection('doctor')
         .doc(doctorID)
         .get();
-    final _fetchedID = await snapshot.data()['Govt ID'];
-    if (_govtID == _fetchedID)
-      return true;
-    else
+    if(snapshot.exists==false){
       return false;
+    }
+    String fetchedID = await snapshot.data()['Govt ID'];
+    if (govtID == fetchedID) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  Future<Diagnosis> getRecord(String _uid, String _recordID) async {
+  Future<void> addDoctor(String doctorID) async {
+    final govtID = await getGovtID();
+    final doctordoc = Doctor(uid: doctorID, govtID: govtID);
+    final ref = FirebaseFirestore.instance.collection('doctor');
+    return ref.doc(doctorID).set(doctordoc.toMap());                
+  }
+
+
+  Future<Diagnosis> getRecord(String uid, String recordID) async {
     var snapshot = await FirebaseFirestore.instance
         .collection('health_record')
-        .doc(_uid)
+        .doc(uid)
         .collection('history')
-        .doc(_recordID)
+        .doc(recordID)
         .get();
 
     return Diagnosis(
@@ -171,33 +182,31 @@ class Database {
     );
   }
 
-  Future<void> updateRecord(String _uid, String _id) async {
-    final dummy = await FirebaseFirestore.instance
+  Future<void> updateRecord(String uid, String id) async {
+    final dummy = FirebaseFirestore.instance
         .collection('health_record')
-        .doc(_uid)
+        .doc(uid)
         .collection('history')
-        .doc(_id);
-    String _name = await getName();
+        .doc(id);
+    String name = await getName();
     return dummy
-        .update({'Varified': true, 'VerifiedBy': 'Dr. ' + _name})
-        .then((value) => print("Status updated"))
-        .catchError((error) => print("Failed to update user: $error"));
+        .update({'Verified': true, 'VerifiedBy': 'Dr. $name'});
   }
 
   //Future<QuerySnapshot>
   Future<QuerySnapshot> bloodDonorList(String blood) async {
     return await FirebaseFirestore.instance
         .collection('profile')
-    //.where('Blood Group', isEqualTo: blood)
+        .where('Blood Group', isEqualTo: blood)
         .where('Donor Status', isEqualTo: true)
         .where('Latitute', isNotEqualTo: null)
         .where('Longitude', isNotEqualTo: null)
         .get();
   }
 
-  Future<DocumentSnapshot> getLoc() async {
+  Future<Loc> getLoc() async {
     var snapshot =
-    await FirebaseFirestore.instance.collection('profile').doc(uid).get();
-    return snapshot;
+        await FirebaseFirestore.instance.collection('profile').doc(uid).get();
+    return Loc(lat: snapshot.data()["Latitute"], long: snapshot.data()["Longitude"]);
   }
 }

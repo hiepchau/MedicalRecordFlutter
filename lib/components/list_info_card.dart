@@ -6,12 +6,12 @@ class ListInfoCard extends StatelessWidget {
   final String description;
   final Function onTap;
 
-  ListInfoCard({this.title, this.description, this.onTap});
+  const ListInfoCard({Key key, this.title, this.description, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: this.onTap,
+      onTap: onTap,
       child: Card(
         child: ListTile(
           title: Row(
@@ -19,7 +19,7 @@ class ListInfoCard extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: Text(
-                  this.title,
+                  title,
                   style: kTextStyle.copyWith(
                     fontSize: 18,
                   ),
@@ -28,7 +28,7 @@ class ListInfoCard extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Text(
-                  this.description,
+                  description,
                   style: kTextStyle.copyWith(
                     fontFamily: 'Nexa',
                     fontSize: 18,

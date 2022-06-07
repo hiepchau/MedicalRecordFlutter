@@ -3,13 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:medicalrecordapp/constants.dart';
 import 'package:medicalrecordapp/models/blood_donor.dart';
 import 'package:toast/toast.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class DonorInfoCard extends StatelessWidget {
   final Donor donor;
 
-  DonorInfoCard({this.donor});
+  const DonorInfoCard({Key key, this.donor}) : super(key: key);
 
   callNumber(BuildContext context, String number) async {
     ToastContext().init(context);
@@ -30,7 +29,7 @@ class DonorInfoCard extends StatelessWidget {
     ToastContext().init(context);
     return GestureDetector(
       onTap: () {
-        Clipboard.setData(ClipboardData(text: this.donor.contact));
+        Clipboard.setData(ClipboardData(text: donor.contact));
         Toast.show(
           'Contact number copied.',
           duration: Toast.lengthShort,
@@ -38,11 +37,11 @@ class DonorInfoCard extends StatelessWidget {
         );
       },
       child: Container(
-        padding: EdgeInsets.all(24),
-        margin: EdgeInsets.fromLTRB(12, 12, 12, 12),
+        padding: const EdgeInsets.all(24),
+        margin: const EdgeInsets.fromLTRB(12, 12, 12, 12),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(10),
               topRight: Radius.circular(10),
               bottomLeft: Radius.circular(10),
@@ -52,7 +51,7 @@ class DonorInfoCard extends StatelessWidget {
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: Offset(0, 3), // changes position of shadow
+              offset: const Offset(0, 3), 
             ),
           ],
         ),
@@ -65,27 +64,27 @@ class DonorInfoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Text(
-                    this.donor.blood,
+                    donor.blood,
                     style: kTextStyle.copyWith(
                       fontSize: 56,
-                      color: Colors.green[900],
+                      color: Colors.lightBlue[900],
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    this.donor.name,
+                    donor.name,
                     style: kTextStyle.copyWith(
                       fontSize: 18,
                     ),
                   ),
                   Text(
-                    this.donor.contact,
+                    donor.contact,
                     style: kTextStyle.copyWith(
                       fontSize: 18,
                     ),
                   ),
                   Text(
-                    this.donor.location,
+                    donor.location,
                     style: kTextStyle.copyWith(
                       fontSize: 18,
                     ),
@@ -99,13 +98,13 @@ class DonorInfoCard extends StatelessWidget {
                 onPressed: () {
                   callNumber(
                     context,
-                    this.donor.contact,
+                    donor.contact,
                   );
                 },
                 icon: Icon(
                   Icons.phone,
                   size: 30,
-                  color: Colors.green[900],
+                  color: Colors.lightBlue[900],
                 ),
               ),
             )

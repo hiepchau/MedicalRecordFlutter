@@ -6,9 +6,9 @@ import 'package:medicalrecordapp/services/authenticate.dart';
 class LogOutAlertDialog extends StatelessWidget {
   final BuildContext context;
 
-  LogOutAlertDialog({
+  const LogOutAlertDialog({Key key, 
     @required this.context,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +33,14 @@ class LogOutAlertDialog extends StatelessWidget {
           },
           child: Text(
             'Yes',
-            style: kTextStyle.copyWith(color: Colors.green, fontSize: 18),
+            style: kTextStyle.copyWith(color: Colors.lightBlue, fontSize: 18),
           ),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(
             'No',
-            style: kTextStyle.copyWith(color: Colors.green, fontSize: 18),
+            style: kTextStyle.copyWith(color: Colors.lightBlue, fontSize: 18),
           ),
         ),
       ],

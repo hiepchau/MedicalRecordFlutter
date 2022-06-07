@@ -8,13 +8,13 @@ class CustomTextField extends StatefulWidget {
   final TextInputType keyboardType;
   final obscureText;
 
-  CustomTextField({
+  const CustomTextField({Key key, 
     @required this.label,
     @required this.hint,
     @required this.controller,
     @required this.keyboardType,
     this.obscureText,
-  });
+  }) : super(key: key);
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -24,39 +24,39 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(6),
-      padding: EdgeInsets.all(6),
+      margin: const EdgeInsets.all(6),
+      padding: const EdgeInsets.all(6),
       child: TextFormField(
-        controller: this.widget.controller,
-        keyboardType: this.widget.keyboardType,
-        obscureText: this.widget.obscureText ?? false,
-        style: TextStyle(
+        controller: widget.controller,
+        keyboardType: widget.keyboardType,
+        obscureText: widget.obscureText ?? false,
+        style: const TextStyle(
           fontFamily: 'Nexa',
           fontWeight: FontWeight.w700,
           fontSize: 18,
         ),
         decoration: InputDecoration(
-          hintText: this.widget.hint,
-          labelText: this.widget.label,
+          hintText: widget.hint,
+          labelText: widget.label,
           contentPadding:
-          EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-          border: OutlineInputBorder(
+              const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(32.0)),
           ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.green, width: 1.0),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.lightBlue, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(32.0)),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.green, width: 2.0),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.lightBlue, width: 2.0),
             borderRadius: BorderRadius.all(Radius.circular(32.0)),
           ),
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             fontFamily: 'Nexa',
           ),
           labelStyle: kTextStyle.copyWith(
             fontSize: 18,
-            color: Colors.green[900],
+            color: Colors.lightBlue[900],
           ),
         ),
         onFieldSubmitted: (value) {

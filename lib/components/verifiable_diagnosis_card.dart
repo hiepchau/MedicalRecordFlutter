@@ -5,33 +5,30 @@ import 'package:medicalrecordapp/screens/qr_code_screen.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 
 class VerifiableDiagnosisCard extends StatelessWidget {
-  // TODO: Create a new model diagnosis and pass it as its parameter
   final Diagnosis diagnosis;
   final uid = Auth().getUID();
-  VerifiableDiagnosisCard({this.diagnosis});
+  VerifiableDiagnosisCard({Key key, this.diagnosis}) : super(key: key);
   Widget getTickIfNotVerified(BuildContext context) {
-    if (!this.diagnosis.verified) {
+    if (!diagnosis.verified) {
       return IconButton(
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => QrCodeScreen(
-                // TODO: Replace qrCodeData with real data (UID + DiagnosisID) => this will provide a screen to the doctor with the corresponding diagnosis data
                   appBarTitle: 'Verify Report',
                   qrCodeData:
-                  'LIFELINEDIAGNOSIS' + '_' + diagnosis.id.toString() +'_'+Auth().getUID().toString()),
+                      'MEDICALRECORDDIAGNOSIS_${diagnosis.id}_${Auth().getUID()}'),
             ),
           );
-          print('${diagnosis.id} ${Auth().getUID()}');
         },
         icon: Icon(
           Icons.check,
-          color: Colors.green[900],
+          color: Colors.lightBlue[900],
         ),
       );
     } else {
-      return SizedBox(
+      return const SizedBox(
         height: 1,
       );
     }
@@ -40,11 +37,11 @@ class VerifiableDiagnosisCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(24),
-      margin: EdgeInsets.fromLTRB(12, 12, 12, 12),
+      padding: const EdgeInsets.all(24),
+      margin: const EdgeInsets.fromLTRB(12, 12, 12, 12),
       decoration: BoxDecoration(
-        color: this.diagnosis.verified ? Colors.green[100] : Colors.green[50],
-        borderRadius: BorderRadius.only(
+        color: diagnosis.verified ? Colors.lightBlue[100] : Colors.lightBlue[50],
+        borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(10),
             topRight: Radius.circular(10),
             bottomLeft: Radius.circular(10),
@@ -54,7 +51,7 @@ class VerifiableDiagnosisCard extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 5,
             blurRadius: 7,
-            offset: Offset(0, 3), // changes position of shadow
+            offset: const Offset(0, 3), // changes position of shadow
           ),
         ],
       ),
@@ -69,7 +66,7 @@ class VerifiableDiagnosisCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
                   child: Text(
-                    this.diagnosis.type,
+                    diagnosis.type,
                     style: kTextStyle.copyWith(
                       fontSize: 16,
                       color: Colors.black87,
@@ -79,10 +76,10 @@ class VerifiableDiagnosisCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
                   child: Text(
-                    this.diagnosis.problem,
+                    diagnosis.problem,
                     style: kTextStyle.copyWith(
                       fontSize: 36,
-                      color: Colors.green[900],
+                      color: Colors.lightBlue[900],
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -90,7 +87,7 @@ class VerifiableDiagnosisCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
                   child: Text(
-                    this.diagnosis.date,
+                    diagnosis.date,
                     style: kTextStyle.copyWith(
                       fontSize: 16,
                     ),
@@ -99,10 +96,9 @@ class VerifiableDiagnosisCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
                   child: Text(
-                    'Verified By: ' +
-                        (this.diagnosis.verified
-                            ? this.diagnosis.verifiedBy
-                            : 'Not yet verified'),
+                    'Verified By: ${diagnosis.verified
+                            ? diagnosis.verifiedBy
+                            : 'Not yet verified'}',
                     style: kTextStyle.copyWith(
                       fontSize: 16,
                       color: Colors.black45,

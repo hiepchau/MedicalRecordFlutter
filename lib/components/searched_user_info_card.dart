@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 class SearchedUserInfoCard extends StatelessWidget {
   final Donor searchedUser;
 
-  SearchedUserInfoCard({this.searchedUser});
+  const SearchedUserInfoCard({Key key, this.searchedUser}) : super(key: key);
 
   callNumber(BuildContext context, String number) async {
     ToastContext().init(context);
@@ -26,13 +26,13 @@ class SearchedUserInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (this.searchedUser.name != '') {
+    if (searchedUser.name != '') {
       return Container(
-        padding: EdgeInsets.all(24),
-        margin: EdgeInsets.fromLTRB(12, 12, 12, 12),
+        padding: const EdgeInsets.all(24),
+        margin: const EdgeInsets.fromLTRB(12, 12, 12, 12),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(10),
             topRight: Radius.circular(10),
             bottomLeft: Radius.circular(10),
@@ -43,7 +43,7 @@ class SearchedUserInfoCard extends StatelessWidget {
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: Offset(0, 3), // changes position of shadow
+              offset: const Offset(0, 3), // changes position of shadow
             ),
           ],
         ),
@@ -54,7 +54,7 @@ class SearchedUserInfoCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                this.searchedUser.name,
+                searchedUser.name,
                 style: kTextStyle.copyWith(
                   fontSize: 24,
                   color: Colors.green[900],
@@ -65,7 +65,7 @@ class SearchedUserInfoCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Blood Group: ' + this.searchedUser.blood,
+                'Blood Group: ${searchedUser.blood}',
                 style: kTextStyle.copyWith(
                   fontSize: 36,
                 ),
@@ -74,7 +74,7 @@ class SearchedUserInfoCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Emergency Contact: ' + this.searchedUser.contact,
+                'Emergency Contact: ${searchedUser.contact}',
                 style: kTextStyle.copyWith(
                   fontSize: 18,
                 ),
@@ -83,7 +83,7 @@ class SearchedUserInfoCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Location: ' + this.searchedUser.location,
+                'Location: ${searchedUser.location}',
                 style: kTextStyle.copyWith(
                   fontSize: 18,
                 ),
@@ -103,8 +103,8 @@ class SearchedUserInfoCard extends StatelessWidget {
       );
     } else {
       return Container(
-        padding: EdgeInsets.all(8.0),
-        margin: EdgeInsets.fromLTRB(12, 12, 12, 12),
+        padding: const EdgeInsets.all(8.0),
+        margin: const EdgeInsets.fromLTRB(12, 12, 12, 12),
         child: Center(
           child: Text(
             'No User Found',
