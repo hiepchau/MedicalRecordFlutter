@@ -158,7 +158,7 @@ class _CheckEHRScreenState extends State<CheckEHRScreen> {
                 uID = qrData[1];
 
                 if (qrCodeType != null) {
-                  if (qrCodeType == 'LifeLineShare') {
+                  if (qrCodeType == 'MedicalRecordShare') {
                   setState(() {
                     loadingIndicator = true;
                   });

@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -8,32 +10,34 @@ import 'package:medicalrecordapp/models/profile_data.dart';
 import 'package:medicalrecordapp/screens/user_dashboard_screen.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:medicalrecordapp/services/database.dart';
-// import 'package:flutter/services.dart';
 
 class UserProfileScreen extends StatefulWidget {
   static String id = 'user_profile';
 
+  const UserProfileScreen({Key key}) : super(key: key);
+
   @override
+  // ignore: library_private_types_in_public_api
   _UserProfileScreenState createState() => _UserProfileScreenState();
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
-  final database = new Database(uid: Auth().getUID());
+  final database = Database(uid: Auth().getUID());
 
-  final name = new TextEditingController();
+  final name = TextEditingController();
   String gender = 'Male';
-  final age = new TextEditingController();
+  final age = TextEditingController();
   String blood = 'A+';
-  final contact = new TextEditingController();
-  final emergency = new TextEditingController();
-  final govtID = new TextEditingController();
-  final otherID = new TextEditingController();
-  final location = new TextEditingController();
+  final contact = TextEditingController();
+  final emergency = TextEditingController();
+  final govtID = TextEditingController();
+  final otherID = TextEditingController();
+  final location = TextEditingController();
   //final name = new TextEditingController();
   Timestamp selectedDate = Timestamp.now();
-  TextEditingController _date = new TextEditingController();
+  final TextEditingController _date = TextEditingController();
 
-  Future<Null> _selectDate(BuildContext context) async {
+  Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: selectedDate.toDate(),
@@ -58,7 +62,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     final _otherID = otherID.text;
     final _location = location.text;
     final _dob = selectedDate;
-    ProfileData person = new ProfileData(
+    ProfileData person = ProfileData(
       name: _name,
       age: _age,
       contact: _contact,
@@ -71,7 +75,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       location: _location,
       donorStatus: await database.getStatus(),
     );
-    database.createProfile(person);
+    await database.createProfile(person);
+    // ignore: use_build_context_synchronously
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => UserDashboardScreen()));
   }
@@ -100,14 +105,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   void initState() {
     loadCurrentData();
-    // if (person != null) {
-    //   setState(() {
-    //     //count++;
-    //     //it's used otherwise you will not be able to input
-    //     //because each frame it will fetch
-    //     //now for every user it's fetching 2 times
-    //   });
-    // }
     super.initState();
   }
 
@@ -127,7 +124,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 ),
               ),
             ),
-            Text(
+            const Text(
               'Profile',
               style: TextStyle(
                 color: Colors.black,
@@ -141,7 +138,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         shadowColor: Colors.black54,
       ),
       body: Padding(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -174,7 +171,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               CustomDropdownMenu(
                 label: 'Gender',
                 initialValue: gender == '' ? gender = 'Male' : gender ,
-                items: ['Male', 'Female'],
+                items: const ['Male', 'Female'],
                 onChanged: (value) {
                   setState(() {
                     gender = value;
@@ -184,7 +181,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               CustomDropdownMenu(
                 label: "Blood Group",
                 initialValue: blood == '' ? gender = 'A+' : blood,
-                items: [
+                items: const [
                   'A+',
                   'A-',
                   'B+',
@@ -229,12 +226,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   ),
                 ),
               ),
-              Container(
-                child: RoundedButton(
-                  onPressed: _submit,
-                  text: 'Update',
-                  color: Colors.lightBlue[700],
-                ),
+              RoundedButton(
+                onPressed: _submit,
+                text: 'Update',
+                color: Colors.lightBlue[700],
               ),
             ],
           ),
@@ -243,5 +238,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Geolocator() {}
 }

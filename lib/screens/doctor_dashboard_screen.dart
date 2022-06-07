@@ -99,7 +99,7 @@ class _DoctorDashboardScreenState extends State<DoctorDashboardScreen> {
               children: <Widget>[
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/qr.gif',
+                    'assets/images/medical_record_icons/qr.gif',
                     height: 60,
                   ),
                   label: 'Check Record',
@@ -109,7 +109,7 @@ class _DoctorDashboardScreenState extends State<DoctorDashboardScreen> {
                 ),
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/qr.gif',
+                    'assets/images/medical_record_icons/qr.gif',
                     height: 60,
                   ),
                   label: 'Verify Record',
@@ -119,7 +119,7 @@ class _DoctorDashboardScreenState extends State<DoctorDashboardScreen> {
                 ),
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/qr.gif',
+                    'assets/images/medical_record_icons/qr.gif',
                     height: 60,
                   ),
                   label: 'Check EHR',

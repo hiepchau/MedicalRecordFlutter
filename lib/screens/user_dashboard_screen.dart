@@ -124,7 +124,7 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
               children: <Widget>[
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/profile.png',
+                    'assets/images/medical_record_icons/profile.png',
                     height: 60,
                   ),
                   label: 'Profile',
@@ -134,7 +134,7 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
                 ),
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/search.png',
+                    'assets/images/medical_record_icons/search.png',
                     height: 60,
                   ),
                   label: 'Search User',
@@ -144,7 +144,7 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
                 ),
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/healthrecord.png',
+                    'assets/images/medical_record_icons/healthrecord.png',
                     height: 60,
                   ),
                   label: 'Health Record',
@@ -154,7 +154,7 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
                 ),
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/medicalhistory.png',
+                    'assets/images/medical_record_icons/medicalhistory.png',
                     height: 60,
                   ),
                   label: 'Medical History',
@@ -164,7 +164,7 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
                 ),
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/blooddonation.png',
+                    'assets/images/medical_record_icons/blooddonation.png',
                     height: 60,
                   ),
                   label: 'Blood Donation',
@@ -174,7 +174,7 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
                 ),
                 GridCard(
                   image: Image.asset(
-                    'assets/images/lifeline_icons/doctormode.png',
+                    'assets/images/medical_record_icons/doctormode.png',
                     height: 60,
                   ),
                   label: 'Doctor Mode',

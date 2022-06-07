@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/custom_text_field.dart';
@@ -13,13 +15,15 @@ import 'package:toast/toast.dart';
 class UserSearchScreen extends StatefulWidget {
   static String id = 'user_search';
 
+  const UserSearchScreen({Key key}) : super(key: key);
+
   @override
   _UserSearchScreenState createState() => _UserSearchScreenState();
 }
 
 class _UserSearchScreenState extends State<UserSearchScreen> {
   bool loadingIndicator = false;
-  TextEditingController id = new TextEditingController();
+  TextEditingController id = TextEditingController();
   final database = Database(uid: Auth().getUID());
   QuerySnapshot snapshot;
   String name = '';
@@ -29,10 +33,10 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
 
   Future<void> printMatched(String query) async {
     QuerySnapshot _snapshot = await database.searchUserWithGovernmentID(query);
-    if (_snapshot.docs.length == 0) {
+    if (_snapshot.docs.isEmpty) {
       _snapshot = await database.searchUserWithAdditionalID(query);
     }
-    if (_snapshot.docs.length == 0) {
+    if (_snapshot.docs.isEmpty) {
       setState(() {
         name = '';
         emergencyContact = '';
@@ -63,14 +67,14 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
           children: [
             Hero(
               tag: 'logo',
-              child: Container(
+              child: SizedBox(
                 height: 40.0,
                 child: Image.asset(
                   'assets/images/medical_logo.png',
                 ),
               ),
             ),
-            Text(
+            const Text(
               'Search User',
               style: TextStyle(
                 color: Colors.black,
@@ -92,7 +96,7 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
           padding: const EdgeInsets.all(12.0),
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -100,7 +104,7 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
                   CustomTextField(
                     label: 'ID',
                     hint: 'Any ID number',
-                    controller: this.id,
+                    controller: id,
                     keyboardType: TextInputType.text,
                   ),
                   RoundedButton(
@@ -112,7 +116,7 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
                       });
 
                       try {
-                        await printMatched(this.id.text);
+                        await printMatched(id.text);
                         setState(() {
                           loadingIndicator = false;
                         });

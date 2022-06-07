@@ -1,4 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/custom_text_field.dart';
@@ -15,13 +16,15 @@ import '../models/auth_user.dart';
 class UserRegistrationScreen extends StatefulWidget {
   static String id = 'user_register';
 
+  const UserRegistrationScreen({Key key}) : super(key: key);
+
   @override
   _UserRegistrationScreenState createState() => _UserRegistrationScreenState();
 }
 
 class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
-  TextEditingController email = new TextEditingController();
-  TextEditingController password = new TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   bool loadingIndicator = false;
   bool checkedValue = false;
@@ -47,33 +50,33 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(12.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Hero(
                     tag: 'logo',
-                    child: Container(
+                    child: SizedBox(
                       height: 200.0,
                       child: Image.asset('assets/images/medical_logo.png'),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 48.0,
                   ),
                   CustomTextField(
                     label: 'E-mail',
                     hint: 'johndoe@gmail.com',
                     keyboardType: TextInputType.emailAddress,
-                    controller: this.email,
+                    controller: email,
                   ),
                   CustomTextField(
                     label: 'Password',
                     hint: 'Type your password',
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
-                    controller: this.password,
+                    controller: password,
                   ),
                   Row(children: [Checkbox(
                     value: checkedValue,
@@ -120,12 +123,13 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                           loadingIndicator = true;
                         });
                         final user = await Auth()
-                            .register(this.email.text, this.password.text);
+                            .register(email.text, password.text);
                         if (user.runtimeType == String){
                           showMessage(user);}
-                        else if (user.runtimeType==AppUser)
+                        else if (user.runtimeType==AppUser) {
                           Navigator.pushNamed(
                               context, UserDashboardScreen.id);
+                        }
                         setState(() {
                           loadingIndicator = false;
                         });  

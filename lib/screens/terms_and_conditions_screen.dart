@@ -55,7 +55,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: AutoSizeText(
-                      'Terms and conditions for proper usage of LifeLine application:',
+                      'Terms and conditions for proper usage of Medical Record application:',
                       style: kTextStyle.copyWith(
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,
@@ -68,7 +68,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: AutoSizeText(
-                      '-  Lifeline will access device location through GPS.',
+                      '-  Medical Record will access device location through GPS.',
                       style: kTextStyle.copyWith(
                         fontSize: 18.0,
                         fontWeight: FontWeight.w400,
@@ -80,7 +80,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: AutoSizeText(
-                      '-  Lifeline will access phone camera for scanning QR codes.',
+                      '-  Medical Record will access phone camera for scanning QR codes.',
                       style: kTextStyle.copyWith(
                         fontSize: 18.0,
                         fontWeight: FontWeight.w400,
