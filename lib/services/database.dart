@@ -5,6 +5,8 @@ import 'package:medicalrecordapp/models/diagnosis.dart';
 import 'package:medicalrecordapp/models/profile_data.dart';
 import 'package:medicalrecordapp/services/api_path.dart';
 
+import '../models/doctor_data.dart';
+
 class Loc {
   String lat;
   String long;

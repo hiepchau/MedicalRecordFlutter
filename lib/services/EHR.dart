@@ -14,10 +14,11 @@ class EHR {
   Future<void> _setData({String path, Map<String, dynamic> data}) async {
     final reference = FirebaseFirestore.instance.doc(path);
     var snapshot = await user.doc(uid).get();
-    if (snapshot.exists)
+    if (snapshot.exists) {
       reference.update(data);
-    else
+    } else {
       reference.set(data);
+    }
   }
 
   Future<void> createRecord(basicRecord record) async {
@@ -26,26 +27,27 @@ class EHR {
 
   Future<basicRecord> getRecord() async {
     var snapshot = await user.doc(uid).get();
-    if (snapshot.exists)
+    if (snapshot.exists) {
       return basicRecord(
         height: snapshot['Height'] ??'',
         weight: snapshot['Weight'] ?? '',
-        sugerLevel: snapshot['Suger Level'] ?? '~70-140 mg/dL',
+        sugarLevel: snapshot['Sugar Level'] ?? '~70-140 mg/dL',
         bp: snapshot['Blood Pressure'] ?? '120/80',
         rbc: snapshot['RBC Count'] ?? '~4.7-6.1 mcL',
         wbc: snapshot['WBC Count'] ?? '~9,000-30,000 mcL',
         count: snapshot['Count'],
       );
-    else
+    } else {
       return basicRecord(
         height: '',
         weight: '',
-        sugerLevel: '~70-140 mg/dL',
+        sugarLevel: '~70-140 mg/dL',
         rbc: '~4.7-6.1 mcL',
         wbc: '~9,000-30,000 mcL',
         bp: '120/80',
         count: 0,
       );
+    }
   }
 
   Future<int> getCount() async {
@@ -53,9 +55,9 @@ class EHR {
         .collection('health_record')
         .doc(uid)
         .get();
-    if (snapshot.exists)
+    if (snapshot.exists) {
       return snapshot.data()['Count'] ?? 0;
-    else {
+    } else {
       return 0;
     }
   }
@@ -64,9 +66,7 @@ class EHR {
     int count = await getCount();
     return user
         .doc(uid)
-        .update({'Count': count + 1})
-        .then((value) => print("Count updated to $count"))
-        .catchError((error) => print("Failed to update $error"));
+        .update({'Count': count + 1});
   }
 
   // History Data Base From Here
@@ -78,17 +78,14 @@ class EHR {
 
   Future<void> _setDiagnosis({String path, Map<String, dynamic> data}) async {
     final referrence = FirebaseFirestore.instance.doc(path);
-    //var snapshot = await diagnosisRef.doc('history').get();
     await referrence.set(data);
   }
 
   Future<void> createDiagnosis(Diagnosis diagnosis) async {
-    print("I'me from past future");
     int currentID;
     await updateHistoryCount();
     currentID = await getCount();
     diagnosis.id = currentID;
-    print(currentID);
     await _setDiagnosis(
         path: APIPath.diagnosis(uid, currentID.toString()),
         data: diagnosis.toMap());

@@ -25,15 +25,15 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   // Transparent notification bar
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
 
   // Run the app
-  runApp(LifeLine());
+  runApp(MedicalRecord());
 }
 
-class LifeLine extends StatelessWidget {
+class MedicalRecord extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,7 +42,7 @@ class LifeLine extends StatelessWidget {
         appBarTheme: AppBarTheme(
           elevation: 5.0,
           color: Colors.lightBlue[500],
-        ), colorScheme: ColorScheme.light(
+        ), colorScheme: const ColorScheme.light(
         primary: Colors.lightBlue,
       ).copyWith(secondary: Colors.lightBlue),
       ),
