@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
+// ignore_for_file: library_private_types_in_public_api, no_leading_underscores_for_local_identifiers, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/custom_text_field.dart';
@@ -122,7 +122,7 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
                     setState(() {
                     loadingIndicator = true;
                     });
-                    verifyDoctor(doctorIdController.text);
+                    await verifyDoctor(doctorIdController.text);
                     if(verify){
                       Navigator.pushNamed(context, DoctorDashboardScreen.id);
                     }
