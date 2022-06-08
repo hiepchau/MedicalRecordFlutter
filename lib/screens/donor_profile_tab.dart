@@ -18,13 +18,14 @@ class DonorProfileTab extends StatefulWidget {
 }
 
 class _State extends State<DonorProfileTab> {
-  ProfileData profile= ProfileData(contact: "", blood: "", name: "", age: "", dob: Timestamp.now(), gender: "", govtID: "");
+  ProfileData profile= ProfileData(contact: "", blood: "", name: "", age: "", dob: Timestamp.now(), gender: "", govtID: "",lastDonation: Timestamp.now());
   int fetch = 0;
   bool donorStatus = true;
   Position position;
   Future<void> getInfo() async {
     String uid = Auth().getUID();
     final _profile = await Database(uid: uid).getData(uid);
+    print(_profile.lastDonation.toDate());
     setState(() {
       profile = _profile;
       donorStatus = profile.donorStatus;
@@ -34,6 +35,7 @@ class _State extends State<DonorProfileTab> {
   Future<void> updateStatus() async {
     String uid = Auth().getUID();
     await Database(uid: uid).updateDonorStatus(donorStatus);
+    await Database(uid: uid).updateLastDonation(Timestamp.now());
     if (donorStatus) {
       final _position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
@@ -85,6 +87,13 @@ class _State extends State<DonorProfileTab> {
       );
     }
     else if(profile.name!=""){
+      String lastDonation;
+      if(profile.lastDonation==null){
+        lastDonation='None';
+      }
+      else{
+        lastDonation='${profile.lastDonation.toDate().day}/${profile.lastDonation.toDate().month}/${profile.lastDonation.toDate().year}';
+      }
       child = ListView(
       children: <Widget>[
         ListInfoCard(
@@ -103,9 +112,9 @@ class _State extends State<DonorProfileTab> {
           title: 'Current Location',
           description: profile.location,
         ),
-        const ListInfoCard(
+        ListInfoCard(
           title: 'Last Donation',
-          description: 'November 23, 2020',
+          description: lastDonation,
         ),
         ListInfoCard(
           title: 'Gender',

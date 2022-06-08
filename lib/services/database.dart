@@ -99,6 +99,12 @@ class Database {
         .update({'Donor Status': donorStatus});
   }
 
+  Future<void> updateLastDonation(Timestamp day) async {
+    return users
+        .doc(uid)
+        .update({'Last Donation': day});
+  }
+
   Future<bool> getStatus() async {
     var snapshot =
         await FirebaseFirestore.instance.collection('profile').doc(uid).get();
