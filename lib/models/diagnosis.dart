@@ -17,12 +17,12 @@ class Diagnosis {
   }
   Map<String, dynamic> toMap() {
     return {
-      'Type': this.type,
-      'Problem': this.problem,
-      'Date': this.date,
-      'Verified': this.verified,
-      'VerifiedBy': this.verifiedBy,
-      'ID': this.id,
+      'Type': type,
+      'Problem': problem,
+      'Date': date,
+      'Verified': verified,
+      'VerifiedBy': verifiedBy,
+      'ID': id,
     };
   }
 }
