@@ -30,10 +30,12 @@ Future<void> main() async {
   ));
 
   // Run the app
-  runApp(MedicalRecord());
+  runApp(const MedicalRecord());
 }
 
 class MedicalRecord extends StatelessWidget {
+  const MedicalRecord({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -51,22 +53,22 @@ class MedicalRecord extends StatelessWidget {
           ? WelcomeScreen.id
           : UserDashboardScreen.id,
       routes: {
-        WelcomeScreen.id: (context) => WelcomeScreen(),
-        UserLoginScreen.id: (context) => UserLoginScreen(),
-        UserRegistrationScreen.id: (context) => UserRegistrationScreen(),
-        UserDashboardScreen.id: (context) => UserDashboardScreen(),
-        UserProfileScreen.id: (context) => UserProfileScreen(),
-        BloodDonationScreen.id: (context) => BloodDonationScreen(),
-        DoctorModeScreen.id: (context) => DoctorModeScreen(),
-        UserSearchScreen.id: (context) => UserSearchScreen(),
-        HealthRecordScreen.id: (context) => HealthRecordScreen(),
-        MedicalHistoryScreen.id: (context) => MedicalHistoryScreen(),
-        TermsAndConditionsScreen.id: (context) => TermsAndConditionsScreen(),
-        DoctorDashboardScreen.id: (context) => DoctorDashboardScreen(),
-        RecordVerificationScreen.id: (context) => RecordVerificationScreen(),
-        QrCodeScannerScreen.id: (context) => QrCodeScannerScreen(),
-        CheckRecordScreen.id: (context) => CheckRecordScreen(),
-        CheckEHRScreen.id:(context) => CheckEHRScreen(),
+        WelcomeScreen.id: (context) => const WelcomeScreen(),
+        UserLoginScreen.id: (context) => const UserLoginScreen(),
+        UserRegistrationScreen.id: (context) => const UserRegistrationScreen(),
+        UserDashboardScreen.id: (context) => const UserDashboardScreen(),
+        UserProfileScreen.id: (context) => const UserProfileScreen(),
+        BloodDonationScreen.id: (context) => const BloodDonationScreen(),
+        DoctorModeScreen.id: (context) => const DoctorModeScreen(),
+        UserSearchScreen.id: (context) => const UserSearchScreen(),
+        HealthRecordScreen.id: (context) => const HealthRecordScreen(),
+        MedicalHistoryScreen.id: (context) => const MedicalHistoryScreen(),
+        TermsAndConditionsScreen.id: (context) => const TermsAndConditionsScreen(),
+        DoctorDashboardScreen.id: (context) => const DoctorDashboardScreen(),
+        RecordVerificationScreen.id: (context) => const RecordVerificationScreen(),
+        QrCodeScannerScreen.id: (context) => const QrCodeScannerScreen(),
+        CheckRecordScreen.id: (context) => const CheckRecordScreen(),
+        CheckEHRScreen.id:(context) => const CheckEHRScreen(),
       },
     );
   }

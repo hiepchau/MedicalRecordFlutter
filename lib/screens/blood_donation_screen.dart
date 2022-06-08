@@ -28,7 +28,7 @@ class _BloodDonationScreenState extends State<BloodDonationScreen> {
             children: [
               Hero(
                 tag: 'logo',
-                child: Container(
+                child: SizedBox(
                   height: 40.0,
                   child: Image.asset(
                     'assets/images/medical_logo.png',
@@ -67,12 +67,12 @@ class _BloodDonationScreenState extends State<BloodDonationScreen> {
             ],
           ),
         ),
-        body: TabBarView(
-          physics: const NeverScrollableScrollPhysics(),
+        body: const TabBarView(
+          physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
-            const DonorProfileTab(),
+            DonorProfileTab(),
             DonorListTab(),
-            const DonorMapTab(),
+            DonorMapTab(),
           ],
         ),
       ),

@@ -8,10 +8,10 @@ class History {
 
   Map<String, dynamic> toMap() {
     return {
-      'Date': this.date,
-      'description': this.description,
-      'Type': this.type,
-      'Verified': this.verified,
+      'Date': date,
+      'description': description,
+      'Type': type,
+      'Verified': verified,
     };
   }
 }

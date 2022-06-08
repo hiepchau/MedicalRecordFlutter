@@ -78,7 +78,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     await database.createProfile(person);
     // ignore: use_build_context_synchronously
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => UserDashboardScreen()));
+        MaterialPageRoute(builder: (context) => const UserDashboardScreen()));
   }
 
   int count = 0;
@@ -117,7 +117,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           children: [
             Hero(
               tag: 'logo',
-              child: Container(
+              child: SizedBox(
                 height: 40.0,
                 child: Image.asset(
                   'assets/images/medical_logo.png',

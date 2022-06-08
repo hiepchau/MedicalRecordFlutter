@@ -11,6 +11,8 @@ import 'package:medicalrecordapp/services/database.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class DonorListTab extends StatefulWidget {
+  const DonorListTab({Key key}) : super(key: key);
+
   @override
   DonorListTabState createState() => DonorListTabState();
 }

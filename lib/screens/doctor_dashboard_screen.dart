@@ -82,7 +82,7 @@ class _DoctorDashboardScreenState extends State<DoctorDashboardScreen> {
                   height: 10,
                 ),
                 Text(
-                  this.name,
+                  name,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 40,

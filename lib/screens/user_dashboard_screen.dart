@@ -11,6 +11,8 @@ import 'package:medicalrecordapp/screens/user_search_screen.dart';
 import 'package:medicalrecordapp/screens/doctor_mode_screen.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:medicalrecordapp/services/database.dart';
+import 'package:toast/toast.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class UserDashboardScreen extends StatefulWidget {
   static String id = 'user_dashboard';
@@ -33,6 +35,20 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
     setState(() {
       name = _name;
     });
+  }
+
+callNumber(BuildContext context, String number) async {
+    ToastContext().init(context);
+    var url = 'tel:$number';
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
+    } else {
+      Toast.show(
+        'Cannot launch Phone',
+        duration: Toast.lengthShort,
+        gravity: Toast.bottom,
+      );
+    }
   }
 
   @override
@@ -184,6 +200,16 @@ class _UserDashboardScreenState extends State<UserDashboardScreen> {
                   label: 'Doctor Mode',
                   onTap: () {
                     Navigator.pushNamed(context, DoctorModeScreen.id);
+                  },
+                ),
+                GridCard(
+                  image: Image.asset(
+                    'assets/images/medical_record_icons/phone.png',
+                    height: 60,
+                  ),
+                  label: 'Call Emergency',
+                  onTap: () {
+                    callNumber(context, '115');
                   },
                 ),
               ],

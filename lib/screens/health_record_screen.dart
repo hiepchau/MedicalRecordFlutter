@@ -60,8 +60,8 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
             ],
           ),
         ),
-        body: TabBarView(
-          physics: const NeverScrollableScrollPhysics(),
+        body: const TabBarView(
+          physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
             BasicHealthRecordTab(),
             DiagnosisRecordTab(),

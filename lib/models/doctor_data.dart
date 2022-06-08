@@ -9,7 +9,7 @@ class Doctor {
 
   Map<String, dynamic> toMap() {
     return {
-      'Govt ID': this.govtID,
+      'Govt ID': govtID,
     };
   }
 }

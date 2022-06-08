@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
+// ignore_for_file: library_private_types_in_public_api, no_leading_underscores_for_local_identifiers, file_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +125,7 @@ class _CheckEHRScreenState extends State<CheckEHRScreen> {
             uID = qrData[1];
 
             if (qrCodeType != null) {
-              if (qrCodeType == 'LifeLineShare') {
+              if (qrCodeType == 'MedicalRecordShare') {
               setState(() {
                 loadingIndicator = true;
               });
@@ -223,7 +223,7 @@ class _CheckEHRScreenState extends State<CheckEHRScreen> {
           children: [
             Hero(
               tag: 'logo',
-              child: Container(
+              child: SizedBox(
                 height: 40.0,
                 child: Image.asset(
                   'assets/images/medical_logo.png',

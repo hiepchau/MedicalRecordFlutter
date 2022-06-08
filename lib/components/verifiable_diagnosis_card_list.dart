@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/cupertino.dart';
 import 'package:medicalrecordapp/components/verifiable_diagnosis_card.dart';
 import 'package:medicalrecordapp/models/diagnosis.dart';
