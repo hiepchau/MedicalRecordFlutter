@@ -46,7 +46,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     if (picked != null && picked != selectedDate.toDate()) {
       setState(() {
         selectedDate = Timestamp.fromDate(picked);
-        _date.value = TextEditingValue(text: DateFormat.yMd().format(picked));
+        _date.value = TextEditingValue(text: '${picked.day}/${picked.month}/${picked.year}');
       });
     }
   }
@@ -98,7 +98,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       otherID.text = person.otherID;
       location.text = person.location;
       selectedDate = person.dob;
-      _date.text = DateFormat.yMd().format(selectedDate.toDate());
+      _date.text = '${selectedDate.toDate().day}/${selectedDate.toDate().month}/${selectedDate.toDate().year}';
     });
   }
 

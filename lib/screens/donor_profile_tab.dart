@@ -25,7 +25,6 @@ class _State extends State<DonorProfileTab> {
   Future<void> getInfo() async {
     String uid = Auth().getUID();
     final _profile = await Database(uid: uid).getData(uid);
-    print(_profile.lastDonation.toDate());
     setState(() {
       profile = _profile;
       donorStatus = profile.donorStatus;
@@ -35,8 +34,8 @@ class _State extends State<DonorProfileTab> {
   Future<void> updateStatus() async {
     String uid = Auth().getUID();
     await Database(uid: uid).updateDonorStatus(donorStatus);
-    await Database(uid: uid).updateLastDonation(Timestamp.now());
-    if (donorStatus) {
+    if (donorStatus==true) {
+      await Database(uid: uid).updateLastDonation(Timestamp.now());
       final _position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       await Database(uid: uid).updateLocation(
