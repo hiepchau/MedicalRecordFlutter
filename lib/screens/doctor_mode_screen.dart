@@ -30,8 +30,8 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
       verify = _verify;
     });
   }
-  Future<void> addDoctor(String id) async {
-    await database.addDoctor(id);
+  Future<bool> addDoctor(String id) async {
+    return await database.addDoctor(id);
   }
 
   void showMessage(String txt){
@@ -144,8 +144,16 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
                   } else {
                     setState(() {
                     loadingIndicator = true;
+                    });       
+                    if(await addDoctor(doctorIdController.text)==true){
+                      Navigator.pushNamed(context, DoctorDashboardScreen.id);
+                    }
+                    else{
+                      showMessage('This doctor has existed!');
+                    }
+                    setState(() {
+                      loadingIndicator=false;
                     });
-                    addDoctor(doctorIdController.text);
                   }
                 },
               ),

@@ -166,11 +166,19 @@ class Database {
     }
   }
 
-  Future<void> addDoctor(String doctorID) async {
+  Future<bool> addDoctor(String doctorID) async {
     final govtID = await getGovtID();
     final doctordoc = Doctor(uid: doctorID, govtID: govtID);
     final ref = FirebaseFirestore.instance.collection('doctor');
-    return ref.doc(doctorID).set(doctordoc.toMap());                
+    var snapshot = await FirebaseFirestore.instance
+      .collection('doctor')
+      .doc(doctorID)
+      .get();
+    if(snapshot.exists==false){
+      await ref.doc(doctorID).set(doctordoc.toMap());
+      return true;
+    }
+    return false;                
   }
 
 
