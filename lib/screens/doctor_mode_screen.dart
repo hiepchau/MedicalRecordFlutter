@@ -26,9 +26,14 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
   TextEditingController doctorIdController = TextEditingController();
   Future<void> verifyDoctor(String id) async {
     final _verify = await database.verifyDoctor(id);
-    setState(() {
-      verify = _verify;
+    if(_verify=='Doctor is not existed'||_verify=='ID did not match!') {
+      setState(() {
+      verify = true;
     });
+    } else {
+      setState(() {
+      verify = false;
+    }
   }
   Future<bool> addDoctor(String id) async {
     return await database.addDoctor(id);

@@ -33,9 +33,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   final govtID = TextEditingController();
   final otherID = TextEditingController();
   final location = TextEditingController();
-  //final name = new TextEditingController();
   Timestamp selectedDate = Timestamp.now();
   final TextEditingController _date = TextEditingController();
+
+  final dateFormat = DateFormat('dd/MM/yyyy');
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -46,7 +47,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     if (picked != null && picked != selectedDate.toDate()) {
       setState(() {
         selectedDate = Timestamp.fromDate(picked);
-        _date.value = TextEditingValue(text: '${picked.day}/${picked.month}/${picked.year}');
+        _date.value = TextEditingValue(text: dateFormat.format(picked));
       });
     }
   }
