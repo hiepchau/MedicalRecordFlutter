@@ -149,20 +149,20 @@ class Database {
   }
 
   //Future<QuerySnapshot>
-  Future<bool> verifyDoctor(String doctorID) async {
+  Future<String> verifyDoctor(String doctorID) async {
     final govtID = await getGovtID();
     var snapshot = await FirebaseFirestore.instance
         .collection('doctor')
         .doc(doctorID)
         .get();
     if(snapshot.exists==false){
-      return false;
+      return 'Doctor is not existed';
     }
     String fetchedID = await snapshot.data()['Govt ID'];
     if (govtID == fetchedID) {
-      return true;
+      return 'Success';
     } else {
-      return false;
+      return 'ID did not match!';
     }
   }
 
