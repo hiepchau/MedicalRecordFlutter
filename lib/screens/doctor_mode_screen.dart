@@ -22,18 +22,13 @@ class DoctorModeScreen extends StatefulWidget {
 class _DoctorModeScreenState extends State<DoctorModeScreen> {
   final database = Database(uid: Auth().getUID());
   bool loadingIndicator = false;
-  bool verify = false;
+  String verify = '';
   TextEditingController doctorIdController = TextEditingController();
   Future<void> verifyDoctor(String id) async {
     final _verify = await database.verifyDoctor(id);
-    if(_verify=='Doctor is not existed'||_verify=='ID did not match!') {
-      setState(() {
-      verify = true;
+    setState(() {
+      verify = _verify;
     });
-    } else {
-      setState(() {
-      verify = false;
-    }
   }
   Future<bool> addDoctor(String id) async {
     return await database.addDoctor(id);
@@ -128,11 +123,15 @@ class _DoctorModeScreenState extends State<DoctorModeScreen> {
                     loadingIndicator = true;
                     });
                     await verifyDoctor(doctorIdController.text);
-                    if(verify){
+                    if(verify=='Success'){
+                      showMessage(verify);
                       Navigator.pushNamed(context, DoctorDashboardScreen.id);
                     }
+                    else if(verify=='Doctor is not existed'){
+                      showMessage(verify);
+                    }
                     else {
-                      showMessage('Doctor does not exist');
+                      showMessage(verify);
                     }
                     setState(() {
                       loadingIndicator = false;
