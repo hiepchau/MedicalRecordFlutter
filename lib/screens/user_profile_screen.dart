@@ -99,7 +99,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       otherID.text = person.otherID;
       location.text = person.location;
       selectedDate = person.dob;
-      _date.text = '${selectedDate.toDate().day}/${selectedDate.toDate().month}/${selectedDate.toDate().year}';
+      _date.text = dateFormat.format(selectedDate.toDate());
     });
   }
 

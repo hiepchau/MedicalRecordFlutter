@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
 
+import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -22,6 +23,7 @@ class _State extends State<DonorProfileTab> {
   int fetch = 0;
   bool donorStatus = true;
   Position position;
+  final dateFormat = DateFormat('dd/MM/yyyy');
   Future<void> getInfo() async {
     String uid = Auth().getUID();
     final _profile = await Database(uid: uid).getData(uid);
@@ -91,7 +93,7 @@ class _State extends State<DonorProfileTab> {
         lastDonation='None';
       }
       else{
-        lastDonation='${profile.lastDonation.toDate().day}/${profile.lastDonation.toDate().month}/${profile.lastDonation.toDate().year}';
+        lastDonation=dateFormat.format(profile.lastDonation.toDate());
       }
       child = ListView(
       children: <Widget>[
