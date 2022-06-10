@@ -33,6 +33,11 @@ Medical Record là một ứng dụng hồ sơ sức khỏe điện tử đượ
 - Bước 3: Đăng ký, Đăng nhập và trải nghiệm
 
 ## Ưu điểm
+-	Độ tin cậy: Hệ thống có thể kiểm tra dữ liệu nhập vào (ràng buộc dữ liệu) và thông báo các dữ liệu thực thi sai.
+-	Dễ sử dụng: Hệ thống được thiết kế với đồ họa của các thành phần giao diện có bố cục hợp lý, phù hợp với thói quen sử dụng chung của người dùng.
+-	Hỗ trợ quét mã QR tiện lợi, gọi số khẩn cấp.
+-	Tương đối hoàn chỉnh tính năng cơ bản của ứng dụng bệnh án.
+-	Áp dụng kiến thức về giao tiếp giữa Client và Sever.
 
 ## Hạn chế
 -	Về chức năng: chưa đầu tư kinh phí cho server, cloud database còn hạn chế, chưa tối ưa được hết mức hiệu năng từ android dẫn đến còn hạn chế trong UX.
