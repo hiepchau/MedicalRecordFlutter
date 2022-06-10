@@ -31,6 +31,10 @@ Medical Record là một ứng dụng hồ sơ sức khỏe điện tử đượ
 - Bước 1: Cài đặt đầy đủ phần mềm yêu cầu
 - Bước 2: Chạy ứng dụng
 - Bước 3: Đăng ký, Đăng nhập và trải nghiệm
+- 
+>Tài khoản mặc định:
+>hvhiep9411@gmail.com ||
+> password: 12345678
 
 ## Ưu điểm
 -	Độ tin cậy: Hệ thống có thể kiểm tra dữ liệu nhập vào (ràng buộc dữ liệu) và thông báo các dữ liệu thực thi sai.
