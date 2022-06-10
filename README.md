@@ -33,7 +33,11 @@ Medical Record là một ứng dụng hồ sơ sức khỏe điện tử đượ
 - Bước 3: Đăng ký, Đăng nhập và trải nghiệm
 
 ## Ưu điểm
+
 ## Hạn chế
+-	Về chức năng: chưa đầu tư kinh phí cho server, cloud database còn hạn chế, chưa tối ưa được hết mức hiệu năng từ android dẫn đến còn hạn chế trong UX.
+-	Về nội dung: các chức năng cần được mở rộng, phát triển sâu
+
 ## Hướng phát triển
 -	Thêm các tính năng như: Bảo mật bằng vân tay, thêm các chỉ số như nước uống, quản lý giấc ngủ, calo tiêu thụ, lưu trữ các QR về giấy chứng nhận tiêm chủng các loại vaccine, sức khỏe, BHYT, giao tiếp giữa bác sĩ và người dùng, chẩn đoán các bệnh thông qua các triệu chứng bằng AI.
 -	Tối ưu UI, UX.
