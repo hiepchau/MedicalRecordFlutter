@@ -8,7 +8,7 @@ Medical Record là một ứng dụng hồ sơ sức khỏe điện tử đượ
 - Châu Đức Hiệp - 20520499
 - Trần Nam Khánh - 20520577
 
-## Showcase
+## Chức năng
 -	Đăng ký, đăng nhập và đăng xuất.
 -	Quản lý thông tin cá nhân.
 -	Quản lý các chỉ số sức khỏe cá nhân.
