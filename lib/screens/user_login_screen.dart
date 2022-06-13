@@ -66,7 +66,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                   ),
                   CustomTextField(
                     label: 'E-mail',
-                    hint: 'johndoe@gmail.com',
+                    hint: 'test1@gmail.com',
                     keyboardType: TextInputType.emailAddress,
                     controller: email,
                   ),
