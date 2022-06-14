@@ -19,11 +19,20 @@ class DonorProfileTab extends StatefulWidget {
 }
 
 class _State extends State<DonorProfileTab> {
-  ProfileData profile= ProfileData(contact: "", blood: "", name: "", age: "", dob: Timestamp.now(), gender: "", govtID: "",lastDonation: Timestamp.now());
+  ProfileData profile = ProfileData(
+      contact: "",
+      blood: "",
+      name: "",
+      age: "",
+      dob: Timestamp.now(),
+      gender: "",
+      govtID: "",
+      lastDonation: Timestamp.now());
   int fetch = 0;
   bool donorStatus = true;
   Position position;
   final dateFormat = DateFormat('dd/MM/yyyy');
+
   Future<void> getInfo() async {
     String uid = Auth().getUID();
     final _profile = await Database(uid: uid).getData(uid);
@@ -36,7 +45,7 @@ class _State extends State<DonorProfileTab> {
   Future<void> updateStatus() async {
     String uid = Auth().getUID();
     await Database(uid: uid).updateDonorStatus(donorStatus);
-    if (donorStatus==true) {
+    if (donorStatus == true) {
       await Database(uid: uid).updateLastDonation(Timestamp.now());
       final _position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
@@ -54,101 +63,96 @@ class _State extends State<DonorProfileTab> {
         fetch++;
       });
     }
-    if (profile.name==""&&fetch<2){
-      donorStatus=false;
+    if (profile.name == "" && fetch < 2) {
+      donorStatus = false;
       child = Scaffold(
         body: SpinKitWave(
           color: Colors.lightBlue[700],
         ),
       );
-    }
-    else if(profile.name==""){
-      donorStatus=false;
+    } else if (profile.name == "") {
+      donorStatus = false;
       child = Scaffold(
-          body: Column(
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children:const [
+          children: const [
             Center(
-            child: Text(
+                child: Text(
               'Your profile is not exist!',
               style: kTextStyle,
               textAlign: TextAlign.center,
-            )
-            ),
+            )),
             Center(
-            child: Text(
+                child: Text(
               'Please complete your profile',
               style: kTextStyle,
               textAlign: TextAlign.center,
-            )
-            )
+            ))
           ],
-          ),
+        ),
       );
-    }
-    else if(profile.name!=""){
+    } else if (profile.name != "") {
       String lastDonation;
-      if(profile.lastDonation==null){
-        lastDonation='None';
-      }
-      else{
-        lastDonation=dateFormat.format(profile.lastDonation.toDate());
+      if (profile.lastDonation == null) {
+        lastDonation = 'None';
+      } else {
+        lastDonation = dateFormat.format(profile.lastDonation.toDate());
       }
       child = ListView(
-      children: <Widget>[
-        ListInfoCard(
-          title: 'Name',
-          description: profile.name,
-        ),
-        ListInfoCard(
-          title: 'Contact',
-          description: profile.contact,
-        ),
-        ListInfoCard(
-          title: 'Blood Group',
-          description: profile.blood,
-        ),
-        ListInfoCard(
-          title: 'Current Location',
-          description: profile.location,
-        ),
-        ListInfoCard(
-          title: 'Last Donation',
-          description: lastDonation,
-        ),
-        ListInfoCard(
-          title: 'Gender',
-          description: profile.gender,
-        ),
-        ListInfoCard(
-          title: 'Age',
-          description: profile.age,
-        ),
-        GestureDetector(
-          onTap: () {},
-          child: Card(
-            child: SwitchListTile(
-              value: donorStatus,
-              activeColor: Colors.lightBlue,
-              title: Text(
-                'Donor Status',
-                style: kTextStyle.copyWith(
-                  fontSize: 18,
+        children: <Widget>[
+          ListInfoCard(
+            title: 'Name',
+            description: profile.name,
+          ),
+          ListInfoCard(
+            title: 'Contact',
+            description: profile.contact,
+          ),
+          ListInfoCard(
+            title: 'Blood Group',
+            description: profile.blood,
+          ),
+          ListInfoCard(
+            title: 'Current Location',
+            description: profile.location,
+          ),
+          ListInfoCard(
+            title: 'Last Donation',
+            description: lastDonation,
+          ),
+          ListInfoCard(
+            title: 'Gender',
+            description: profile.gender,
+          ),
+          ListInfoCard(
+            title: 'Age',
+            description: profile.age,
+          ),
+          GestureDetector(
+            onTap: () {},
+            child: Card(
+              child: SwitchListTile(
+                value: donorStatus,
+                activeColor: Colors.lightBlue,
+                title: Text(
+                  'Donor Status',
+                  style: kTextStyle.copyWith(
+                    fontSize: 18,
+                  ),
                 ),
-              ),             
-              onChanged: (bool value) {
-                setState(() {
-                  donorStatus = value;
-                  updateStatus();
-                });
-              },
+                onChanged: (bool value) {
+                  setState(() {
+                    donorStatus = value;
+                    updateStatus();
+                  });
+                },
+              ),
             ),
           ),
-        ),
-      ],
-    );     
-    }  
+        ],
+      );
+    }
     return Container(child: child);
   }
 }
