@@ -54,7 +54,7 @@ class _QrCodeScannerScreenState extends State<QrCodeScannerScreen> {
             color: Colors.lightBlue[900],
             onPressed: () async {
               String codeScanner = await FlutterBarcodeScanner.scanBarcode(
-                '#ff6666', 'Cancel', true, ScanMode.QR);
+                  '#ff6666', 'Cancel', true, ScanMode.QR);
               setState(() {
                 qrCodeResult = codeScanner;
               });

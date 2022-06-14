@@ -14,6 +14,7 @@ class MedicalHistoryScreen extends StatefulWidget {
   static String id = 'medical_history';
 
   const MedicalHistoryScreen({Key key}) : super(key: key);
+
   @override
   _MedicalHistoryScreenState createState() => _MedicalHistoryScreenState();
 }
@@ -22,8 +23,9 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
   bool loadingIndicator = false;
   List<Diagnosis> diagnosisList;
   final erhRecord = EHR(uid: Auth().getUID());
-  CollectionReference refference;
+  CollectionReference reference;
   QuerySnapshot snapshot;
+
   Future<List<Diagnosis>> fetchHistory() async {
     List<Diagnosis> _diagnosisList = [];
     snapshot = await erhRecord.historySnap();

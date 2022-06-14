@@ -6,14 +6,14 @@ class AppUser {
 class UserData {
   final String uid;
   final String name;
-  final String suger;
+  final String sugar;
   final String coffeeMate;
   final int strength;
 
   UserData({
     this.uid,
     this.name,
-    this.suger,
+    this.sugar,
     this.coffeeMate,
     this.strength,
   });
