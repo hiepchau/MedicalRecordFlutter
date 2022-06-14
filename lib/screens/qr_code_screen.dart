@@ -7,7 +7,8 @@ class QrCodeScreen extends StatefulWidget {
   final String appBarTitle;
   final qrCodeData;
 
-  const QrCodeScreen({Key key, 
+  const QrCodeScreen({
+    Key key,
     @required this.appBarTitle,
     @required this.qrCodeData,
   }) : super(key: key);

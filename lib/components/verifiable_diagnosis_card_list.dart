@@ -6,7 +6,10 @@ import 'package:medicalrecordapp/models/diagnosis.dart';
 
 class VerifiableDiagnosisCardList extends StatefulWidget {
   final List<Diagnosis> diagnosisList;
-  const VerifiableDiagnosisCardList({Key key, this.diagnosisList}) : super(key: key);
+
+  const VerifiableDiagnosisCardList({Key key, this.diagnosisList})
+      : super(key: key);
+
   @override
   _VerifiableDiagnosisCardListState createState() =>
       _VerifiableDiagnosisCardListState();

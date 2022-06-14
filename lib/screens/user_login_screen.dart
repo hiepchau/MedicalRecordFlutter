@@ -26,7 +26,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
 
   bool loadingIndicator = false;
 
-  void showMessage(String txt){
+  void showMessage(String txt) {
     Toast.show(
       txt,
       duration: Toast.lengthLong,
@@ -84,15 +84,15 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                       setState(() {
                         loadingIndicator = true;
                       });
-                      final user = await Auth()
-                          .signIn(email.text, password.text);
+                      final user =
+                          await Auth().signIn(email.text, password.text);
                       if (user.runtimeType == String) {
-                        showMessage(user);}
-                      else if (user.runtimeType == AppUser)
+                        showMessage(user);
+                      } else if (user.runtimeType == AppUser)
                         Navigator.pushNamed(context, UserDashboardScreen.id);
                       setState(() {
                         loadingIndicator = false;
-                      });                     
+                      });
                     },
                   ),
                 ],

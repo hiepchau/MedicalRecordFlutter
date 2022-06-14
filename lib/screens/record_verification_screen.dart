@@ -29,8 +29,8 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
   String qrCodeResult;
   List<String> qrData;
   String qrCodeType;
-  String diagnosisID; 
-  String uID; 
+  String diagnosisID;
+  String uID;
 
   Diagnosis qrDiagnosis;
   Donor qrDonor;
@@ -100,7 +100,8 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
       );
     }
   }
-  void showMessage(String txt){
+
+  void showMessage(String txt) {
     Toast.show(
       txt,
       duration: Toast.lengthLong,
@@ -111,9 +112,9 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
   Widget getVerifyButton() {
     if (qrDiagnosis == null) {
       return const SizedBox(height: 1);
-    } else if(qrDiagnosis.verified == true) {
-  return const SizedBox(height: 1);
-      }else {
+    } else if (qrDiagnosis.verified == true) {
+      return const SizedBox(height: 1);
+    } else {
       return Padding(
         padding: const EdgeInsets.all(12.0),
         child: RoundedButton(
@@ -183,57 +184,13 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
                   text: 'Open Camera',
                   color: Colors.lightBlue[900],
                   onPressed: () async {
-                    String codeScanner = await FlutterBarcodeScanner.scanBarcode(
-                    '#ff6666', 'Cancel', true, ScanMode.QR);
+                    String codeScanner =
+                        await FlutterBarcodeScanner.scanBarcode(
+                            '#ff6666', 'Cancel', true, ScanMode.QR);
 
-                    if(codeScanner=='-1'){
+                    if (codeScanner == '-1') {
                       showMessage('You have turned off the Camera');
-                    }
-                    else{
-                    setState(() {
-                      qrCodeResult = codeScanner;
-                    });
-
-                    qrData = codeScanner.split('_');
-                    qrCodeType = qrData[0];
-
-                    if (qrCodeType != null) {
-                      if (qrCodeType == 'MEDICALRECORDDIAGNOSIS') {
-                        diagnosisID = qrData[1];
-                        uID = qrData[2];
-                        setState(() {
-                          loadingIndicator = true;
-                        });
-                        await cardData(uID, diagnosisID);
-                        setState(() {
-                          loadingIndicator = false;
-                        });
-                      } else {
-                        showMessage('The QR is not valid');
-                      }
                     } else {
-                      showMessage('The QR is not valid');
-                    }
-                  }
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: RoundedButton(
-                  text: 'Open Gallery',
-                  color: Colors.lightBlue[900],
-                  onPressed: () async {
-                    
-                    XFile image = await imagePicker.pickImage(source: ImageSource.gallery);
-                    if(image==null) {
-                      showMessage('You did not choose a QR!');
-                    } else {
-                      String codeScanner = await Scan.parse(image.path);
-                      if(codeScanner==null){
-                        showMessage('The QR is not valid');
-                      }
-                      else{
                       setState(() {
                         qrCodeResult = codeScanner;
                       });
@@ -252,9 +209,54 @@ class _RecordVerificationScreenState extends State<RecordVerificationScreen> {
                           setState(() {
                             loadingIndicator = false;
                           });
-                        } showMessage('The QR is not valid');
-                      } showMessage('The QR is not valid');
+                        } else {
+                          showMessage('The QR is not valid');
+                        }
+                      } else {
+                        showMessage('The QR is not valid');
+                      }
                     }
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: RoundedButton(
+                  text: 'Open Gallery',
+                  color: Colors.lightBlue[900],
+                  onPressed: () async {
+                    XFile image = await imagePicker.pickImage(
+                        source: ImageSource.gallery);
+                    if (image == null) {
+                      showMessage('You did not choose a QR!');
+                    } else {
+                      String codeScanner = await Scan.parse(image.path);
+                      if (codeScanner == null) {
+                        showMessage('The QR is not valid');
+                      } else {
+                        setState(() {
+                          qrCodeResult = codeScanner;
+                        });
+
+                        qrData = codeScanner.split('_');
+                        qrCodeType = qrData[0];
+
+                        if (qrCodeType != null) {
+                          if (qrCodeType == 'MEDICALRECORDDIAGNOSIS') {
+                            diagnosisID = qrData[1];
+                            uID = qrData[2];
+                            setState(() {
+                              loadingIndicator = true;
+                            });
+                            await cardData(uID, diagnosisID);
+                            setState(() {
+                              loadingIndicator = false;
+                            });
+                          }
+                          showMessage('The QR is not valid');
+                        }
+                        showMessage('The QR is not valid');
+                      }
                     }
                   },
                 ),

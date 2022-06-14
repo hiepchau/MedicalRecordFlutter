@@ -7,7 +7,8 @@ class UserDiagnosisCard extends StatelessWidget {
   final Donor targetUser;
   final Diagnosis targetDiagnosis;
 
-  const UserDiagnosisCard({Key key, 
+  const UserDiagnosisCard({
+    Key key,
     this.targetUser,
     this.targetDiagnosis,
   }) : super(key: key);

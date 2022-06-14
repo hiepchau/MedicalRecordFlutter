@@ -6,7 +6,8 @@ import 'package:medicalrecordapp/services/authenticate.dart';
 class LogOutAlertDialog extends StatelessWidget {
   final BuildContext context;
 
-  const LogOutAlertDialog({Key key, 
+  const LogOutAlertDialog({
+    Key key,
     @required this.context,
   }) : super(key: key);
 

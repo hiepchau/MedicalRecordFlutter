@@ -13,7 +13,8 @@ class DiagnosisCard extends StatelessWidget {
       padding: const EdgeInsets.all(24),
       margin: const EdgeInsets.fromLTRB(12, 12, 12, 12),
       decoration: BoxDecoration(
-        color: diagnosis.verified ? Colors.lightBlue[100] : Colors.lightBlue[50],
+        color:
+            diagnosis.verified ? Colors.lightBlue[100] : Colors.lightBlue[50],
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(10),
             topRight: Radius.circular(10),
@@ -65,9 +66,7 @@ class DiagnosisCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
             child: Text(
-              'Verified By: ${diagnosis.verified
-                      ? diagnosis.verifiedBy
-                      : 'Not yet verified'}',
+              'Verified By: ${diagnosis.verified ? diagnosis.verifiedBy : 'Not yet verified'}',
               style: kTextStyle.copyWith(
                 fontSize: 16,
                 color: Colors.black45,

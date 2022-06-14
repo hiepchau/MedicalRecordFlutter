@@ -6,7 +6,8 @@ class ListInfoCard extends StatelessWidget {
   final String description;
   final Function onTap;
 
-  const ListInfoCard({Key key, this.title, this.description, this.onTap}) : super(key: key);
+  const ListInfoCard({Key key, this.title, this.description, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

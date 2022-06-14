@@ -7,7 +7,8 @@ class GridCard extends StatelessWidget {
   final String label;
   final Function onTap;
 
-  const GridCard({Key key, this.image, this.label, this.onTap}) : super(key: key);
+  const GridCard({Key key, this.image, this.label, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
