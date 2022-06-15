@@ -9,7 +9,7 @@ import 'package:medicalrecordapp/screens/health_record_screen.dart';
 import 'package:medicalrecordapp/screens/medical_history_screen.dart';
 import 'package:medicalrecordapp/screens/QrScreen/qr_code_scanner_screen.dart';
 import 'package:medicalrecordapp/screens/record_verification_screen.dart';
-import 'package:medicalrecordapp/screens/Term/terms_and_conditions_screen.dart';
+import 'package:medicalrecordapp/screens/terms_and_conditions_screen.dart';
 import 'package:medicalrecordapp/screens/Authen/user_login_screen.dart';
 import 'package:medicalrecordapp/screens/Users/user_profile_screen.dart';
 import 'package:medicalrecordapp/screens/Authen/user_registration_screen.dart';
