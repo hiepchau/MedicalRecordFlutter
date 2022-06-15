@@ -181,7 +181,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ),
               CustomDropdownMenu(
                 label: "Blood Group",
-                initialValue: blood == '' ? gender = 'A+' : blood,
+                initialValue: blood == '' ? blood = 'A+' : blood,
                 items: const [
                   'A+',
                   'A-',
