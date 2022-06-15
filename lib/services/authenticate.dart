@@ -4,6 +4,7 @@ import 'package:medicalrecordapp/models/auth_user.dart';
 class Auth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String str = '';
+
   AppUser _userFromFirebaseUSer(User user) {
     return user != null ? AppUser(uid: user.uid) : null;
   }
@@ -15,7 +16,7 @@ class Auth {
   User getUser() {
     return _auth.currentUser;
   }
-  
+
   Stream<AppUser> get user {
     return _auth
         .authStateChanges()
@@ -41,8 +42,6 @@ class Auth {
       return e.toString();
     }
   }
-
-  
 
   Future signIn(String email, String password) async {
     try {

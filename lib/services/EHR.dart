@@ -9,7 +9,9 @@ import 'package:medicalrecordapp/services/authenticate.dart';
 
 class EHR {
   final String uid;
+
   EHR({@required this.uid});
+
   CollectionReference user =
       FirebaseFirestore.instance.collection('health_record');
 
@@ -31,7 +33,7 @@ class EHR {
     var snapshot = await user.doc(uid).get();
     if (snapshot.exists) {
       return basicRecord(
-        height: snapshot['Height'] ??'',
+        height: snapshot['Height'] ?? '',
         weight: snapshot['Weight'] ?? '',
         sugarLevel: snapshot['Sugar Level'] ?? '~70-140 mg/dL',
         bp: snapshot['Blood Pressure'] ?? '120/80',
@@ -66,9 +68,7 @@ class EHR {
 
   Future<void> updateHistoryCount() async {
     int count = await getCount();
-    return user
-        .doc(uid)
-        .update({'Count': count + 1});
+    return user.doc(uid).update({'Count': count + 1});
   }
 
   // History Data Base From Here

@@ -10,7 +10,9 @@ import '../models/doctor_data.dart';
 class Loc {
   String lat;
   String long;
+
   Loc({this.lat, this.long});
+
   Map<String, dynamic> toMap() {
     return {
       "Latitute": lat,
@@ -22,6 +24,7 @@ class Loc {
 class Database {
   final String uid;
   CollectionReference users = FirebaseFirestore.instance.collection('profile');
+
   Database({@required this.uid}) : assert(uid != null);
 
   Future<void> _setData({String path, Map<String, dynamic> data}) async {
@@ -94,15 +97,11 @@ class Database {
   }
 
   Future<void> updateDonorStatus(bool donorStatus) async {
-    return users
-        .doc(uid)
-        .update({'Donor Status': donorStatus});
+    return users.doc(uid).update({'Donor Status': donorStatus});
   }
 
   Future<void> updateLastDonation(Timestamp day) async {
-    return users
-        .doc(uid)
-        .update({'Last Donation': day});
+    return users.doc(uid).update({'Last Donation': day});
   }
 
   Future<bool> getStatus() async {
@@ -155,7 +154,7 @@ class Database {
         .collection('doctor')
         .doc(doctorID)
         .get();
-    if(snapshot.exists==false){
+    if (snapshot.exists == false) {
       return 'Doctor is not existed';
     }
     String fetchedID = await snapshot.data()['Govt ID'];
@@ -171,16 +170,15 @@ class Database {
     final doctordoc = Doctor(uid: doctorID, govtID: govtID);
     final ref = FirebaseFirestore.instance.collection('doctor');
     var snapshot = await FirebaseFirestore.instance
-      .collection('doctor')
-      .doc(doctorID)
-      .get();
-    if(snapshot.exists==false){
+        .collection('doctor')
+        .doc(doctorID)
+        .get();
+    if (snapshot.exists == false) {
       await ref.doc(doctorID).set(doctordoc.toMap());
       return true;
     }
-    return false;                
+    return false;
   }
-
 
   Future<Diagnosis> getRecord(String uid, String recordID) async {
     var snapshot = await FirebaseFirestore.instance
@@ -205,8 +203,7 @@ class Database {
         .collection('history')
         .doc(id);
     String name = await getName();
-    return dummy
-        .update({'Verified': true, 'VerifiedBy': 'Dr. $name'});
+    return dummy.update({'Verified': true, 'VerifiedBy': 'Dr. $name'});
   }
 
   //Future<QuerySnapshot>
@@ -223,6 +220,7 @@ class Database {
   Future<Loc> getLoc() async {
     var snapshot =
         await FirebaseFirestore.instance.collection('profile').doc(uid).get();
-    return Loc(lat: snapshot.data()["Latitute"], long: snapshot.data()["Longitude"]);
+    return Loc(
+        lat: snapshot.data()["Latitute"], long: snapshot.data()["Longitude"]);
   }
 }

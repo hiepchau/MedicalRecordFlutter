@@ -44,9 +44,10 @@ class MedicalRecord extends StatelessWidget {
         appBarTheme: AppBarTheme(
           elevation: 5.0,
           color: Colors.lightBlue[500],
-        ), colorScheme: const ColorScheme.light(
-        primary: Colors.lightBlue,
-      ).copyWith(secondary: Colors.lightBlue),
+        ),
+        colorScheme: const ColorScheme.light(
+          primary: Colors.lightBlue,
+        ).copyWith(secondary: Colors.lightBlue),
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: (Auth().getUser() == null)
@@ -63,12 +64,14 @@ class MedicalRecord extends StatelessWidget {
         UserSearchScreen.id: (context) => const UserSearchScreen(),
         HealthRecordScreen.id: (context) => const HealthRecordScreen(),
         MedicalHistoryScreen.id: (context) => const MedicalHistoryScreen(),
-        TermsAndConditionsScreen.id: (context) => const TermsAndConditionsScreen(),
+        TermsAndConditionsScreen.id: (context) =>
+            const TermsAndConditionsScreen(),
         DoctorDashboardScreen.id: (context) => const DoctorDashboardScreen(),
-        RecordVerificationScreen.id: (context) => const RecordVerificationScreen(),
+        RecordVerificationScreen.id: (context) =>
+            const RecordVerificationScreen(),
         QrCodeScannerScreen.id: (context) => const QrCodeScannerScreen(),
         CheckRecordScreen.id: (context) => const CheckRecordScreen(),
-        CheckEHRScreen.id:(context) => const CheckEHRScreen(),
+        CheckEHRScreen.id: (context) => const CheckEHRScreen(),
       },
     );
   }
