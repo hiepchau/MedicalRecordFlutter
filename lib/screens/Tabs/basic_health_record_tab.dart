@@ -6,7 +6,7 @@ import 'package:medicalrecordapp/components/custom_text_field.dart';
 import 'package:medicalrecordapp/components/rounded_button.dart';
 import 'package:medicalrecordapp/constants.dart';
 import 'package:medicalrecordapp/models/basic_health.dart';
-import 'package:medicalrecordapp/screens/qr_code_screen.dart';
+import 'package:medicalrecordapp/screens/qrScreen/qr_code_screen.dart';
 import 'package:medicalrecordapp/services/EHR.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';

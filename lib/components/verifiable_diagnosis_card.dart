@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/constants.dart';
 import 'package:medicalrecordapp/models/diagnosis.dart';
-import 'package:medicalrecordapp/screens/qr_code_screen.dart';
+import 'package:medicalrecordapp/screens/qrScreen/qr_code_screen.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 
 class VerifiableDiagnosisCard extends StatelessWidget {

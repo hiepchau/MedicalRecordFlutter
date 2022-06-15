@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/constants.dart';
-import 'package:medicalrecordapp/screens/Authen/welcome_screen.dart';
+import 'package:medicalrecordapp/screens/welcome/welcome_screen.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 
 class LogOutAlertDialog extends StatelessWidget {

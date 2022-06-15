@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/constants.dart';
 import 'package:medicalrecordapp/screens/Tabs/basic_health_record_tab.dart';
-import 'package:medicalrecordapp/screens/diagnosis_record_tab.dart';
+import 'package:medicalrecordapp/screens/Tabs/diagnosis_record_tab.dart';
 
 class HealthRecordScreen extends StatefulWidget {
   static String id = 'health_record';
