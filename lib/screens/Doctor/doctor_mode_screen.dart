@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/custom_text_field.dart';
 import 'package:medicalrecordapp/components/rounded_button.dart';
 import 'package:medicalrecordapp/constants.dart';
-import 'package:medicalrecordapp/screens/doctor_dashboard_screen.dart';
+import 'package:medicalrecordapp/screens/Doctor/doctor_dashboard_screen.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:medicalrecordapp/services/database.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';

@@ -8,7 +8,7 @@ import 'package:medicalrecordapp/screens/Tabs/health_record_screen.dart';
 import 'package:medicalrecordapp/screens/medical_history_screen.dart';
 import 'package:medicalrecordapp/screens/Users/user_profile_screen.dart';
 import 'package:medicalrecordapp/screens/Users/user_search_screen.dart';
-import 'package:medicalrecordapp/screens/doctor_mode_screen.dart';
+import 'package:medicalrecordapp/screens/Doctor/doctor_mode_screen.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:medicalrecordapp/services/database.dart';
 import 'package:toast/toast.dart';

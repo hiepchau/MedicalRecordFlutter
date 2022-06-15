@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:medicalrecordapp/screens/Tabs/blood_donation_screen.dart';
 import 'package:medicalrecordapp/screens/check_EHR_screen.dart';
 import 'package:medicalrecordapp/screens/check_record_screen.dart';
-import 'package:medicalrecordapp/screens/doctor_dashboard_screen.dart';
+import 'package:medicalrecordapp/screens/Doctor/doctor_dashboard_screen.dart';
 import 'package:medicalrecordapp/screens/Tabs/health_record_screen.dart';
 import 'package:medicalrecordapp/screens/medical_history_screen.dart';
 import 'package:medicalrecordapp/screens/qr_code_scanner_screen.dart';
@@ -15,7 +15,7 @@ import 'package:medicalrecordapp/screens/Users/user_profile_screen.dart';
 import 'package:medicalrecordapp/screens/Authen/user_registration_screen.dart';
 import 'package:medicalrecordapp/screens/Tabs/user_dashboard_screen.dart';
 import 'package:medicalrecordapp/screens/Users/user_search_screen.dart';
-import 'package:medicalrecordapp/screens/doctor_mode_screen.dart';
+import 'package:medicalrecordapp/screens/Doctor/doctor_mode_screen.dart';
 import 'package:medicalrecordapp/screens/Authen/welcome_screen.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 

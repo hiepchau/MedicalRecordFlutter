@@ -12,13 +12,15 @@ class DoctorDashboardScreen extends StatefulWidget {
   static String id = 'doctor_dashboard';
 
   const DoctorDashboardScreen({Key key}) : super(key: key);
+
   @override
   _DoctorDashboardScreenState createState() => _DoctorDashboardScreenState();
 }
 
 class _DoctorDashboardScreenState extends State<DoctorDashboardScreen> {
   bool loadingIndicator = false;
-  String name='';
+  String name = '';
+
   Future<void> getName() async {
     final _name = await Database(uid: Auth().getUID()).getName();
     setState(() {

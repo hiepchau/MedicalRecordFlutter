@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/constants.dart';
 import 'package:medicalrecordapp/screens/Users/donor_list_tab.dart';
 import 'package:medicalrecordapp/screens/Tabs/donor_map_tab.dart';
-import 'package:medicalrecordapp/screens/donor_profile_tab.dart';
+import 'package:medicalrecordapp/screens/Users/donor_profile_tab.dart';
 
 class BloodDonationScreen extends StatefulWidget {
   static String id = 'blood_donation';
