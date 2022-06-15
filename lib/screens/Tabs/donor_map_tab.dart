@@ -20,7 +20,7 @@ class DonorMapTab extends StatefulWidget {
 }
 
 class _DonorMapTabState extends State<DonorMapTab> {
-  final GlobalKey scaffoldKey = GlobalKey();
+  final GlobalKey scaffold = GlobalKey();
 
   bool loadingIndicator = true;
 
@@ -41,24 +41,29 @@ class _DonorMapTabState extends State<DonorMapTab> {
   final Completer _controller = Completer();
   Map<MarkerId, Marker> markers = {};
   List listMarkerIds = [];
-  static LatLng initpos;
+  static LatLng initposition;
   LocationPermission permission;
 
   void getUserLocation() async {
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
+
       if (permission == LocationPermission.deniedForever) {
         return Future.error('Location is not Available');
       }
-    } else if (permission == LocationPermission.always ||
+
+    }
+    else if (permission == LocationPermission.always ||
         permission == LocationPermission.whileInUse) {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.best);
+
       setState(() {
-        initpos = LatLng(position.latitude, position.longitude);
+        initposition = LatLng(position.latitude, position.longitude);
         loadingIndicator = false;
       });
+
     } else {
       throw Exception('Error');
     }
@@ -105,7 +110,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
     createList("O-");
     setState(() {});
     return Scaffold(
-        key: scaffoldKey,
+        key: scaffold,
         body: Container(
           child: map(),
         ));
@@ -116,7 +121,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
       return Scaffold(
         body: GoogleMap(
           initialCameraPosition: CameraPosition(
-            target: initpos,
+            target: initposition,
             zoom: 14.00,
           ),
           onTap: (_) {},
@@ -130,7 +135,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
 
             Marker self = Marker(
                 markerId: selfid,
-                position: LatLng(initpos.latitude, initpos.longitude),
+                position: LatLng(initposition.latitude, initposition.longitude),
                 icon: BitmapDescriptor.defaultMarkerWithHue(
                     BitmapDescriptor.hueViolet),
                 infoWindow:
@@ -149,8 +154,8 @@ class _DonorMapTabState extends State<DonorMapTab> {
                   markerId: markerId1,
                   position: LatLng(double.parse(list[i].latitute),
                       double.parse(list[i].longitude)),
-                  icon: (list[i].latitute == initpos.latitude &&
-                          list[i].longitude == initpos.longitude)
+                  icon: (list[i].latitute == initposition.latitude &&
+                          list[i].longitude == initposition.longitude)
                       ? BitmapDescriptor.defaultMarkerWithHue(
                           BitmapDescriptor.hueViolet)
                       : BitmapDescriptor.defaultMarkerWithHue(
@@ -159,7 +164,7 @@ class _DonorMapTabState extends State<DonorMapTab> {
                       title: list[i].name,
                       onTap: () {
                         var bottomSheetController =
-                            Scaffold.of(scaffoldKey.currentContext)
+                            Scaffold.of(scaffold.currentContext)
                                 .showBottomSheet((context) => Container(
                                       height: 250,
                                       color: Colors.transparent,
@@ -195,8 +200,8 @@ class _DonorMapTabState extends State<DonorMapTab> {
           child: Column(
             children: [
               Container(
-                color: (donor.latitute == initpos.latitude &&
-                        donor.longitude == initpos.longitude)
+                color: (donor.latitute == initposition.latitude &&
+                        donor.longitude == initposition.longitude)
                     ? Colors.black45
                     : Colors.redAccent,
                 child: Padding(

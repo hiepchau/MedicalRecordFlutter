@@ -18,7 +18,7 @@ class DonorListTab extends StatefulWidget {
 }
 
 class DonorListTabState extends State<DonorListTab> {
-  bool loadingIndicator = false;
+  bool loading = false;
 
   final database = Database(uid: Auth().getUID());
   CollectionReference databaseReference;
@@ -50,7 +50,7 @@ class DonorListTabState extends State<DonorListTab> {
       color: Colors.white,
       opacity: 0.9,
       progressIndicator: kWaveLoadingIndicator,
-      inAsyncCall: loadingIndicator,
+      inAsyncCall: loading,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -77,7 +77,7 @@ class DonorListTabState extends State<DonorListTab> {
 
                 setState(() {
                   blood = value;
-                  loadingIndicator = true;
+                  loading = true;
                 });
 
                 await fetchDonorList(blood);
@@ -95,7 +95,7 @@ class DonorListTabState extends State<DonorListTab> {
                 }
 
                 setState(() {
-                  loadingIndicator = false;
+                  loading = false;
                 });
               },
             ),

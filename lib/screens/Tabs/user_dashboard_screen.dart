@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/grid_card.dart';
 import 'package:medicalrecordapp/components/log_out_alert_dialog.dart';
-import 'package:medicalrecordapp/screens/blood_donation_screen.dart';
-import 'package:medicalrecordapp/screens/health_record_screen.dart';
+import 'package:medicalrecordapp/screens/Tabs/blood_donation_screen.dart';
+import 'package:medicalrecordapp/screens/Tabs/health_record_screen.dart';
 import 'package:medicalrecordapp/screens/medical_history_screen.dart';
 import 'package:medicalrecordapp/screens/user_profile_screen.dart';
 import 'package:medicalrecordapp/screens/user_search_screen.dart';

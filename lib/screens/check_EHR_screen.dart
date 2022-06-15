@@ -38,9 +38,8 @@ class _CheckEHRScreenState extends State<CheckEHRScreen> {
   String qrCodeResult;
   List<String> qrData;
   String qrCodeType;
-  String uID; 
-  bool allDataFetched =
-      false; 
+  String uID;
+  bool allDataFetched = false;
   Donor qrDonor;
   String userName;
 
@@ -49,20 +48,21 @@ class _CheckEHRScreenState extends State<CheckEHRScreen> {
   Future<basicRecord> fetchRecord(String _uid) async {
     basicRecord _basicHealthRecord = basicRecord();
     final _erhRecord = EHR(uid: _uid);
-    _basicHealthRecord= await _erhRecord.getRecord();
-    
+    _basicHealthRecord = await _erhRecord.getRecord();
+
     setState(() {
       basicHealthRecord = _basicHealthRecord;
     });
     getUserName(_uid);
     return basicHealthRecord;
   }
+
   Future<void> getUserName(String _uid) async {
     String _userName;
-    final database= Database(uid: _uid);
+    final database = Database(uid: _uid);
     _userName = await database.getName();
     setState(() {
-      userName=_userName;
+      userName = _userName;
     });
   }
 
@@ -97,102 +97,93 @@ class _CheckEHRScreenState extends State<CheckEHRScreen> {
     });
   }
 
-
-
   Widget showScanOrListWidget() {
     if (allDataFetched == false) {
       return Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column( 
-          children: <Widget>[
-          RoundedButton(
-          text: 'Open Camera',
-          color: Colors.lightBlue[900],
-          onPressed: () async {
-            String codeScanner = await FlutterBarcodeScanner.scanBarcode(
-              '#ff6666', 'Cancel', true, ScanMode.QR);
+          padding: const EdgeInsets.all(12.0),
+          child: Column(children: <Widget>[
+            RoundedButton(
+              text: 'Open Camera',
+              color: Colors.lightBlue[900],
+              onPressed: () async {
+                String codeScanner = await FlutterBarcodeScanner.scanBarcode(
+                    '#ff6666', 'Cancel', true, ScanMode.QR);
 
-            if(codeScanner=='-1'){
-              showMessage('You have turned off the Camera');
-            }
-            else{
-            setState(() {
-              qrCodeResult = codeScanner;
-            });
-
-            qrData = codeScanner.split('_');
-            qrCodeType = qrData[0];
-            uID = qrData[1];
-
-            if (qrCodeType != null) {
-              if (qrCodeType == 'MedicalRecordShare') {
-              setState(() {
-                loadingIndicator = true;
-              });
-              final _records = await fetchRecord(uID);
-              setState(() {
-                basicHealthRecord = _records;
-                loadingIndicator = false;
-                allDataFetched = true;
-              });
-              } else {
-                showMessage('The QR is not valid');
-              }
-            } else {
-              showMessage('The QR is not valid');
-            }
-            }
-          },
-        ),
-        RoundedButton(
-          text: 'Open Gallery',
-          color: Colors.lightBlue[900],
-          onPressed: () async {
-            XFile image = await imagePicker.pickImage(source: ImageSource.gallery);
-            if(image==null) {
-              showMessage('You did not choose a QR!');
-            } else {
-              String codeScanner = await Scan.parse(image.path);
-
-              if(codeScanner==null){
-                showMessage('The QR is not valid');
-              }
-              else{
-                setState(() {
-                  qrCodeResult = codeScanner;
-                });
-
-                qrData = codeScanner.split('_');
-                qrCodeType = qrData[0];
-                uID = qrData[1];
-
-                if (qrCodeType != null) {
-                  if (qrCodeType == 'MedicalRecordShare') {
+                if (codeScanner == '-1') {
+                  showMessage('You have turned off the Camera');
+                } else {
                   setState(() {
-                    loadingIndicator = true;
+                    qrCodeResult = codeScanner;
                   });
-                  final _records = await fetchRecord(uID);
-                  setState(() {
-                    basicHealthRecord = _records;
-                    loadingIndicator = false;
-                    allDataFetched = true;
-                  });
-                  }
-                  else {
+
+                  qrData = codeScanner.split('_');
+                  qrCodeType = qrData[0];
+                  uID = qrData[1];
+
+                  if (qrCodeType != null) {
+                    if (qrCodeType == 'MedicalRecordShare') {
+                      setState(() {
+                        loadingIndicator = true;
+                      });
+                      final _records = await fetchRecord(uID);
+                      setState(() {
+                        basicHealthRecord = _records;
+                        loadingIndicator = false;
+                        allDataFetched = true;
+                      });
+                    } else {
+                      showMessage('The QR is not valid');
+                    }
+                  } else {
                     showMessage('The QR is not valid');
                   }
                 }
-                else {
-                  showMessage('The QR is not valid');
+              },
+            ),
+            RoundedButton(
+              text: 'Open Gallery',
+              color: Colors.lightBlue[900],
+              onPressed: () async {
+                XFile image =
+                    await imagePicker.pickImage(source: ImageSource.gallery);
+                if (image == null) {
+                  showMessage('You did not choose a QR!');
+                } else {
+                  String codeScanner = await Scan.parse(image.path);
+
+                  if (codeScanner == null) {
+                    showMessage('The QR is not valid');
+                  } else {
+                    setState(() {
+                      qrCodeResult = codeScanner;
+                    });
+
+                    qrData = codeScanner.split('_');
+                    qrCodeType = qrData[0];
+                    uID = qrData[1];
+
+                    if (qrCodeType != null) {
+                      if (qrCodeType == 'MedicalRecordShare') {
+                        setState(() {
+                          loadingIndicator = true;
+                        });
+                        final _records = await fetchRecord(uID);
+                        setState(() {
+                          basicHealthRecord = _records;
+                          loadingIndicator = false;
+                          allDataFetched = true;
+                        });
+                      } else {
+                        showMessage('The QR is not valid');
+                      }
+                    } else {
+                      showMessage('The QR is not valid');
+                    }
+                  }
                 }
-              }
-          }
-          },
-        ),
-        ]
-        )
-        
-      );
+              },
+            ),
+          ]));
     } else {
       return Padding(
         padding: const EdgeInsets.all(2),
@@ -203,11 +194,12 @@ class _CheckEHRScreenState extends State<CheckEHRScreen> {
       );
     }
   }
-  void showMessage(String txt){
+
+  void showMessage(String txt) {
     Toast.show(
       txt,
-      duration:Toast.lengthLong,
-      gravity:Toast.bottom,
+      duration: Toast.lengthLong,
+      gravity: Toast.bottom,
     );
   }
 

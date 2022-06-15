@@ -2,23 +2,24 @@
 
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/constants.dart';
-import 'package:medicalrecordapp/screens/basic_health_record_tab.dart';
-import 'package:medicalrecordapp/screens/diagnosis_record_tab.dart';
+import 'package:medicalrecordapp/screens/donor_list_tab.dart';
+import 'package:medicalrecordapp/screens/Tabs/donor_map_tab.dart';
+import 'package:medicalrecordapp/screens/donor_profile_tab.dart';
 
-class HealthRecordScreen extends StatefulWidget {
-  static String id = 'health_record';
+class BloodDonationScreen extends StatefulWidget {
+  static String id = 'blood_donation';
 
-  const HealthRecordScreen({Key key}) : super(key: key);
+  const BloodDonationScreen({Key key}) : super(key: key);
 
   @override
-  _HealthRecordScreenState createState() => _HealthRecordScreenState();
+  _BloodDonationScreenState createState() => _BloodDonationScreenState();
 }
 
-class _HealthRecordScreenState extends State<HealthRecordScreen> {
+class _BloodDonationScreenState extends State<BloodDonationScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -35,7 +36,7 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
                 ),
               ),
               Text(
-                'Health Record',
+                'Blood Donation',
                 style: kTextStyle.copyWith(fontSize: 24),
               ),
             ],
@@ -47,13 +48,19 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
             tabs: [
               Tab(
                 child: Text(
-                  'Basic',
+                  'My Profile',
                   style: kTextStyle.copyWith(fontSize: 14),
                 ),
               ),
               Tab(
                 child: Text(
-                  'Diagnosis',
+                  'Donor List',
+                  style: kTextStyle.copyWith(fontSize: 14),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  'Donor Map',
                   style: kTextStyle.copyWith(fontSize: 14),
                 ),
               ),
@@ -63,8 +70,9 @@ class _HealthRecordScreenState extends State<HealthRecordScreen> {
         body: const TabBarView(
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
-            BasicHealthRecordTab(),
-            DiagnosisRecordTab(),
+            DonorProfileTab(),
+            DonorListTab(),
+            DonorMapTab(),
           ],
         ),
       ),

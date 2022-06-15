@@ -6,12 +6,12 @@ import 'package:medicalrecordapp/components/custom_text_field.dart';
 import 'package:medicalrecordapp/components/rounded_button.dart';
 import 'package:medicalrecordapp/constants.dart';
 import 'package:medicalrecordapp/screens/terms_and_conditions_screen.dart';
-import 'package:medicalrecordapp/screens/user_dashboard_screen.dart';
+import 'package:medicalrecordapp/screens/Tabs/user_dashboard_screen.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:toast/toast.dart';
 
-import '../models/auth_user.dart';
+import '../../models/auth_user.dart';
 
 class UserRegistrationScreen extends StatefulWidget {
   static String id = 'user_register';
@@ -23,13 +23,13 @@ class UserRegistrationScreen extends StatefulWidget {
 }
 
 class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController mail = TextEditingController();
+  TextEditingController pass = TextEditingController();
 
   bool loadingIndicator = false;
   bool checkedValue = false;
 
-  void showMessage(String txt){
+  void showMessage(String txt) {
     Toast.show(
       txt,
       duration: Toast.lengthLong,
@@ -69,24 +69,25 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                     label: 'E-mail',
                     hint: 'johndoe@gmail.com',
                     keyboardType: TextInputType.emailAddress,
-                    controller: email,
+                    controller: mail,
                   ),
                   CustomTextField(
                     label: 'Password',
                     hint: 'Type your password',
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
-                    controller: password,
+                    controller: pass,
                   ),
-                  Row(children: [Checkbox(
-                    value: checkedValue,
-                    onChanged: (newValue) {
-                      setState(() {
-                        checkedValue = newValue;
-                      });
-                    },
-                  ),
-                  RichText(
+                  Row(children: [
+                    Checkbox(
+                      value: checkedValue,
+                      onChanged: (newValue) {
+                        setState(() {
+                          checkedValue = newValue;
+                        });
+                      },
+                    ),
+                    RichText(
                       text: TextSpan(children: [
                         TextSpan(
                           text: 'I agree to the ',
@@ -111,9 +112,7 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                         )
                       ]),
                     ),
-                  ]
-                  ),
-
+                  ]),
                   RoundedButton(
                     text: 'Register',
                     color: Colors.lightBlue[900],
@@ -122,17 +121,16 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                         setState(() {
                           loadingIndicator = true;
                         });
-                        final user = await Auth()
-                            .register(email.text, password.text);
-                        if (user.runtimeType == String){
-                          showMessage(user);}
-                        else if (user.runtimeType==AppUser) {
-                          Navigator.pushNamed(
-                              context, UserDashboardScreen.id);
+                        final user =
+                            await Auth().register(mail.text, pass.text);
+                        if (user.runtimeType == String) {
+                          showMessage(user);
+                        } else if (user.runtimeType == AppUser) {
+                          Navigator.pushNamed(context, UserDashboardScreen.id);
                         }
                         setState(() {
                           loadingIndicator = false;
-                        });  
+                        });
                       }
                     },
                   ),

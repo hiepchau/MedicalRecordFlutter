@@ -1,22 +1,22 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:medicalrecordapp/screens/blood_donation_screen.dart';
+import 'package:medicalrecordapp/screens/Tabs/blood_donation_screen.dart';
 import 'package:medicalrecordapp/screens/check_EHR_screen.dart';
 import 'package:medicalrecordapp/screens/check_record_screen.dart';
 import 'package:medicalrecordapp/screens/doctor_dashboard_screen.dart';
-import 'package:medicalrecordapp/screens/health_record_screen.dart';
+import 'package:medicalrecordapp/screens/Tabs/health_record_screen.dart';
 import 'package:medicalrecordapp/screens/medical_history_screen.dart';
 import 'package:medicalrecordapp/screens/qr_code_scanner_screen.dart';
 import 'package:medicalrecordapp/screens/record_verification_screen.dart';
 import 'package:medicalrecordapp/screens/terms_and_conditions_screen.dart';
-import 'package:medicalrecordapp/screens/user_login_screen.dart';
+import 'package:medicalrecordapp/screens/Authen/user_login_screen.dart';
 import 'package:medicalrecordapp/screens/user_profile_screen.dart';
-import 'package:medicalrecordapp/screens/user_registration_screen.dart';
-import 'package:medicalrecordapp/screens/user_dashboard_screen.dart';
+import 'package:medicalrecordapp/screens/Authen/user_registration_screen.dart';
+import 'package:medicalrecordapp/screens/Tabs/user_dashboard_screen.dart';
 import 'package:medicalrecordapp/screens/user_search_screen.dart';
 import 'package:medicalrecordapp/screens/doctor_mode_screen.dart';
-import 'package:medicalrecordapp/screens/welcome_screen.dart';
+import 'package:medicalrecordapp/screens/Authen/welcome_screen.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 
 Future<void> main() async {

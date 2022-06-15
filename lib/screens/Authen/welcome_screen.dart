@@ -3,8 +3,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:medicalrecordapp/components/rounded_button.dart';
-import 'package:medicalrecordapp/screens/user_login_screen.dart';
-import 'package:medicalrecordapp/screens/user_registration_screen.dart';
+import 'package:medicalrecordapp/screens/Authen/user_login_screen.dart';
+import 'package:medicalrecordapp/screens/Authen/user_registration_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static String id = 'welcome';

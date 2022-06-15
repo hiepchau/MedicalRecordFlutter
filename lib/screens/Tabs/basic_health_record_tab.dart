@@ -167,8 +167,9 @@ class _BasicHealthRecordTabState extends State<BasicHealthRecordTab> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => QrCodeScreen(
-                            appBarTitle: 'Share Private Data',
-                            qrCodeData: 'MedicalRecordShare_${Auth().getUID()}',),
+                          appBarTitle: 'Share Private Data',
+                          qrCodeData: 'MedicalRecordShare_${Auth().getUID()}',
+                        ),
                       ),
                     );
                   },

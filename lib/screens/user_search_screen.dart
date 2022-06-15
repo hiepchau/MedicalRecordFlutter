@@ -28,7 +28,7 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
   QuerySnapshot snapshot;
   String name = '';
   String emergencyContact = '';
-  String blood = '';
+  String bloodType = '';
   String address = '';
 
   Future<void> printMatched(String query) async {
@@ -40,7 +40,7 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
       setState(() {
         name = '';
         emergencyContact = '';
-        blood = '';
+        bloodType = '';
         address = '';
       });
     } else {
@@ -49,7 +49,7 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
           snapshot = _snapshot;
           name = snapshot.docs[i]['Name'];
           emergencyContact = snapshot.docs[i]['Emergency No'];
-          blood = snapshot.docs[i]['Blood Group'];
+          bloodType = snapshot.docs[i]['Blood Group'];
           address = snapshot.docs[i]['Location'];
         });
       }
@@ -133,7 +133,7 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
                     searchedUser: Donor(
                       name: name,
                       contact: emergencyContact,
-                      blood: blood,
+                      blood: bloodType,
                       location: address,
                     ),
                   ),
