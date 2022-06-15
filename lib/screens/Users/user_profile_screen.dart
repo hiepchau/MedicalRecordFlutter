@@ -7,7 +7,7 @@ import 'package:medicalrecordapp/components/custom_dropdown_menu.dart';
 import 'package:medicalrecordapp/components/custom_text_field.dart';
 import 'package:medicalrecordapp/components/rounded_button.dart';
 import 'package:medicalrecordapp/models/profile_data.dart';
-import 'package:medicalrecordapp/screens/Users/user_dashboard_screen.dart';
+import 'package:medicalrecordapp/screens/user_dashboard_screen.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 import 'package:medicalrecordapp/services/database.dart';
 
