@@ -16,7 +16,7 @@ import 'package:medicalrecordapp/screens/Authen/user_registration_screen.dart';
 import 'package:medicalrecordapp/screens/user_dashboard_screen.dart';
 import 'package:medicalrecordapp/screens/Users/user_search_screen.dart';
 import 'package:medicalrecordapp/screens/Doctor/doctor_mode_screen.dart';
-import 'package:medicalrecordapp/screens/welcome/welcome_screen.dart';
+import 'package:medicalrecordapp/screens/welcome_screen.dart';
 import 'package:medicalrecordapp/services/authenticate.dart';
 
 Future<void> main() async {
